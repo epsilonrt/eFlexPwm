@@ -1,0 +1,26 @@
+{
+  "name": "eFlexPwm",
+  "version": "0.1.0",
+  "keywords": "pwm, eFlexPwm",
+  "description": "Arduino eFlexPwm for Teensy 4.x",
+  "homepage": "https://epsilonrt.github.io/eFlexPwm",
+  "authors":
+  [
+    {
+      "name": "Pascal JEAN aka epsilonrt",
+      "url": "https://github.com/epsilonrt",
+      "maintainer": true
+    }
+  ],
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/epsilonrt/eFlexPwm.git"
+  },
+  "license": "BSD-3-Clause",
+  "examples":[
+    "examples/*/*.ino"
+  ],
+  "frameworks": "arduino",
+  "platforms": "teensy"
+}
