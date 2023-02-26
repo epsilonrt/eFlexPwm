@@ -32,50 +32,21 @@ namespace eFlexPwm {
      Cette classe permet de configurer, intialiser les broches PWM
 
   */
-  class Pin {
+  class Pin : public _pwm_signal_param {
     public:
       Pin (int number = -1);
       bool setNumber (int number);
       bool begin();
       bool isValid() const;
 
-      inline uint8_t module () const;
-      inline uint8_t submodule () const;
+      inline uint8_t timerIndex () const;
+      inline uint8_t submoduleIndex () const;
       inline uint8_t muxval () const;
-
-      #if 0
-      pwm_channels_t pwmChannel; /*!< PWM channel being configured; PWM A or PWM B */
-      uint8_t dutyCyclePercent;  /*!< PWM pulse width, value should be between 0 to 100
-                                    0=inactive signal(0% duty cycle)...
-                                    100=always active signal (100% duty cycle)*/
-      pwm_level_select_t level;  /*!< PWM output active level select */
-      uint16_t deadtimeValue;    /*!< The deadtime value; only used if channel pair is operating in complementary mode */
-      pwm_fault_state_t faultState; /*!< PWM output fault status */
-      bool pwmchannelenable;        /*!< Enable PWM output */
-      #endif
-
-      const pwm_signal_param_t &param() const;
-      inline pwm_channels_t channel() const;
-      inline uint8_t dutyCyclePercent() const;
-      inline pwm_level_select_t level() const;
-      inline uint16_t deadtime() const;
-      inline pwm_fault_state_t faultState() const;
-      inline bool enabled() const;
-
-      inline void setDutyCyclePercent (uint8_t dutyCyclePercent);
-      inline void setLevel (pwm_level_select_t level);
-      inline void setDeadtime (uint16_t deadtimeValue);
-      inline void setEnable (bool activate = true);
-      inline void setFaultState (pwm_fault_state_t faultState);
-
-    protected:
-      inline void setChannel (pwm_channels_t channel);
 
     private:
       int m_number;
       uint8_t m_module;
       uint8_t m_muxval;
-      pwm_signal_param_t m_param;
   };
 
   //-----------------------------------------------------------------------------
@@ -136,7 +107,7 @@ namespace eFlexPwm {
       const pwm_config_t &config() const;
 
     private:
-      friend class Pwm;
+      friend class Timer;
       friend class SubModule;
 
     private:
@@ -160,7 +131,7 @@ namespace eFlexPwm {
   void PWM_FaultDefaultConfig (pwm_fault_param_t *config);
   void PWM_FaultDefaultConfig (pwm_fault_param_t *config);
 
-  class Pwm;
+  class Timer;
 
   //-----------------------------------------------------------------------------
   //                            SubModule class
@@ -186,21 +157,6 @@ namespace eFlexPwm {
       bool configure (const Config &config);
 
       /**
-         @brief Sets up the PWM signals for a PWM submodule.
-
-         The function initializes the submodule according to the parameters passed in by the user. The function
-         also sets up the value compare registers to match the PWM signal requirements.
-         If the dead time insertion logic is enabled, the pulse period is reduced by the
-         dead time period specified by the user.
-
-         @param mode        PWM operation mode, options available in enumeration ::pwm_mode_t
-         @param srcClock_Hz PWM main counter clock in Hz.
-
-         @return Returns false if there was error setting up the signal; true otherwise
-      */
-      inline bool setupPwm (pwm_mode_t mode, uint32_t pwmFreq_Hz);
-
-      /**
          @brief
 
          @return true
@@ -211,16 +167,23 @@ namespace eFlexPwm {
       /**
          @brief
 
-         @param i
-         @return Pin&
+         @return Timer&
       */
-      Pin &pin (uint8_t i);
+      inline Timer &timer();
 
       inline void setDutyCyclePercent (uint8_t dutyCyclePercent);
       inline void setLevel (pwm_level_select_t level);
       inline void setDeadtime (uint16_t deadtimeValue);
       inline void setEnable (bool activate = true);
       inline void setFaultState (pwm_fault_state_t faultState);
+
+      /**
+         @brief
+
+         @param i
+         @return Pin&
+      */
+      Pin &pin (uint8_t i);
 
       /**
          @brief
@@ -238,21 +201,10 @@ namespace eFlexPwm {
       inline bool isValid() const;
 
       /**
-         @brief
-
-         @return Pwm&
-      */
-      inline Pwm &pwm();
-
-      /**
          @name Module PWM output
          @{
       */
 
-      /**
-         @brief PWM main counter clock in Hz.
-      */
-      inline uint32_t srcClockHz() const;
 
       /**
          @brief Set PWM phase shift for PWM channel running on channel PWM_A, PWM_B which with 50% duty cycle..
@@ -276,12 +228,11 @@ namespace eFlexPwm {
 
 
          @param pwmSignal         Signal (PWM A or PWM B) to update
-         @param currPwmMode       The current PWM mode set during PWM setup
          @param dutyCyclePercent  New PWM pulse width, value should be between 0 to 100
                                   0=inactive signal(0% duty cycle)...
                                   100=active signal (100% duty cycle)
       */
-      inline void write (pwm_channels_t pwmSignal, pwm_mode_t currPwmMode, uint8_t dutyCyclePercent);
+      inline void write (uint8_t dutyCyclePercent, pwm_channels_t pwmSignal = kPWM_PwmA);
 
       /**
          @brief Updates the PWM signal's dutycycle with 16-bit accuracy.
@@ -292,12 +243,11 @@ namespace eFlexPwm {
 
 
          @param pwmSignal         Signal (PWM A or PWM B) to update
-         @param currPwmMode       The current PWM mode set during PWM setup
          @param dutyCycle         New PWM pulse width, value should be between 0 to 65535
                                   0=inactive signal(0% duty cycle)...
                                   65535=active signal (100% duty cycle)
       */
-      inline void writeHighAccuracy (pwm_channels_t pwmSignal, pwm_mode_t currPwmMode, uint16_t dutyCycle);
+      inline void writeHighAccuracy (uint16_t dutyCycle, pwm_channels_t pwmSignal = kPWM_PwmA);
 
       /** @}*/
 
@@ -576,39 +526,39 @@ namespace eFlexPwm {
       void dumpRegs (Stream &out = Serial) const;
 
     private:
-      uint8_t m_midx;
-      uint8_t m_sidx;
-      Config m_config;
       std::array<Pin,2> m_pin;
+      uint8_t m_tmidx;
+      uint8_t m_smidx;
+      uint32_t m_pwmfreq;
+      pwm_mode_t m_mode;
+      Config m_config;
   };
 
   //-----------------------------------------------------------------------------
-  //                                Pwm class
+  //                                Timer class
   //-----------------------------------------------------------------------------
-  class Pwm {
+  class Timer {
 
     public:
       /**
-         @brief Construct a new Pwm object
+         @brief Construct a new Timer object
 
          @param index
       */
-      Pwm (uint8_t index);
+      Timer (uint8_t index);
 
       bool begin();
-
-      /**
-         @brief
-
-         @return uint8_t
-      */
-      inline uint8_t index() const;
 
       inline void setDutyCyclePercent (uint8_t dutyCyclePercent);
       inline void setLevel (pwm_level_select_t level);
       inline void setDeadtime (uint16_t deadtimeValue);
       inline void setEnable (bool activate = true);
       inline void setFaultState (pwm_fault_state_t faultState);
+
+      /**
+         @brief PWM main counter clock in Hz.
+      */
+      inline uint32_t srcClockHz() const;
 
       /**
          @name Timer Start and Stop
@@ -624,12 +574,12 @@ namespace eFlexPwm {
          @param subModulesToStart PWM submodules to start. This is a logical OR of members of the
                                   enumeration ::pwm_module_control_t
       */
-      inline void startTimer (uint8_t subModulesToStart);
+      inline void start (uint8_t subModulesToStart);
 
       /**
          @brief Starts the PWM counter for all instantiated submodules for this timer
       */
-      inline void startTimer ();
+      inline void start ();
 
       /**
          @brief Stops the PWM counter for a single or multiple submodules.
@@ -640,12 +590,12 @@ namespace eFlexPwm {
          @param subModulesToStop PWM submodules to stop. This is a logical OR of members of the
                                  enumeration ::pwm_module_control_t
       */
-      inline void stopTimer (uint8_t subModulesToStop);
+      inline void stop (uint8_t subModulesToStop);
 
       /**
          @brief Stops the PWM counter for all instantiated submodules for this timer
       */
-      inline void stopTimer ();
+      inline void stop ();
 
       /**
          @brief Sets or clears the PWM LDOK bit on a single or multiple submodules
@@ -666,7 +616,7 @@ namespace eFlexPwm {
 
          @param value              true: Set LDOK bit for the submodule list; false: Clear LDOK bit
       */
-      inline void setPwmLdok (bool value);
+      inline void setPwmLdok (bool value = true);
 
       /**
          @brief Sets up the PWM fault input filter.
@@ -686,6 +636,14 @@ namespace eFlexPwm {
       inline void setupFaults (pwm_fault_input_t faultNum, const pwm_fault_param_t *faultParams);
 
       /** @}*/
+
+      /**
+         @brief
+
+         @return uint8_t
+      */
+      inline uint8_t index() const;
+
       void dumpRegs (Stream &out = Serial) const;
       void dumpAllRegs (Stream &out = Serial) const;
 
@@ -694,7 +652,7 @@ namespace eFlexPwm {
       friend class Pin;
 
     private:
-      uint8_t m_midx;
+      uint8_t m_tmidx;
       uint8_t m_smmask;
       std::map<uint8_t, SubModule *> m_sm;
 
