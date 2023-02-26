@@ -1,3 +1,9 @@
+/*
+   Copyright (c) 2023, epsilonrt
+   All rights reserved.
+
+   SPDX-License-Identifier: BSD-3-Clause
+*/
 #include "eFlexPwm.h"
 
 #include <imxrt.h>
@@ -23,11 +29,18 @@ namespace eFlexPwm {
     PWM4
   };
 
-  Module M[4] = {
-    Module (Pwm1),
-    Module (Pwm2),
-    Module (Pwm3),
-    Module (Pwm4)
+  Pwm PM[4] = {
+    Pwm (Pwm1),
+    Pwm (Pwm2),
+    Pwm (Pwm3),
+    Pwm (Pwm4)
+  };
+
+  const pwm_submodule_t SM[4] = {
+    kPWM_Module_0,
+    kPWM_Module_1,
+    kPWM_Module_2,
+    kPWM_Module_3
   };
 
   #if defined(ARDUINO_TEENSY40)
@@ -88,27 +101,6 @@ namespace eFlexPwm {
   }
 
   //-----------------------------------------------------------------------------
-  // protected
-  void Module::addSubModule (SubModule *sm) {
-
-    if (subModule.count (sm->index()) == 0) {
-
-      subModule[sm->index()] = sm;
-    }
-  }
-
-  //-----------------------------------------------------------------------------
-  // protected
-  bool Module::setupPinAsPwm (uint8_t pin) {
-    const struct pwm_pin_info_struct *info = pinInfo (pin);
-
-    if (info) {
-
-    }
-    return info != nullptr;
-  }
-
-  //-----------------------------------------------------------------------------
   // ***********                       API                            ***********
   //-----------------------------------------------------------------------------
 
@@ -117,48 +109,75 @@ namespace eFlexPwm {
   //-----------------------------------------------------------------------------
   Pin::Pin (int number) {
 
-    pwmchannelenable = false;
-    level = kPWM_HighTrue;
-    dutyCyclePercent = 50;
-    deadtimeValue = 0;
-    faultState = kPWM_PwmFaultState0;
+    m_param.pwmchannelenable = true;
+    m_param.level = kPWM_HighTrue;
+    m_param.dutyCyclePercent = 50;
+    m_param.deadtimeValue = 0;
+    m_param.faultState = kPWM_PwmFaultState0;
     (void) setNumber (number);
   }
 
   //-----------------------------------------------------------------------------
   bool Pin::setNumber (int number) {
 
-    m_number = number;
-    if (! isNull()) {
-      const struct pwm_pin_info_struct *info = pinInfo (m_number);
+    if (number != -1) {
+      const struct pwm_pin_info_struct *info = pinInfo (number);
 
       if (info) {
-
-        pwmChannel = (info->channel == 1 ? kPWM_PwmA : kPWM_PwmB);
-        m_module = info->module;
-        m_muxval = info->muxval;
-        return true;
+        if (info->channel != 0) {
+          setChannel (info->channel == 1 ? kPWM_PwmA : kPWM_PwmB);
+          m_number = number;
+          m_module = info->module;
+          m_muxval = info->muxval;
+          return true;
+        }
       }
     }
+    setChannel (kPWM_PwmX);
     return false;
   }
 
   //-----------------------------------------------------------------------------
   bool Pin::begin() {
 
-    if (! isNull()) {
+    if (isValid()) {
 
       * (portConfigRegister (m_number)) = m_muxval;
-      pwmchannelenable = true;
-      return true;
     }
-    return false;
+    return isValid();
+  }
+
+  // ----------------------------------------------------------------------------
+  const pwm_signal_param_t  &Pin::param() const {
+    return m_param;
+  }
+
+  //-----------------------------------------------------------------------------
+  //                                Config class
+  //-----------------------------------------------------------------------------
+  Config::Config() :
+    m_mode (kPWM_CenterAligned), m_pwmfreq (5000) {
+
+    PWM_GetDefaultConfig (& m_config);
+  }
+
+  // ----------------------------------------------------------------------------
+  // protected
+   pwm_config_t &Config::config() {
+
+    return m_config;
+  }
+
+  // ----------------------------------------------------------------------------
+  // protected
+  const pwm_config_t &Config::config() const{
+
+    return m_config;
   }
 
   //-----------------------------------------------------------------------------
   //                            SubModule class
   //-----------------------------------------------------------------------------
-
   SubModule::SubModule (int pinA, int pinB) :
     m_pin ({Pin (pinA), Pin (pinB) }) {
 
@@ -166,78 +185,58 @@ namespace eFlexPwm {
 
       m_midx = m_pin[0].module();
       m_sidx =  m_pin[0].submodule();
-      M[m_midx].addSubModule (this);
+      PM[m_midx].addSubModule (this);
     }
   }
 
+  // ----------------------------------------------------------------------------
+  bool SubModule::isValid() const {
+    bool success = m_pin[0].isValid();
+
+    if (success) {
+      success &= (m_pin[0].channel() == kPWM_PwmA);
+      if (success && m_pin[1].isValid()) {
+
+        success &= (m_pin[1].channel() == kPWM_PwmB);
+      }
+    }
+    return success;
+  }
+
   //-----------------------------------------------------------------------------
-  bool SubModule::begin() {
+  bool SubModule::configure (const Config &config) {
 
     if (isValid()) {
 
-      #if 0
-      PWM_StopTimer (PWM[m_midx], m_subctrl);
-      PWM_SetPwmLdok (PWM[m_midx], m_subctrl, false);
-      #endif
-      return true;
+      if (PWM_Init (PWM[m_midx], SM[m_sidx], &config.config()) == kStatus_Success) {
+
+        return (PWM_SetupPwm (PWM[m_midx], SM[m_sidx], m_pin.data(), (m_pin[1].isValid() ? 2 : 1), config.mode(), config.pwmFreqHz(), srcClockHz()) == kStatus_Success);
+      }
     }
     return false;
   }
 
   //-----------------------------------------------------------------------------
-  //                                Module class
-  //-----------------------------------------------------------------------------
+  bool SubModule::begin() {
+    bool success = isValid();
 
-  //-----------------------------------------------------------------------------
-  Module::Module (uint8_t index) :
-    m_midx (index) {
-  }
+    if (success) {
 
+      success &= m_pin[0].begin();
+      if (success) {
 
-  //-----------------------------------------------------------------------------
-  void Module::dumpRegs (Stream &out) const {
-    #ifdef EFLEXPWM_DUMPREG_ENABLED
-    const char *names[] = {
-      "OUTEN",                             /**< Output Enable Register, offset: 0x180 */
-      "MASK",                              /**< Mask Register, offset: 0x182 */
-      "SWCOUT",                            /**< Software Controlled Output Register, offset: 0x184 */
-      "DTSRCSEL",                          /**< PWM Source Select Register, offset: 0x186 */
-      "MCTRL",                             /**< Master Control Register, offset: 0x188 */
-      "MCTRL2",                            /**< Master Control 2 Register, offset: 0x18A */
-      "FCTRL",                             /**< Fault Control Register, offset: 0x18C */
-      "FSTS",                              /**< Fault Status Register, offset: 0x18E */
-      "FFILT",                             /**< Fault Filter Register, offset: 0x190 */
-      "FTST",                              /**< Fault Test Register, offset: 0x192 */
-      "FCTRL2"                             /**< Fault Control 2 Register, offset: 0x194 */
-    };
-    __I uint16_t *p = & (PWM[m_midx]->OUTEN);
-    const char **n = names;
+        enableOutput (m_pin[0].channel());
+      }
+      if (m_pin[1].isValid()) {
 
-    while (p <= & (PWM[m_midx]->FCTRL2)) {
+        success &= m_pin[1].begin();
+        if (success) {
 
-      // out.printf ("%s\t: 0x%04X\n", *n++, *p++);
+          enableOutput (m_pin[1].channel());
+        }
+      }
     }
-    out.println ("");
-    #endif
-  }
-
-  //-----------------------------------------------------------------------------
-  void Module::dumpAllRegs (Stream &out) const {
-    #ifdef EFLEXPWM_DUMPREG_ENABLED
-
-    delay (10);
-    out.println ("Module >>>>>");
-    dumpRegs (out);
-    out.println ("");
-
-    for (auto it = subModule.cbegin(); it != subModule.cend(); ++it) {
-
-      // out.printf ("SubM %u +++++\n", it->first);
-      it->second->dumpRegs (out);
-      out.println ("");
-    }
-
-    #endif
+    return success;
   }
 
   //-----------------------------------------------------------------------------
@@ -321,5 +320,89 @@ namespace eFlexPwm {
 }
 
 //-----------------------------------------------------------------------------
+//                                Pwm class
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+Pwm::Pwm (uint8_t index) :
+  m_midx (index), m_smmask (0) {
+}
+
+//-----------------------------------------------------------------------------
+bool eFlexPwm::Pwm::begin() {
+  bool success = true;
+
+  stopTimer();
+  setPwmLdok (false);
+  for (auto it = m_sm.begin(); it != m_sm.end(); ++it) {
+
+    success &= it->second->begin();
+  }
+  setPwmLdok ();
+  if (success) {
+
+    startTimer();
+  }
+  return success;
+}
+
+//-----------------------------------------------------------------------------
+// protected
+void Pwm::addSubModule (SubModule *sm) {
+
+  if (m_sm.count (sm->index()) == 0) {
+
+    m_sm[sm->index()] = sm;
+    m_smmask |= (1 << sm->index());
+  }
+}
+
+//-----------------------------------------------------------------------------
+void Pwm::dumpRegs (Stream &out) const {
+  #ifdef EFLEXPWM_DUMPREG_ENABLED
+  const char *names[] = {
+    "OUTEN",                             /**< Output Enable Register, offset: 0x180 */
+    "MASK",                              /**< Mask Register, offset: 0x182 */
+    "SWCOUT",                            /**< Software Controlled Output Register, offset: 0x184 */
+    "DTSRCSEL",                          /**< PWM Source Select Register, offset: 0x186 */
+    "MCTRL",                             /**< Master Control Register, offset: 0x188 */
+    "MCTRL2",                            /**< Master Control 2 Register, offset: 0x18A */
+    "FCTRL",                             /**< Fault Control Register, offset: 0x18C */
+    "FSTS",                              /**< Fault Status Register, offset: 0x18E */
+    "FFILT",                             /**< Fault Filter Register, offset: 0x190 */
+    "FTST",                              /**< Fault Test Register, offset: 0x192 */
+    "FCTRL2"                             /**< Fault Control 2 Register, offset: 0x194 */
+  };
+  __I uint16_t *p = & (PWM[m_midx]->OUTEN);
+  const char **n = names;
+
+  while (p <= & (PWM[m_midx]->FCTRL2)) {
+
+    // out.printf ("%s\t: 0x%04X\n", *n++, *p++);
+  }
+  out.println ("");
+  #endif
+}
+
+//-----------------------------------------------------------------------------
+void Pwm::dumpAllRegs (Stream &out) const {
+  #ifdef EFLEXPWM_DUMPREG_ENABLED
+
+  delay (10);
+  out.println ("Pwm >>>>>");
+  dumpRegs (out);
+  out.println ("");
+
+  for (auto it = m_sm.cbegin(); it != m_sm.cend(); ++it) {
+
+    // out.printf ("SubM %u +++++\n", it->first);
+    it->second->dumpRegs (out);
+    out.println ("");
+  }
+
+  #endif
+}
+
+//-----------------------------------------------------------------------------
 // Teensy 4.1
-// eFlexPwm::Module Pwm (2, 0, 2, 3);
+// eFlexPwm::Pwm Pwm (2, 0, 2, 3);

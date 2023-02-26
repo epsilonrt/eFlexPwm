@@ -1,7 +1,7 @@
 {
   "name": "eFlexPwm",
   "version": "0.1.0",
-  "keywords": "pwm, eFlexPwm",
+  "keywords": "pwm, eflexpwm, power stage, power control",
   "description": "Arduino eFlexPwm for Teensy 4.x",
   "homepage": "https://epsilonrt.github.io/eFlexPwm",
   "authors":
