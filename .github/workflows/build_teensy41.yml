@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        example: [examples/eFlexSimple]
+        example: [examples/eFlexPwmSimple]
 
     steps:
 
