@@ -1,4 +1,4 @@
-name: Uno
+name: Teensy4.1
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        example: [examples/Lamp, examples/LampDimmer, examples/Switch , examples/TempSensor]
+        example: [examples/eFlexSimple]
 
     steps:
 
@@ -38,8 +38,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install --upgrade platformio
     - name: Step 6 - Run build examples using PlatformIO
-      run: pio ci --lib="." -b uno
+      run: pio ci --lib="." -b teensy41
       env:
         PLATFORMIO_CI_SRC: ${{ matrix.example }}
-    - name: Step 7 - Run build Servo examples using PlatformIO
-      run: pio ci --lib="." --project-option="lib_deps=arduino-libraries/Servo" -b uno examples/Servo
