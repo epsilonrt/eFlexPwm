@@ -210,8 +210,70 @@ namespace eFlex {
   }
 
   // ----------------------------------------------------------------------------
+  inline void SubModule::setInitValue (uint16_t value) {
+    setVALxValue (kPWM_ValueRegister_0, value);
+  }
+  // ----------------------------------------------------------------------------
+  inline void SubModule::setModuloValue (uint16_t value) {
+
+    setVALxValue (kPWM_ValueRegister_1, value);
+  }
+  // ----------------------------------------------------------------------------
+  inline void SubModule::setVal2Value (uint16_t value) {
+
+    setVALxValue (kPWM_ValueRegister_2, value);
+  }
+  // ----------------------------------------------------------------------------
+  inline void SubModule::setVal3Value (uint16_t value) {
+
+    setVALxValue (kPWM_ValueRegister_3, value);
+  }
+  // ----------------------------------------------------------------------------
+  inline void SubModule::setVal4Value (uint16_t value) {
+
+    setVALxValue (kPWM_ValueRegister_4, value);
+  }
+  // ----------------------------------------------------------------------------
+  inline void SubModule::setVal5Value (uint16_t value) {
+
+    setVALxValue (kPWM_ValueRegister_5, value);
+  }
+
+  // ----------------------------------------------------------------------------
   inline uint16_t SubModule::VALxValue (pwm_value_register_t valueRegister) {
     return PWM_GetVALxValue (ptr(), SM[m_smidx], valueRegister);
+  }
+
+  // ----------------------------------------------------------------------------
+  inline uint16_t SubModule::initValue () {
+    
+    return VALxValue (kPWM_ValueRegister_0);
+  }
+
+  // ----------------------------------------------------------------------------
+  inline uint16_t SubModule::moduloValue () {
+
+    return VALxValue (kPWM_ValueRegister_1);
+  }
+  // ----------------------------------------------------------------------------
+  inline uint16_t SubModule::val2Value () {
+
+    return VALxValue (kPWM_ValueRegister_2);
+  }
+  // ----------------------------------------------------------------------------
+  inline uint16_t SubModule::val3Value () {
+
+    return VALxValue (kPWM_ValueRegister_3);
+  }
+  // ----------------------------------------------------------------------------
+  inline uint16_t SubModule::val4Value () {
+
+    return VALxValue (kPWM_ValueRegister_4);
+  }
+  // ----------------------------------------------------------------------------
+  inline uint16_t SubModule::val5Value () {
+
+    return VALxValue (kPWM_ValueRegister_5);
   }
 
   // ----------------------------------------------------------------------------
