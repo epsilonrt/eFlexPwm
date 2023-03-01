@@ -472,5 +472,5 @@ namespace eFlex {
   };
 }
 
-#include "eFlexPwmSubmodule_p.h"
+#include "source/eFlexPwmSubmodule_p.h"
 

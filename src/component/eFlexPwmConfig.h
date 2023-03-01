@@ -81,5 +81,5 @@ namespace eFlex {
   };
 }
 
-#include "eFlexPwmConfig_p.h"
+#include "source/eFlexPwmConfig_p.h"
 

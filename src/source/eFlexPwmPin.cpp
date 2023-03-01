@@ -4,7 +4,7 @@
 
    SPDX-License-Identifier: BSD-3-Clause
 */
-#include "eFlexPwmPin.h"
+#include "component/eFlexPwmPin.h"
 
 #include <imxrt.h>
 #include <core_pins.h>

@@ -4,7 +4,7 @@
 
    SPDX-License-Identifier: BSD-3-Clause
 */
-#include "eFlexPwmTimer.h"
+#include "component/eFlexPwmTimer.h"
 
 namespace eFlex {
 

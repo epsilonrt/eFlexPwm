@@ -6,7 +6,7 @@
 */
 #pragma once
 
-#include "eFlexPwmPin.h"
-#include "eFlexPwmConfig.h"
-#include "eFlexPwmSubmodule.h"
-#include "eFlexPwmTimer.h"
+#include "component/eFlexPwmPin.h"
+#include "component/eFlexPwmConfig.h"
+#include "component/eFlexPwmSubmodule.h"
+#include "component/eFlexPwmTimer.h"

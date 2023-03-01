@@ -6,7 +6,7 @@
 */
 #pragma once
 
-#include "fsl_pwm.h"
+#include <nxp/drivers/fsl_pwm.h>
 
 #define EFLEXPWM_DUMPREG_ENABLED 1
 
@@ -28,4 +28,5 @@ namespace eFlex {
     ChanA = 0,
     ChanB = 1
   };
+
 }
