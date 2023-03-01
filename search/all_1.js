@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['begin_34',['begin',['../classe_flex_1_1_pin.html#adc50bb6e29367a899e31371d48a5e200',1,'eFlex::Pin']]]
+  ['channel_1',['channel',['../classe_flex_1_1_pin.html#a089ddff66f3645344fde2df6c39f383f',1,'eFlex::Pin']]]
 ];

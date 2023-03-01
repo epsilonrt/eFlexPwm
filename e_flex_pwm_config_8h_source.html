@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>eFlexPwm: src/eFlexPwmConfig.h Source File</title>
+<title>eFlexPwm: src/component/eFlexPwmConfig.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -109,63 +109,53 @@ $(document).ready(function(){initNavTree('e_flex_pwm_config_8h_source.html','');
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">bool</span> enableDebugMode() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">bool</span> enableWait() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keyword">inline</span> <a class="code" href="group__pwm__driver.html#ga974463c504571c97eac57a1b4716632a">pwm_reload_source_select_t</a> reloadSelect() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      <span class="keyword">inline</span> <a class="code" href="group__pwm__driver.html#ga16132b3bf20ebd926aa7d0651ecc0ab6">pwm_clock_source_t</a> clockSource() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      <span class="keyword">inline</span> <a class="code" href="group__pwm__driver.html#ga58b13c1bafdb270a8f514bfb618b4c01">pwm_clock_prescale_t</a> prescale() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      <span class="keyword">inline</span> <a class="code" href="group__pwm__driver.html#gab0c4c26fc1bcc510d3e297e4f094963a">pwm_init_source_t</a> initializationControl() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      <span class="keyword">inline</span> <a class="code" href="group__pwm__driver.html#ga85bfc88704e89461fcd48f0995cc3507">pwm_force_output_trigger_t</a> forceTrigger() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      <span class="keyword">inline</span> <a class="code" href="group__pwm__driver.html#ga0b4600d4c53dac55474b72c5d4f25fa3">pwm_load_frequency_t</a> reloadFrequency() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      <span class="keyword">inline</span> <a class="code" href="group__pwm__driver.html#gaaad72289fda1f07ea471d48fc3e1cbce">pwm_register_reload_t</a> reloadLogic() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      <span class="keyword">inline</span> <a class="code" href="group__pwm__driver.html#gae205f5a898df4b779e9ffcf21d6ae137">pwm_chnl_pair_operation_t</a> pairOperation() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keyword">inline</span> pwm_reload_source_select_t reloadSelect() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      <span class="keyword">inline</span> pwm_clock_source_t clockSource() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      <span class="keyword">inline</span> pwm_clock_prescale_t prescale() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      <span class="keyword">inline</span> pwm_init_source_t initializationControl() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      <span class="keyword">inline</span> pwm_force_output_trigger_t forceTrigger() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      <span class="keyword">inline</span> pwm_load_frequency_t reloadFrequency() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      <span class="keyword">inline</span> pwm_register_reload_t reloadLogic() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      <span class="keyword">inline</span> pwm_chnl_pair_operation_t pairOperation() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      <span class="keyword">inline</span> uint32_t pwmFreqHz() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      <span class="keyword">inline</span> <a class="code" href="group__pwm__driver.html#gab280f3eed1a7c48d6e3b100d55cf9767">pwm_mode_t</a> mode() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      <span class="keyword">inline</span> pwm_mode_t mode() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">void</span> setEnableDebugMode (<span class="keywordtype">bool</span> enableDebugMode);</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">void</span> setEnableWait (<span class="keywordtype">bool</span> enableWait);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">void</span> setReloadSelect (<a class="code" href="group__pwm__driver.html#ga974463c504571c97eac57a1b4716632a">pwm_reload_source_select_t</a> reloadSelect);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">void</span> setClockSource (<a class="code" href="group__pwm__driver.html#ga16132b3bf20ebd926aa7d0651ecc0ab6">pwm_clock_source_t</a> clockSource);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">void</span> setPrescale (<a class="code" href="group__pwm__driver.html#ga58b13c1bafdb270a8f514bfb618b4c01">pwm_clock_prescale_t</a> prescale);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">void</span> setInitializationControl (<a class="code" href="group__pwm__driver.html#gab0c4c26fc1bcc510d3e297e4f094963a">pwm_init_source_t</a> initializationControl);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">void</span> setForceTrigger (<a class="code" href="group__pwm__driver.html#ga85bfc88704e89461fcd48f0995cc3507">pwm_force_output_trigger_t</a> forceTrigger);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">void</span> setReloadFrequency (<a class="code" href="group__pwm__driver.html#ga0b4600d4c53dac55474b72c5d4f25fa3">pwm_load_frequency_t</a> reloadFrequency);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">void</span> setReloadLogic (<a class="code" href="group__pwm__driver.html#gaaad72289fda1f07ea471d48fc3e1cbce">pwm_register_reload_t</a> reloadLogic) ;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">void</span> setPairOperation (<a class="code" href="group__pwm__driver.html#gae205f5a898df4b779e9ffcf21d6ae137">pwm_chnl_pair_operation_t</a> pairOperation) ;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">void</span> setReloadSelect (pwm_reload_source_select_t reloadSelect);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">void</span> setClockSource (pwm_clock_source_t clockSource);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">void</span> setPrescale (pwm_clock_prescale_t prescale);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">void</span> setInitializationControl (pwm_init_source_t initializationControl);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">void</span> setForceTrigger (pwm_force_output_trigger_t forceTrigger);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">void</span> setReloadFrequency (pwm_load_frequency_t reloadFrequency);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">void</span> setReloadLogic (pwm_register_reload_t reloadLogic) ;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">void</span> setPairOperation (pwm_chnl_pair_operation_t pairOperation) ;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">void</span> setPwmFreqHz (uint32_t pwmFreqHz);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">void</span> setMode (<a class="code" href="group__pwm__driver.html#gab280f3eed1a7c48d6e3b100d55cf9767">pwm_mode_t</a> mode);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">void</span> setMode (pwm_mode_t mode);</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;      <a class="code" href="struct__pwm__config.html">pwm_config_t</a> *kPwmConfig();</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;      <span class="keyword">const</span> <a class="code" href="struct__pwm__config.html">pwm_config_t</a> *kPwmConfig() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;      pwm_config_t *kPwmConfig();</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;      <span class="keyword">const</span> pwm_config_t *kPwmConfig() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      <span class="keyword">friend</span> <span class="keyword">class </span>Timer;</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      <span class="keyword">friend</span> <span class="keyword">class </span>SubModule;</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      <a class="code" href="group__pwm__driver.html#gab280f3eed1a7c48d6e3b100d55cf9767">pwm_mode_t</a> m_mode;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      pwm_mode_t m_mode;</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;      uint32_t m_pwmfreq;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      <a class="code" href="struct__pwm__config.html">pwm_config_t</a> m_config;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      pwm_config_t m_config;</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  };</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">#include &quot;eFlexPwmConfig_p.h&quot;</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">#include &quot;source/eFlexPwmConfig_p.h&quot;</span></div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="ttc" id="agroup__pwm__driver_html_ga0b4600d4c53dac55474b72c5d4f25fa3"><div class="ttname"><a href="group__pwm__driver.html#ga0b4600d4c53dac55474b72c5d4f25fa3">pwm_load_frequency_t</a></div><div class="ttdeci">enum _pwm_load_frequency pwm_load_frequency_t</div><div class="ttdoc">PWM load frequency selection.</div></div>
-<div class="ttc" id="agroup__pwm__driver_html_ga16132b3bf20ebd926aa7d0651ecc0ab6"><div class="ttname"><a href="group__pwm__driver.html#ga16132b3bf20ebd926aa7d0651ecc0ab6">pwm_clock_source_t</a></div><div class="ttdeci">enum _pwm_clock_source pwm_clock_source_t</div><div class="ttdoc">PWM clock source selection.</div></div>
-<div class="ttc" id="agroup__pwm__driver_html_ga58b13c1bafdb270a8f514bfb618b4c01"><div class="ttname"><a href="group__pwm__driver.html#ga58b13c1bafdb270a8f514bfb618b4c01">pwm_clock_prescale_t</a></div><div class="ttdeci">enum _pwm_clock_prescale pwm_clock_prescale_t</div><div class="ttdoc">PWM prescaler factor selection for clock source.</div></div>
-<div class="ttc" id="agroup__pwm__driver_html_ga85bfc88704e89461fcd48f0995cc3507"><div class="ttname"><a href="group__pwm__driver.html#ga85bfc88704e89461fcd48f0995cc3507">pwm_force_output_trigger_t</a></div><div class="ttdeci">enum _pwm_force_output_trigger pwm_force_output_trigger_t</div><div class="ttdoc">Options that can trigger a PWM FORCE_OUT.</div></div>
-<div class="ttc" id="agroup__pwm__driver_html_ga974463c504571c97eac57a1b4716632a"><div class="ttname"><a href="group__pwm__driver.html#ga974463c504571c97eac57a1b4716632a">pwm_reload_source_select_t</a></div><div class="ttdeci">enum _pwm_reload_source_select pwm_reload_source_select_t</div><div class="ttdoc">PWM reload source select.</div></div>
-<div class="ttc" id="agroup__pwm__driver_html_gaaad72289fda1f07ea471d48fc3e1cbce"><div class="ttname"><a href="group__pwm__driver.html#gaaad72289fda1f07ea471d48fc3e1cbce">pwm_register_reload_t</a></div><div class="ttdeci">enum _pwm_register_reload pwm_register_reload_t</div><div class="ttdoc">Options available on how to load the buffered-registers with new values.</div></div>
-<div class="ttc" id="agroup__pwm__driver_html_gab0c4c26fc1bcc510d3e297e4f094963a"><div class="ttname"><a href="group__pwm__driver.html#gab0c4c26fc1bcc510d3e297e4f094963a">pwm_init_source_t</a></div><div class="ttdeci">enum _pwm_init_source pwm_init_source_t</div><div class="ttdoc">PWM counter initialization options.</div></div>
-<div class="ttc" id="agroup__pwm__driver_html_gab280f3eed1a7c48d6e3b100d55cf9767"><div class="ttname"><a href="group__pwm__driver.html#gab280f3eed1a7c48d6e3b100d55cf9767">pwm_mode_t</a></div><div class="ttdeci">enum _pwm_mode pwm_mode_t</div><div class="ttdoc">PWM operation mode.</div></div>
-<div class="ttc" id="agroup__pwm__driver_html_gae205f5a898df4b779e9ffcf21d6ae137"><div class="ttname"><a href="group__pwm__driver.html#gae205f5a898df4b779e9ffcf21d6ae137">pwm_chnl_pair_operation_t</a></div><div class="ttdeci">enum _pwm_chnl_pair_operation pwm_chnl_pair_operation_t</div><div class="ttdoc">Options available for the PWM A &amp; B pair operation.</div></div>
-<div class="ttc" id="astruct__pwm__config_html"><div class="ttname"><a href="struct__pwm__config.html">_pwm_config</a></div><div class="ttdoc">PWM config structure.</div><div class="ttdef"><b>Definition:</b> fsl_pwm.h:361</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><b>eFlexPwmConfig.h</b></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_9b051f5a462ebc902d5afef8d9317d03.html">component</a></li><li class="navelem"><b>eFlexPwmConfig.h</b></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>

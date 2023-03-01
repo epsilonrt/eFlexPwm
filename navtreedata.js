@@ -25,14 +25,12 @@
 var NAVTREE =
 [
   [ "eFlexPwm", "index.html", [
-    [ "Modules", "modules.html", "modules" ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", null ],
-        [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", null ]
+        [ "Functions", "functions_func.html", null ]
       ] ]
     ] ]
   ] ]
@@ -40,9 +38,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"annotated.html",
-"group__pwm__driver.html#ga95ad81203168f744a37710a07e51896a",
-"struct_p_w_m___type.html#a77e3eb028bd8e31d6f84680a5cc2aa0f"
+"annotated.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
