@@ -1,3 +1,4 @@
+#include "component/eFlexPwmPin.h"
 /*
    Copyright (c) 2023, epsilonrt
    All rights reserved.

@@ -14,7 +14,7 @@ namespace eFlex {
 
   //-----------------------------------------------------------------------------
   Timer::Timer (uint8_t index) :
-    m_tmidx (index), m_ptr (PWM[index]) {
+    m_tmidx (index), m_ptr (PWM[index]), m_isenabled (true) {
   }
 
   //-----------------------------------------------------------------------------
@@ -49,6 +49,20 @@ namespace eFlex {
       start();
     }
     return success;
+  }
+
+  //-----------------------------------------------------------------------------
+  void Timer::enable (bool value) {
+
+    for (uint8_t i = 0; i < NofSubmodules; i++) {
+
+      SubModule *s = SmList[m_tmidx][i];
+      if (s) {
+        s->enable (value);
+      }
+    }
+
+    m_isenabled = value;
   }
 
   //-----------------------------------------------------------------------------

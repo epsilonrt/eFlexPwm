@@ -87,14 +87,63 @@ namespace eFlex {
       */
       inline void updateDutyCycle (uint16_t dutyCycle, Channel channel = ChanA);
 
+      /*!
+         @brief Update PWM signals for a PWM submodule.
+
+         The function initializes the submodule according to the parameters passed in by the user. The function
+         also sets up the value compare registers to match the PWM signal requirements.
+         If the dead time insertion logic is enabled, the pulse period is reduced by the
+         dead time period specified by the user.
+
+         @param doSync      true: Set LDOK bit for the submodule;
+                            false: LDOK bit don't set, need to call setPwmLdok to sync update.
+
+         @return Returns false if there was error setting up the signal; true otherwise
+      */
+      bool updateSetup (bool doSync = true);
+
       /**
-       * @brief Set the Pwm Frequency object
+         @brief Set the Pwm Frequency
+
+         @param freq PWM signal frequency in Hz
+         @param doSync      true: Set LDOK bit for the submodule;
+                            false: LDOK bit don't set, need to call setPwmLdok to sync update.
+
+         @return Returns false if there was error setting up the signal; true otherwise
+      */
+      inline bool setPwmFrequency (uint32_t freq, bool doSync = true) {
+
+        m_config.setPwmFreqHz (freq);
+        return updateSetup (doSync);
+      }
+
+      /**
+       * @brief Enable or disable the submodule
        * 
-       * @todo TODO
+       * This function allows you to enable/disable the output pins without 
+       * changing anything in the configuration. When the submodule is 
+       * disabled, its output pins are forced to zero.
        * 
-       * @param freq 
+       * @param value true to enable, false otherwise
        */
-      inline void setPwmFrequency (uint32_t freq);
+      void enable (bool value = true);
+
+      /**
+       * @brief Disable the submodule
+       * 
+       * This function allows you to disable the output pins without 
+       * changing anything in the configuration. When the submodule is 
+       * disabled, its output pins are forced to zero.
+       */
+      inline void disable () {
+
+        enable (false);
+      }
+
+      /**
+       * @brief Returns true if the submodule is enabled
+       */
+      bool isEnabled() const;
 
       /**
          @brief
@@ -296,11 +345,82 @@ namespace eFlex {
          @param value         Value that will been write into VALx register
       */
       inline void setVALxValue (pwm_value_register_t valueRegister, uint16_t value);
+      /**
+         @brief Set the PWM INIT register.
+
+         This function allows the user to write value into registers directly. And it will destroying the PWM clock period
+         set by the begin()/updateSetup()/setupPwmPhaseShift() functions.
+         Due to the registers are bufferd, the new value will not active uless call setPwmLdok() and the reload point is
+         reached.
+
+         @param value Value that will been write into register
+      */
       inline void setInitValue (uint16_t value);
-      inline void setModuloValue (uint16_t value);
+      /**
+         @brief Set the PWM VAL0 register.
+
+         This function allows the user to write value into registers directly. And it will destroying the PWM clock period
+         set by the begin()/updateSetup()/setupPwmPhaseShift() functions.
+         Due to the registers are bufferd, the new value will not active uless call setPwmLdok() and the reload point is
+         reached.
+
+         @param value Value that will been write into register
+      */
+      inline void setVal0Value (uint16_t value);
+      /**
+         @brief Set the PWM VAL1 register.
+
+         This function allows the user to write value into registers directly. And it will destroying the PWM clock period
+         set by the begin()/updateSetup()/setupPwmPhaseShift() functions.
+         Due to the registers are bufferd, the new value will not active uless call setPwmLdok() and the reload point is
+         reached.
+
+         @param value Value that will been write into register
+      */
+      inline void setVal1Value (uint16_t value);
+      /**
+         @brief Set the PWM VAL2 register.
+
+         This function allows the user to write value into registers directly. And it will destroying the PWM clock period
+         set by the begin()/updateSetup()/setupPwmPhaseShift() functions.
+         Due to the registers are bufferd, the new value will not active uless call setPwmLdok() and the reload point is
+         reached.
+
+         @param value Value that will been write into register
+      */
       inline void setVal2Value (uint16_t value);
+      /**
+         @brief Set the PWM VAL3 register.
+
+         This function allows the user to write value into registers directly. And it will destroying the PWM clock period
+         set by the begin()/updateSetup()/setupPwmPhaseShift() functions.
+         Due to the registers are bufferd, the new value will not active uless call setPwmLdok() and the reload point is
+         reached.
+
+         @param value Value that will been write into register
+      */
       inline void setVal3Value (uint16_t value);
+      /**
+         @brief Set the PWM VAL4 register.
+
+         This function allows the user to write value into registers directly. And it will destroying the PWM clock period
+         set by the begin()/updateSetup()/setupPwmPhaseShift() functions.
+         Due to the registers are bufferd, the new value will not active uless call setPwmLdok() and the reload point is
+         reached.
+
+         @param value Value that will been write into register
+      */
       inline void setVal4Value (uint16_t value);
+      /**
+         @brief Set the PWM VAL5 register.
+
+         This function allows the user to write value into registers directly. And it will destroying the PWM clock period
+         set by the begin()/updateSetup()/setupPwmPhaseShift() functions.
+         Due to the registers are bufferd, the new value will not active uless call setPwmLdok() and the reload point is
+         reached.
+
+         @param value Value that will been write into register
+      */
       inline void setVal5Value (uint16_t value);
 
       /**
@@ -310,11 +430,47 @@ namespace eFlex {
          @return The VALx register value
       */
       inline uint16_t VALxValue (pwm_value_register_t valueRegister);
+      /**
+         @brief Get the PWM INIT register.
+
+         @return The register value
+      */
       inline uint16_t initValue ();
-      inline uint16_t moduloValue ();
+      /**
+         @brief Get the PWM VAL1 register.
+
+         @return The register value
+      */
+      inline uint16_t val0Value ();
+      /**
+         @brief Get the PWM VAL1 register.
+
+         @return The register value
+      */
+      inline uint16_t val1Value ();
+      /**
+         @brief Get the PWM VAL2 register.
+
+         @return The register value
+      */
       inline uint16_t val2Value ();
+      /**
+         @brief Get the PWM VAL3 register.
+
+         @return The register value
+      */
       inline uint16_t val3Value ();
+      /**
+         @brief Get the PWM VAL4 register.
+
+         @return The register value
+      */
       inline uint16_t val4Value ();
+      /**
+         @brief Get the PWM VAL5 register.
+
+         @return The register value
+      */
       inline uint16_t val5Value ();
 
       /**

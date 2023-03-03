@@ -78,16 +78,7 @@ namespace eFlex {
 
       if (success) {
 
-        if (doSync) {
-
-          setPwmLdok (false);
-        }
-        success &= (PWM_SetupPwm (ptr(), SM[m_smidx], m_signal, (m_pin[ChanB].isValid() ? 2 : 1),
-                                  m_config.mode(), m_config.pwmFreqHz(), timer().srcClockHz()) == kStatus_Success);
-        if (doSync) {
-
-          setPwmLdok (true);
-        }
+        success &= updateSetup (doSync);
         if (doStart && success) {
 
           start();
@@ -95,6 +86,59 @@ namespace eFlex {
       }
     }
     return success;
+  }
+
+  //-----------------------------------------------------------------------------
+  bool SubModule::updateSetup (bool doSync) {
+    bool  success = (PWM_SetupPwm (ptr(), SM[m_smidx], m_signal, (m_pin[ChanB].isValid() ? 2 : 1),
+                                   m_config.mode(), m_config.pwmFreqHz(), timer().srcClockHz()) == kStatus_Success);
+    if (doSync) {
+
+      setPwmLdok (true);
+    }
+    return success;
+  }
+
+  //-----------------------------------------------------------------------------
+  void SubModule::enable (bool value) {
+    uint16_t mask;
+    uint16_t smFlag = _BV (m_smidx);
+    uint16_t reg = m_ptr->SM[m_smidx].CTRL2;
+
+    mask = PWM_MASK_MASKA (smFlag) | PWM_MASK_UPDATE_MASK (smFlag);
+
+    if (m_pin[ChanB].isValid()) {
+
+      mask |= PWM_MASK_MASKB (smFlag);
+    }
+
+    if (value) {
+
+      /* Enables the channel output */
+      m_ptr->MASK &= ~mask;
+    }
+    else {
+
+      /* Disables the channel output, forcing output level to 0 */
+      m_ptr->MASK |= mask;
+    }
+
+    /* Select local force signal */
+    m_ptr->SM[m_smidx].CTRL2 &= ~(uint16_t)PWM_CTRL2_FORCE_SEL_MASK;
+    /* Issue a local Force trigger event */
+    m_ptr->SM[m_smidx].CTRL2 |= PWM_CTRL2_FORCE_MASK;
+    /* Restore the source of FORCE OUTPUT signal */
+    m_ptr->SM[m_smidx].CTRL2 = reg;
+  }
+
+  //-----------------------------------------------------------------------------
+  bool SubModule::isEnabled() const {
+    uint16_t mask;
+    uint16_t smFlag = _BV (m_smidx);
+
+    mask = PWM_MASK_MASKA (smFlag) | (m_pin[ChanB].isValid() ? PWM_MASK_MASKB (smFlag) : 0);
+
+    return ((m_ptr->MASK & mask) == 0);
   }
 
   //-----------------------------------------------------------------------------

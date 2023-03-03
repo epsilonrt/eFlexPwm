@@ -41,6 +41,35 @@ namespace eFlex {
       inline void setFaultState (pwm_fault_state_t faultState);
 
       /**
+       * @brief Enable or disable all instantiated submodules of the timer
+       * 
+       * This function allows you to enable/disable the output pins without 
+       * changing anything in the configuration. When the timer is 
+       * disabled, its output pins are forced to zero.
+       * 
+       * @param value true to enable, false otherwise
+       */
+      void enable (bool value =true);
+
+      /**
+       * @brief Disable all instantiated submodules of the timer
+       * 
+       * This function allows you to disable the output pins without 
+       * changing anything in the configuration. When the submodule is 
+       * disabled, its output pins are forced to zero.
+       */
+      inline void disable () {
+        enable (false);
+      }
+
+      /**
+       * @brief Returns true if the timer is enabled
+       */
+      inline bool isEnabled() const {
+        return m_isenabled;
+      }
+
+      /**
          @brief PWM main counter clock in Hz.
       */
       inline uint32_t srcClockHz() const;
@@ -147,6 +176,7 @@ namespace eFlex {
     private:
       uint8_t m_tmidx;
       PWM_Type *m_ptr;
+      bool m_isenabled;
   };
 }
 

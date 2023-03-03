@@ -7,6 +7,7 @@
 #pragma once
 
 #include "eFlexPwm_p.h"
+#include "component/eFlexPwmTimer.h"
 
 namespace eFlex {
 

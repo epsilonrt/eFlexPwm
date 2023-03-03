@@ -54,7 +54,7 @@ namespace eFlex {
     signal.dutyCyclePercent = 50;
     signal.deadtimeValue = 0;
     signal.faultState = kPWM_PwmFaultState0;
-    signal.pwmChannel = kPWM_PwmX;
+    signal.pwmChannel = kPWM_PwmA;
   }
 
   // ----------------------------------------------------------------------------
@@ -208,35 +208,40 @@ namespace eFlex {
   inline void SubModule::setVALxValue (pwm_value_register_t valueRegister, uint16_t value) {
     PWM_SetVALxValue (ptr(), SM[m_smidx], valueRegister,  value);
   }
-
   // ----------------------------------------------------------------------------
   inline void SubModule::setInitValue (uint16_t value) {
-    setVALxValue (kPWM_ValueRegister_0, value);
+    
+    m_ptr->SM[m_smidx].INIT = value;
   }
   // ----------------------------------------------------------------------------
-  inline void SubModule::setModuloValue (uint16_t value) {
+  inline void SubModule::setVal0Value (uint16_t value) {
 
-    setVALxValue (kPWM_ValueRegister_1, value);
+    m_ptr->SM[m_smidx].VAL0 = value;
+  }
+  // ----------------------------------------------------------------------------
+  inline void SubModule::setVal1Value (uint16_t value) {
+
+    m_ptr->SM[m_smidx].VAL1 = value;
   }
   // ----------------------------------------------------------------------------
   inline void SubModule::setVal2Value (uint16_t value) {
 
-    setVALxValue (kPWM_ValueRegister_2, value);
+    m_ptr->SM[m_smidx].VAL2 = value;
   }
   // ----------------------------------------------------------------------------
   inline void SubModule::setVal3Value (uint16_t value) {
 
-    setVALxValue (kPWM_ValueRegister_3, value);
+    m_ptr->SM[m_smidx].VAL3 = value;
   }
   // ----------------------------------------------------------------------------
   inline void SubModule::setVal4Value (uint16_t value) {
 
-    setVALxValue (kPWM_ValueRegister_4, value);
+    m_ptr->SM[m_smidx].VAL4 = value;
   }
   // ----------------------------------------------------------------------------
   inline void SubModule::setVal5Value (uint16_t value) {
 
-    setVALxValue (kPWM_ValueRegister_5, value);
+    m_ptr->SM[m_smidx].VAL5 = value;
   }
 
   // ----------------------------------------------------------------------------
@@ -246,34 +251,38 @@ namespace eFlex {
 
   // ----------------------------------------------------------------------------
   inline uint16_t SubModule::initValue () {
-    
-    return VALxValue (kPWM_ValueRegister_0);
+
+    return m_ptr->SM[m_smidx].INIT;
   }
-
   // ----------------------------------------------------------------------------
-  inline uint16_t SubModule::moduloValue () {
+  inline uint16_t SubModule::val0Value () {
 
-    return VALxValue (kPWM_ValueRegister_1);
+    return m_ptr->SM[m_smidx].VAL0;
+  }
+  // ----------------------------------------------------------------------------
+  inline uint16_t SubModule::val1Value () {
+
+    return m_ptr->SM[m_smidx].VAL1;
   }
   // ----------------------------------------------------------------------------
   inline uint16_t SubModule::val2Value () {
 
-    return VALxValue (kPWM_ValueRegister_2);
+    return m_ptr->SM[m_smidx].VAL2;
   }
   // ----------------------------------------------------------------------------
   inline uint16_t SubModule::val3Value () {
 
-    return VALxValue (kPWM_ValueRegister_3);
+    return m_ptr->SM[m_smidx].VAL3;
   }
   // ----------------------------------------------------------------------------
   inline uint16_t SubModule::val4Value () {
 
-    return VALxValue (kPWM_ValueRegister_4);
+    return m_ptr->SM[m_smidx].VAL4;
   }
   // ----------------------------------------------------------------------------
   inline uint16_t SubModule::val5Value () {
 
-    return VALxValue (kPWM_ValueRegister_5);
+    return m_ptr->SM[m_smidx].VAL5;
   }
 
   // ----------------------------------------------------------------------------
