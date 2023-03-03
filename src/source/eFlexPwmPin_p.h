@@ -9,7 +9,6 @@
 
 namespace eFlex {
 
-  #ifndef DOXYGEN
   //-----------------------------------------------------------------------------
   //                                Pin class
   //-----------------------------------------------------------------------------
@@ -37,5 +36,4 @@ namespace eFlex {
   inline uint8_t Pin::muxval () const {
     return m_muxval;
   }
-  #endif
 }

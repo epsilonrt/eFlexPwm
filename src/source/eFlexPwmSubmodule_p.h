@@ -11,7 +11,6 @@
 
 namespace eFlex {
 
-  #ifndef DOXYGEN
   //-----------------------------------------------------------------------------
   //                            SubModule class
   //-----------------------------------------------------------------------------
@@ -140,13 +139,13 @@ namespace eFlex {
   // ----------------------------------------------------------------------------
   inline void SubModule::updateDutyCyclePercent (uint8_t dutyCyclePercent, Channel channel) {
 
-    PWM_UpdatePwmDutycycle (ptr(), SM[m_smidx], kPwmChan (channel), m_config.mode(), dutyCyclePercent);
+    PWM_UpdatePwmDutycycle (ptr(), SM[m_smidx], kPwmChan (channel), m_config.m_mode, dutyCyclePercent);
   }
 
   // ----------------------------------------------------------------------------
   inline void SubModule::updateDutyCycle (uint16_t dutyCycle, Channel channel) {
 
-    PWM_UpdatePwmDutycycleHighAccuracy (ptr(), SM[m_smidx], kPwmChan (channel), m_config.mode(), dutyCycle);
+    PWM_UpdatePwmDutycycleHighAccuracy (ptr(), SM[m_smidx], kPwmChan (channel), m_config.m_mode, dutyCycle);
   }
 
   // ----------------------------------------------------------------------------
@@ -349,5 +348,4 @@ namespace eFlex {
   inline void SubModule::setChannelOutput (Channel channel, pwm_output_state_t outputstate) {
     PWM_SetChannelOutput (ptr(), SM[m_smidx], kPwmChan (channel),  outputstate);
   }
-  #endif
 }
