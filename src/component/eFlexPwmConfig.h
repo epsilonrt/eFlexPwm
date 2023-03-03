@@ -42,11 +42,18 @@ namespace eFlex {
       /**
          @brief Set the PWM signal frequency in Hz
       */
-      inline void setPwmFreqHz (uint32_t pwmFreqHz);
+      inline void setPwmFreqHz (uint32_t pwmFreqHz) {
+
+        m_pwmfreq = pwmFreqHz;
+      }
+
       /**
          @brief PWM signal frequency in Hz, default 5000
       */
-      inline uint32_t pwmFreqHz() const;
+      inline uint32_t pwmFreqHz() const {
+
+        return m_pwmfreq;
+      }
 
       /**
         @brief Set the PWM operation mode
@@ -55,6 +62,7 @@ namespace eFlex {
 
         m_mode = mode;
       }
+
       /**
         @brief PWM operation mode, default \c CenterAligned
       */
@@ -66,105 +74,174 @@ namespace eFlex {
       /**
         @brief Set the reload source select
       */
-      inline void setReloadSelect (pwm_reload_source_select_t reloadSelect);
+      inline void setReloadSelect (pwm_reload_source_select_t reloadSelect) {
+
+        m_config.reloadSelect = reloadSelect;
+      }
+
       /**
          @brief Option to initialize the counter, default \c kPWM_LocalReload
       */
-      inline pwm_reload_source_select_t reloadSelect() const;
+      inline pwm_reload_source_select_t reloadSelect() const {
+
+        return m_config.reloadSelect;
+      }
 
       /**
          @brief Select the  Clock source for the counter
       */
-      inline void setClockSource (pwm_clock_source_t clockSource);
+      inline void setClockSource (pwm_clock_source_t clockSource) {
+
+        m_config.clockSource = clockSource;
+      }
+
       /**
          @brief Clock source for the counter, default \c kPWM_BusClock
       */
-      inline pwm_clock_source_t clockSource() const;
+      inline pwm_clock_source_t clockSource() const {
+
+        return m_config.clockSource;
+      }
 
       /**
          @brief Set the Pre-scaler to divide down the clock
       */
-      inline void setPrescale (pwm_clock_prescale_t prescale);
+      inline void setPrescale (pwm_clock_prescale_t prescale) {
+
+        m_config.prescale = prescale;
+      }
+
       /**
          @brief Pre-scaler to divide down the clock, default \c kPWM_Prescale_Divide_1
       */
-      inline pwm_clock_prescale_t prescale() const;
+      inline pwm_clock_prescale_t prescale() const {
+
+        return m_config.prescale;
+      }
 
       /**
          @brief Set the  Option to initialize the counter
       */
-      inline void setInitializationControl (pwm_init_source_t initializationControl);
+      inline void setInitializationControl (pwm_init_source_t initializationControl) {
+
+        m_config.initializationControl = initializationControl;
+      }
+
       /**
          @brief Reload source select, default \c kPWM_Initialize_LocalSync
       */
-      inline pwm_init_source_t initializationControl() const;
+      inline pwm_init_source_t initializationControl() const {
+
+        return m_config.initializationControl;
+      }
 
       /**
          @brief Specify which signal will trigger a FORCE_OUT
       */
-      inline void setForceTrigger (pwm_force_output_trigger_t forceTrigger);
+      inline void setForceTrigger (pwm_force_output_trigger_t forceTrigger) {
+
+        m_config.forceTrigger = forceTrigger;
+      }
+
       /**
          @brief Specify which signal will trigger a FORCE_OUT, default \c kPWM_Force_Local
       */
-      inline pwm_force_output_trigger_t forceTrigger() const;
+      inline pwm_force_output_trigger_t forceTrigger() const {
+
+        return m_config.forceTrigger;
+      }
 
       /**
          @brief Specifies when to reload
       */
-      inline void setReloadFrequency (pwm_load_frequency_t reloadFrequency);
+      inline void setReloadFrequency (pwm_load_frequency_t reloadFrequency) {
+
+        m_config.reloadFrequency = reloadFrequency;
+      }
+
       /**
          @brief Specifies when to reload, default \c kPWM_LoadEveryOportunity
 
          used when user's choice is not immediate reload
       */
-      inline pwm_load_frequency_t reloadFrequency() const;
+      inline pwm_load_frequency_t reloadFrequency() const {
+
+        return m_config.reloadFrequency;
+      }
 
       /**
          @brief Set the PWM Reload logic setup
       */
-      inline void setReloadLogic (pwm_register_reload_t reloadLogic);
+      inline void setReloadLogic (pwm_register_reload_t reloadLogic) {
+
+        m_config.reloadLogic = reloadLogic;
+      }
+
       /**
          @brief PWM Reload logic setup, default \c kPWM_ReloadImmediate
       */
-      inline pwm_register_reload_t reloadLogic() const;
+      inline pwm_register_reload_t reloadLogic() const {
+
+        return m_config.reloadLogic;
+      }
 
       /**
          @brief Set the channel pair in indepedent or complementary mode
       */
-      inline void setPairOperation (pwm_chnl_pair_operation_t pairOperation);
+      inline void setPairOperation (pwm_chnl_pair_operation_t pairOperation) {
+
+        m_config.pairOperation = pairOperation;
+      }
+
       /**
          @brief Channel pair in indepedent or complementary mode, default \c kPWM_Independent
       */
-      inline pwm_chnl_pair_operation_t pairOperation() const;
+      inline pwm_chnl_pair_operation_t pairOperation() const {
 
+        return m_config.pairOperation;
+      }
 
       /**
          @brief enable Debug Mode
 
          @param enable true PWM continues to run in debug mode, false PWM is paused in debug mode
       */
-      inline void enableDebugMode (bool enable);
+      inline void enableDebugMode (bool enable) {
+
+        m_config.enableDebugMode = enable;
+      }
+
       /**
          @brief Debug mode, default false
 
          @return true PWM continues to run in debug mode
          @return false PWM is paused in debug mode
       */
-      inline bool debugModeEnabled() const;
+      inline bool debugModeEnabled() const {
+
+        return m_config.enableDebugMode;
+      }
 
       /**
          @brief enable Wait Mode
 
          @param enable true PWM is paused in debug mode, false PWM is paused in WAIT mode
       */
-      inline void enableWaitMode (bool enable);
+      inline void enableWaitMode (bool enable) {
+
+        m_config.enableWait = enable;
+      }
+      
       /**
          @brief Wait mode, default false
 
          @return true PWM is paused in debug mode
          @return false PWM is paused in WAIT mode
       */
-      inline bool waitModeEnabled() const;
+      inline bool waitModeEnabled() const {
+
+        return m_config.enableWait;
+      }
 
     protected:
       pwm_config_t *kPwmConfig();
@@ -180,6 +257,3 @@ namespace eFlex {
       pwm_config_t m_config;
   };
 }
-
-#include "source/eFlexPwmConfig_p.h"
-

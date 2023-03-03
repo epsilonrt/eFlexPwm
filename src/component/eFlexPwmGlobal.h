@@ -12,6 +12,16 @@
 
 /// @brief Library namespace
 namespace eFlex {
+
+  /**
+   * @brief PWM Channel
+   */
+  enum Channel {
+    ChanA = 0,
+    ChanB = 1
+  };
+  
+#ifndef DOXYGEN
   //   Constants
   // ----------------------------------------------------------------------------
   const uint8_t NofTimers = 4; ///< Number of timers in the MCU
@@ -48,9 +58,25 @@ namespace eFlex {
     AllSubmodulesFlag = (Submodule1Flag | Submodule2Flag | Submodule3Flag | Submodule4Flag)
   };
 
-  enum Channel {
-    ChanA = 0,
-    ChanB = 1
+  const pwm_submodule_t SM[NofSubmodules] = {
+    kPWM_Module_0,
+    kPWM_Module_1,
+    kPWM_Module_2,
+    kPWM_Module_3
   };
 
+  //   Variables
+  // ----------------------------------------------------------------------------
+  extern PWM_Type *PWM[NofTimers];
+  extern uint8_t SmMask[NofTimers];
+
+  //   Code
+  // ----------------------------------------------------------------------------
+
+  // ----------------------------------------------------------------------------
+  inline pwm_channels_t kPwmChan (Channel c) {
+
+    return (c == ChanA ? kPWM_PwmA : kPWM_PwmB);
+  }
+#endif
 }

@@ -10,10 +10,6 @@
 
 namespace eFlex {
 
-  //-----------------------------------------------------------------------------
-  //                                Pin class
-  //-----------------------------------------------------------------------------
-
   /**
      @brief Arduino pin
 
@@ -40,35 +36,46 @@ namespace eFlex {
 
          A pin is valid if its number is different from -1 and if channel is different from kPWM_PwmX
       */
-      bool isValid() const;
+      inline bool isValid() const {
+
+        return (m_number != -1);
+      }
 
       /**
          @brief Timer index of this pin
 
          @return Timer index starting from zero (0 for PWM1, 1 for PWM2, ...)
       */
-      inline uint8_t timerIndex () const;
+      inline uint8_t timerIndex () const {
+        return ( (m_module >> 4) & 3);
+      }
 
       /**
          @brief Sumbmodule index of this pin
 
          @return Sumbmodule index starting from zero (0 for Submodule0, 1 for Submodule1, ...)
       */
-      inline uint8_t submoduleIndex () const;
+      inline uint8_t submoduleIndex () const {
+        return (m_module & 3);
+      }
 
       /**
          @brief
 
          @return uint8_t
       */
-      inline uint8_t muxval () const;
+      inline uint8_t muxval () const {
+        return m_muxval;
+      }
 
       /**
          @brief
 
          @return uint8_t
       */
-      inline uint8_t channel () const;
+      inline uint8_t channel () const {
+        return m_channel;
+      }
 
     private:
       int m_number;
@@ -77,5 +84,3 @@ namespace eFlex {
       uint8_t m_channel;
   };
 }
-
-#include "source/eFlexPwmPin_p.h"

@@ -124,7 +124,7 @@ namespace eFlex {
     }
 
     /* Select local force signal */
-    m_ptr->SM[m_smidx].CTRL2 &= ~(uint16_t)PWM_CTRL2_FORCE_SEL_MASK;
+    m_ptr->SM[m_smidx].CTRL2 &= ~ (uint16_t) PWM_CTRL2_FORCE_SEL_MASK;
     /* Issue a local Force trigger event */
     m_ptr->SM[m_smidx].CTRL2 |= PWM_CTRL2_FORCE_MASK;
     /* Restore the source of FORCE OUTPUT signal */
@@ -138,7 +138,80 @@ namespace eFlex {
 
     mask = PWM_MASK_MASKA (smFlag) | (m_pin[ChanB].isValid() ? PWM_MASK_MASKB (smFlag) : 0);
 
-    return ((m_ptr->MASK & mask) == 0);
+    return ( (m_ptr->MASK & mask) == 0);
+  }
+
+  // ----------------------------------------------------------------------------
+  Timer &SubModule::timer() {
+
+    return TM[m_tmidx];
+  }
+
+  //-----------------------------------------------------------------------------
+  void SubModule::start() {
+
+    timer().start (1 << index());
+  }
+
+  //-----------------------------------------------------------------------------
+  void SubModule::stop() {
+
+    timer().stop (1 << index());
+  }
+
+  //-----------------------------------------------------------------------------
+  void SubModule::setPwmLdok (bool value) {
+
+    timer().setPwmLdok (1 << index(), value);
+  }
+
+  // ----------------------------------------------------------------------------
+  bool SubModule::setupPwmPhaseShift (Channel channel, uint8_t shiftvalue, bool doSync) {
+    return (PWM_SetupPwmPhaseShift (ptr(), SM[m_smidx], kPwmChan (channel), m_config.pwmFreqHz(), timer().srcClockHz(), shiftvalue, doSync) == kStatus_Success);
+  }
+
+  //-----------------------------------------------------------------------------
+  void SubModule::setDutyCyclePercent (uint8_t dutyCyclePercent) {
+
+    for (uint8_t i = 0; i < NofPins; i++) {
+      m_signal[i].dutyCyclePercent = dutyCyclePercent;
+    }
+  }
+
+  //-----------------------------------------------------------------------------
+  void SubModule::setLevel (pwm_level_select_t level) {
+
+    for (uint8_t i = 0; i < NofPins; i++) {
+
+      m_signal[i].level = level;
+    }
+  }
+
+  //-----------------------------------------------------------------------------
+  void SubModule::setDeadtime (uint16_t deadtimeValue) {
+
+    for (uint8_t i = 0; i < NofPins; i++) {
+
+      m_signal[i].deadtimeValue = deadtimeValue;
+    }
+  }
+
+  //-----------------------------------------------------------------------------
+  void SubModule::setEnable (bool activate) {
+
+    for (uint8_t i = 0; i < NofPins; i++) {
+
+      m_signal[i].pwmchannelenable = activate;
+    }
+  }
+
+  //-----------------------------------------------------------------------------
+  void SubModule::setFaultState (pwm_fault_state_t faultState) {
+
+    for (uint8_t i = 0; i < NofPins; i++) {
+
+      m_signal[i].faultState = faultState;
+    }
   }
 
   //-----------------------------------------------------------------------------

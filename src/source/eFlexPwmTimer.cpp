@@ -65,6 +65,59 @@ namespace eFlex {
     m_isenabled = value;
   }
 
+
+  // ----------------------------------------------------------------------------
+  void Timer::setLevel (pwm_level_select_t level) {
+
+    for (uint8_t i = 0; i < NofSubmodules; i++) {
+
+      SubModule *s = SmList[m_tmidx][i];
+      if (s) {
+
+        s ->setLevel (level);
+      }
+    }
+  }
+
+  // ----------------------------------------------------------------------------
+  void Timer::setDeadtime (uint16_t deadtimeValue) {
+
+    for (uint8_t i = 0; i < NofSubmodules; i++) {
+
+      SubModule *s = SmList[m_tmidx][i];
+      if (s) {
+
+        s ->setDeadtime (deadtimeValue);
+      }
+    }
+  }
+
+  // ----------------------------------------------------------------------------
+  void Timer::setEnable (bool activate) {
+
+    for (uint8_t i = 0; i < NofSubmodules; i++) {
+
+      SubModule *s = SmList[m_tmidx][i];
+      if (s) {
+
+        s ->setEnable (activate);
+      }
+    }
+  }
+
+  // ----------------------------------------------------------------------------
+  void Timer::setFaultState (pwm_fault_state_t faultState) {
+
+    for (uint8_t i = 0; i < NofSubmodules; i++) {
+
+      SubModule *s = SmList[m_tmidx][i];
+      if (s) {
+
+        s ->setFaultState (faultState);
+      }
+    }
+  }
+
   //-----------------------------------------------------------------------------
   void Timer::dumpRegs (Stream &out) const {
     #ifdef EFLEXPWM_DUMPREG_ENABLED

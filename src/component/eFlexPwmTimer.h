@@ -11,18 +11,15 @@
 
 namespace eFlex {
 
-  //-----------------------------------------------------------------------------
-  //                                Timer class
-  //-----------------------------------------------------------------------------
   /**
-   * @brief Timer
-   * 
-   */
+     @brief PWM Module
+
+  */
   class Timer {
 
     public:
       /**
-         @brief Construct a new Timer object
+         @brief Construct a new Timer Module
 
          @param index
       */
@@ -38,37 +35,37 @@ namespace eFlex {
       */
       bool begin (bool doStart = true, bool doSync = true);
 
-      inline void setDutyCyclePercent (uint8_t dutyCyclePercent);
-      inline void setLevel (pwm_level_select_t level);
-      inline void setDeadtime (uint16_t deadtimeValue);
-      inline void setEnable (bool activate = true);
-      inline void setFaultState (pwm_fault_state_t faultState);
+      void setDutyCyclePercent (uint8_t dutyCyclePercent);
+      void setLevel (pwm_level_select_t level);
+      void setDeadtime (uint16_t deadtimeValue);
+      void setEnable (bool activate = true);
+      void setFaultState (pwm_fault_state_t faultState);
 
       /**
-       * @brief Enable or disable all instantiated submodules of the timer
-       * 
-       * This function allows you to enable/disable the output pins without 
-       * changing anything in the configuration. When the timer is 
-       * disabled, its output pins are forced to zero.
-       * 
-       * @param value true to enable, false otherwise
-       */
-      void enable (bool value =true);
+         @brief Enable or disable all instantiated submodules of the timer
+
+         This function allows you to enable/disable the output pins without
+         changing anything in the configuration. When the timer is
+         disabled, its output pins are forced to zero.
+
+         @param value true to enable, false otherwise
+      */
+      void enable (bool value = true);
 
       /**
-       * @brief Disable all instantiated submodules of the timer
-       * 
-       * This function allows you to disable the output pins without 
-       * changing anything in the configuration. When the submodule is 
-       * disabled, its output pins are forced to zero.
-       */
+         @brief Disable all instantiated submodules of the timer
+
+         This function allows you to disable the output pins without
+         changing anything in the configuration. When the submodule is
+         disabled, its output pins are forced to zero.
+      */
       inline void disable () {
         enable (false);
       }
 
       /**
-       * @brief Returns true if the timer is enabled
-       */
+         @brief Returns true if the timer is enabled
+      */
       inline bool isEnabled() const {
         return m_isenabled;
       }
@@ -76,12 +73,9 @@ namespace eFlex {
       /**
          @brief PWM main counter clock in Hz.
       */
-      inline uint32_t srcClockHz() const;
-
-      /**
-         @name Timer Start and Stop
-         @{
-      */
+      inline uint32_t srcClockHz() const {
+        return F_BUS_ACTUAL;
+      }
 
       /**
         @brief Starts the PWM counter for a single or multiple submodules.
@@ -92,14 +86,18 @@ namespace eFlex {
         @param subModulesToStart PWM submodules to start. This is a logical OR of members of the
                                   enumeration ::pwm_module_control_t
       */
-      inline void start (uint8_t subModulesToStart);
+      inline void start (uint8_t subModulesToStart) {
+        PWM_StartTimer (ptr(), subModulesToStart);
+      }
 
       /**
         @brief Starts the PWM counter for all instantiated submodules for this timer
 
         @note This operation is not useful if \c begin() was called with doStart=true
       */
-      inline void start ();
+      inline void start () {
+        start (SmMask[m_tmidx]);
+      }
 
       /**
         @brief Stops the PWM counter for a single or multiple submodules.
@@ -110,12 +108,16 @@ namespace eFlex {
         @param subModulesToStop PWM submodules to stop. This is a logical OR of members of the
                                  enumeration ::pwm_module_control_t
       */
-      inline void stop (uint8_t subModulesToStop);
+      inline void stop (uint8_t subModulesToStop) {
+        PWM_StopTimer (ptr(), subModulesToStop);
+      }
 
       /**
         @brief Stops the PWM counter for all instantiated submodules for this timer
       */
-      inline void stop ();
+      inline void stop () {
+        stop (SmMask[m_tmidx]);
+      }
 
       /**
         @brief Sets or clears the PWM LDOK bit on a single or multiple submodules
@@ -129,7 +131,9 @@ namespace eFlex {
                                    members of the enumeration ::pwm_module_control_t
         @param value              true: Set LDOK bit for the submodule list; false: Clear LDOK bit
       */
-      inline void setPwmLdok (uint8_t subModulesToUpdate, bool value);
+      inline void setPwmLdok (uint8_t subModulesToUpdate, bool value) {
+        PWM_SetPwmLdok (ptr(), subModulesToUpdate, value);
+      }
 
       /**
         @brief Sets or clears the PWM LDOK bit on all instantiated submodules for this timer
@@ -138,14 +142,19 @@ namespace eFlex {
 
         @param value              true: Set LDOK bit for the submodule list; false: Clear LDOK bit
       */
-      inline void setPwmLdok (bool value = true);
+      inline void setPwmLdok (bool value = true) {
+        setPwmLdok (SmMask[m_tmidx], value);
+      }
+
 
       /**
         @brief Sets up the PWM fault input filter.
 
         @param faultInputFilterParams Parameters passed in to set up the fault input filter.
       */
-      inline void setupFaultInputFilter (const pwm_fault_input_filter_param_t *faultInputFilterParams);
+      inline void setupFaultInputFilter (const pwm_fault_input_filter_param_t *faultInputFilterParams) {
+        PWM_SetupFaultInputFilter (ptr(), faultInputFilterParams);
+      }
 
       /**
          @brief Sets up the PWM fault protection.
@@ -155,23 +164,31 @@ namespace eFlex {
          @param faultNum    PWM fault to configure.
          @param faultParams Pointer to the PWM fault config structure
       */
-      inline void setupFaults (pwm_fault_input_t faultNum, const pwm_fault_param_t *faultParams);
-
-      /** @}*/
+      inline void setupFaults (pwm_fault_input_t faultNum, const pwm_fault_param_t *faultParams) {
+        PWM_SetupFaults (ptr(), faultNum, faultParams);
+      }
 
       /**
          @brief
 
          @return uint8_t
       */
-      inline uint8_t index() const;
+      inline uint8_t index() const {
+        return m_tmidx;
+      }
 
       void dumpRegs (Stream &out = Serial) const;
       void dumpAllRegs (Stream &out = Serial) const;
 
     protected:
-      inline PWM_Type *ptr();
-      inline const PWM_Type *ptr() const;
+      inline PWM_Type *ptr() {
+
+        return m_ptr;
+      }
+      inline const PWM_Type *ptr() const {
+
+        return m_ptr;
+      }
 
     private:
       friend class SubModule;
@@ -182,6 +199,6 @@ namespace eFlex {
       PWM_Type *m_ptr;
       bool m_isenabled;
   };
+  extern Timer TM[NofTimers];
 }
 
-#include "source/eFlexPwmTimer_p.h"

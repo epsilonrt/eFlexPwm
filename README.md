@@ -1,5 +1,5 @@
 # eFlexPwm
-Arduino eFlexPwm for Teensy 4.x
+Arduino eFlexPwm library for Teensy 4.x
 
 <a href="https://www.oshwa.org/">
   <img src="https://raw.githubusercontent.com/epsilonrt/eFlexPwm/master/extras/images/eflexpwm_logo_small.png" alt="eFlexPwm Logo" align="right" valign="top">

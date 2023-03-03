@@ -12,13 +12,10 @@
 namespace eFlex {
 
   class Timer;
-  //-----------------------------------------------------------------------------
-  //                            SubModule class
-  //-----------------------------------------------------------------------------
   /**
-   * @brief Submodule
-   * 
-   */
+     @brief Submodule
+
+  */
   class SubModule {
     public:
       /**
@@ -74,7 +71,10 @@ namespace eFlex {
                                   0=inactive signal(0% duty cycle)...
                                   100=active signal (100% duty cycle)
       */
-      inline void updateDutyCyclePercent (uint8_t dutyCyclePercent, Channel channel = ChanA);
+      inline void updateDutyCyclePercent (uint8_t dutyCyclePercent, Channel channel = ChanA) {
+
+        PWM_UpdatePwmDutycycle (ptr(), SM[m_smidx], kPwmChan (channel), m_config.m_mode, dutyCyclePercent);
+      }
 
       /**
          @brief Updates the PWM signal's dutycycle with 16-bit accuracy.
@@ -89,7 +89,10 @@ namespace eFlex {
                                   0=inactive signal(0% duty cycle)...
                                   65535=active signal (100% duty cycle)
       */
-      inline void updateDutyCycle (uint16_t dutyCycle, Channel channel = ChanA);
+      inline void updateDutyCycle (uint16_t dutyCycle, Channel channel = ChanA) {
+
+        PWM_UpdatePwmDutycycleHighAccuracy (ptr(), SM[m_smidx], kPwmChan (channel), m_config.m_mode, dutyCycle);
+      }
 
       /*!
          @brief Update PWM signals for a PWM submodule.
@@ -122,57 +125,33 @@ namespace eFlex {
       }
 
       /**
-       * @brief Enable or disable the submodule
-       * 
-       * This function allows you to enable/disable the output pins without 
-       * changing anything in the configuration. When the submodule is 
-       * disabled, its output pins are forced to zero.
-       * 
-       * @param value true to enable, false otherwise
-       */
+         @brief Enable or disable the submodule
+
+         This function allows you to enable/disable the output pins without
+         changing anything in the configuration. When the submodule is
+         disabled, its output pins are forced to zero.
+
+         @param value true to enable, false otherwise
+      */
       void enable (bool value = true);
 
       /**
-       * @brief Disable the submodule
-       * 
-       * This function allows you to disable the output pins without 
-       * changing anything in the configuration. When the submodule is 
-       * disabled, its output pins are forced to zero.
-       */
+         @brief Disable the submodule
+
+         This function allows you to disable the output pins without
+         changing anything in the configuration. When the submodule is
+         disabled, its output pins are forced to zero.
+      */
       inline void disable () {
 
         enable (false);
       }
 
       /**
-       * @brief Returns true if the submodule is enabled
-       */
+         @brief Returns true if the submodule is enabled
+      */
       bool isEnabled() const;
 
-      /**
-         @brief
-
-         @return Timer&
-      */
-      inline Timer &timer();
-
-      inline void setDutyCyclePercent (Channel channel, uint8_t dutyCyclePercent);
-      inline void setLevel (Channel channel, pwm_level_select_t level);
-      inline void setDeadtime (Channel channel, uint16_t deadtimeValue);
-      inline void setEnable (Channel channel, bool activate = true);
-      inline void setFaultState (Channel channel, pwm_fault_state_t faultState);
-      inline void setDutyCyclePercent (uint8_t dutyCyclePercent);
-      inline void setLevel (pwm_level_select_t level);
-      inline void setDeadtime (uint16_t deadtimeValue);
-      inline void setEnable (bool activate = true);
-      inline void setFaultState (pwm_fault_state_t faultState);
-
-      /**
-         @brief
-
-         @return uint8_t
-      */
-      inline uint8_t index() const;
 
       /**
          @brief
@@ -180,19 +159,19 @@ namespace eFlex {
          @return true
          @return false
       */
-      inline bool isValid() const;
+      bool isValid() const;
 
       /**
         @brief Starts the PWM counter for this submodule
 
         @note This operation is not useful if \c begin() was called with doStart=true
       */
-      inline void start ();
+      void start ();
 
       /**
         @brief Stops the PWM counter for all instantiated submodules for this timer
       */
-      inline void stop ();
+      void stop ();
 
       /**
         @brief Sets or clears the PWM LDOK bit on all instantiated submodules for this timer
@@ -201,20 +180,124 @@ namespace eFlex {
 
         @param value true: Set LDOK bit for the submodule list; false: Clear LDOK bit
       */
-      inline void setPwmLdok (bool value = true);
+      void setPwmLdok (bool value = true);
+
+      /**
+         @brief 
+
+         @return Timer&
+      */
+      Timer &timer();
+
+      /**
+         @brief Set the Duty Cycle Percent object
+
+         @param channel
+         @param dutyCyclePercent
+      */
+      inline void setDutyCyclePercent (Channel channel, uint8_t dutyCyclePercent) {
+
+        m_signal[channel].dutyCyclePercent = dutyCyclePercent;
+      }
+
+      /**
+         @brief Set the Duty Cycle Percent object
+
+         @param dutyCyclePercent
+      */
+      void setDutyCyclePercent (uint8_t dutyCyclePercent);
+
+      /**
+         @brief Set the Level object
+
+         @param channel
+         @param level
+      */
+      inline void setLevel (Channel channel, pwm_level_select_t level) {
+
+        m_signal[channel].level = level;
+      }
+
+      /**
+         @brief Set the Level object
+
+         @param level
+      */
+      void setLevel (pwm_level_select_t level);
+
+      /**
+         @brief Set the Deadtime object
+
+         @param channel
+         @param deadtimeValue
+      */
+      inline void setDeadtime (Channel channel, uint16_t deadtimeValue) {
+
+        m_signal[channel].deadtimeValue = deadtimeValue;
+      }
+
+      /**
+         @brief Set the Deadtime object
+
+         @param deadtimeValue
+      */
+      void setDeadtime (uint16_t deadtimeValue);
+
+      /**
+         @brief Set the Enable object
+
+         @param channel
+         @param activate
+      */
+      inline void setEnable (Channel channel, bool activate = true) {
+
+        m_signal[channel].pwmchannelenable = activate;
+      }
+
+      /**
+         @brief Set the Enable object
+
+         @param activate
+      */
+      void setEnable (bool activate = true);
+
+      /**
+         @brief Set the Fault State object
+
+         @param channel
+         @param faultState
+      */
+      inline void setFaultState (Channel channel, pwm_fault_state_t faultState) {
+
+        m_signal[channel].faultState = faultState;
+      }
+
+      /**
+         @brief Set the Fault State object
+
+         @param faultState
+      */
+      void setFaultState (pwm_fault_state_t faultState);
+
+      /**
+         @brief Submodule index
+      */
+      inline uint8_t index() const {
+
+        return m_smidx;
+      }
 
       /**
          @brief Set PWM phase shift for PWM channel running on channel PWM_A, PWM_B which with 50% duty cycle..
 
          @param channel  PWM channel to configure
-         @param pwmFreq_Hz  PWM signal frequency in Hz
          @param shiftvalue  Phase shift value
          @param doSync      true: Set LDOK bit for the submodule list;
                             false: LDOK bit don't set, need to call setPwmLdok to sync update.
 
          @return Returns false if there was error setting up the signal; true otherwise
       */
-      inline bool setupPwmPhaseShift (Channel channel, uint32_t pwmFreq_Hz, uint8_t shiftvalue, bool doSync = true);
+      bool setupPwmPhaseShift (Channel channel, uint8_t shiftvalue, bool doSync = true);
 
       /**
          @brief Sets up the PWM input capture
@@ -225,8 +308,9 @@ namespace eFlex {
          @param channel         Channel in the submodule to setup
          @param inputCaptureParams Parameters passed in to set up the input pin
       */
-      inline void setupInputCapture (Channel channel, const pwm_input_capture_param_t *inputCaptureParams);
-
+      inline void setupInputCapture (Channel channel, const pwm_input_capture_param_t *inputCaptureParams) {
+        PWM_SetupInputCapture (ptr(), SM[m_smidx], kPwmChan (channel), inputCaptureParams);
+      }
 
       /**
          @brief Selects the signal to output on a PWM pin when a FORCE_OUT signal is asserted.
@@ -237,7 +321,9 @@ namespace eFlex {
          @param channel Channel to configure
          @param mode       Signal to output when a FORCE_OUT is triggered
       */
-      inline void setupForceSignal (Channel channel, pwm_force_signal_t mode);
+      inline void setupForceSignal (Channel channel, pwm_force_signal_t mode) {
+        PWM_SetupForceSignal (ptr(), SM[m_smidx], kPwmChan (channel), mode);
+      }
 
       /**
          @brief Enables the selected PWM interrupts
@@ -245,7 +331,9 @@ namespace eFlex {
          @param mask      The interrupts to enable. This is a logical OR of members of the
                           enumeration ::pwm_interrupt_enable_t
       */
-      inline void enableInterrupts (uint32_t mask);
+      inline void enableInterrupts (uint32_t mask) {
+        PWM_EnableInterrupts (ptr(), SM[m_smidx], mask);
+      }
 
       /**
          @brief Disables the selected PWM interrupts
@@ -253,7 +341,9 @@ namespace eFlex {
          @param mask      The interrupts to enable. This is a logical OR of members of the
                           enumeration ::pwm_interrupt_enable_t
       */
-      inline void disableInterrupts (uint32_t mask);
+      inline void disableInterrupts (uint32_t mask) {
+        PWM_DisableInterrupts (ptr(), SM[m_smidx], mask);
+      }
 
       /**
          @brief Gets the enabled PWM interrupts
@@ -261,21 +351,27 @@ namespace eFlex {
          @return The enabled interrupts. This is the logical OR of members of the
                  enumeration ::pwm_interrupt_enable_t
       */
-      inline uint32_t enabledInterrupts ();
+      inline uint32_t enabledInterrupts () {
+        return PWM_GetEnabledInterrupts (ptr(), SM[m_smidx]);
+      }
 
       /**
          @brief Capture DMA Enable Source Select.
 
          @param pwm_watermark_control PWM FIFO watermark and control
       */
-      inline void setDMAWatermarkControl (pwm_watermark_control_t pwm_watermark_control);
+      inline void setDMAWatermarkControl (pwm_watermark_control_t pwm_watermark_control) {
+        PWM_DMAFIFOWatermarkControl (ptr(), SM[m_smidx], pwm_watermark_control);
+      }
 
       /**
          @brief Capture DMA Enable Source Select.
 
          @param pwm_dma_source_select PWM capture DMA enable source select
       */
-      inline void setDMACaptureSourceSelect (pwm_dma_source_select_t pwm_dma_source_select);
+      inline void setDMACaptureSourceSelect (pwm_dma_source_select_t pwm_dma_source_select) {
+        PWM_DMACaptureSourceSelect (ptr(), SM[m_smidx], pwm_dma_source_select);
+      }
 
       /**
          @brief Enables or disables the selected PWM DMA Capture read request.
@@ -284,14 +380,18 @@ namespace eFlex {
                           enumeration ::pwm_dma_enable_t
          @param activate  true: Enable DMA read request; false: Disable DMA read request
       */
-      inline void enableDMACapture (uint16_t mask, bool activate = true);
+      inline void enableDMACapture (uint16_t mask, bool activate = true) {
+        PWM_EnableDMACapture (ptr(), SM[m_smidx], mask, activate);
+      }
 
       /**
          @brief Enables or disables the PWM DMA write request.
 
          @param activate  true: Enable DMA write request; false: Disable DMA write request
       */
-      inline void enableDMAWrite (bool activate);
+      inline void enableDMAWrite (bool activate) {
+        PWM_EnableDMAWrite (ptr(), SM[m_smidx], activate);
+      }
 
       /**
          @brief Gets the PWM status flags
@@ -299,7 +399,9 @@ namespace eFlex {
          @return The status flags. This is the logical OR of members of the
                  enumeration ::pwm_status_flags_t
       */
-      inline uint32_t statusFlags ();
+      inline uint32_t statusFlags () {
+        return PWM_GetStatusFlags (ptr(), SM[m_smidx]);
+      }
 
       /**
          @brief Clears the PWM status flags
@@ -307,9 +409,9 @@ namespace eFlex {
          @param mask      The status flags to clear. This is a logical OR of members of the
                           enumeration ::pwm_status_flags_t
       */
-      inline void clearStatusFlags (uint32_t mask);
-
-      
+      inline void clearStatusFlags (uint32_t mask) {
+        PWM_ClearStatusFlags (ptr(), SM[m_smidx], mask);
+      }
 
       /**
          @brief Set the PWM VALx registers.
@@ -322,7 +424,10 @@ namespace eFlex {
          @param valueRegister VALx register that will be writen new value
          @param value         Value that will been write into VALx register
       */
-      inline void setVALxValue (pwm_value_register_t valueRegister, uint16_t value);
+      inline void setVALxValue (pwm_value_register_t valueRegister, uint16_t value) {
+        PWM_SetVALxValue (ptr(), SM[m_smidx], valueRegister,  value);
+      }
+
       /**
          @brief Set the PWM INIT register.
 
@@ -333,7 +438,11 @@ namespace eFlex {
 
          @param value Value that will been write into register
       */
-      inline void setInitValue (uint16_t value);
+      inline void setInitValue (uint16_t value) {
+
+        m_ptr->SM[m_smidx].INIT = value;
+      }
+
       /**
          @brief Set the PWM VAL0 register.
 
@@ -344,7 +453,11 @@ namespace eFlex {
 
          @param value Value that will been write into register
       */
-      inline void setVal0Value (uint16_t value);
+      inline void setVal0Value (uint16_t value) {
+
+        m_ptr->SM[m_smidx].VAL0 = value;
+      }
+
       /**
          @brief Set the PWM VAL1 register.
 
@@ -355,7 +468,11 @@ namespace eFlex {
 
          @param value Value that will been write into register
       */
-      inline void setVal1Value (uint16_t value);
+      inline void setVal1Value (uint16_t value) {
+
+        m_ptr->SM[m_smidx].VAL1 = value;
+      }
+
       /**
          @brief Set the PWM VAL2 register.
 
@@ -366,7 +483,11 @@ namespace eFlex {
 
          @param value Value that will been write into register
       */
-      inline void setVal2Value (uint16_t value);
+      inline void setVal2Value (uint16_t value) {
+
+        m_ptr->SM[m_smidx].VAL2 = value;
+      }
+
       /**
          @brief Set the PWM VAL3 register.
 
@@ -377,7 +498,11 @@ namespace eFlex {
 
          @param value Value that will been write into register
       */
-      inline void setVal3Value (uint16_t value);
+      inline void setVal3Value (uint16_t value) {
+
+        m_ptr->SM[m_smidx].VAL3 = value;
+      }
+
       /**
          @brief Set the PWM VAL4 register.
 
@@ -388,7 +513,11 @@ namespace eFlex {
 
          @param value Value that will been write into register
       */
-      inline void setVal4Value (uint16_t value);
+      inline void setVal4Value (uint16_t value) {
+
+        m_ptr->SM[m_smidx].VAL4 = value;
+      }
+
       /**
          @brief Set the PWM VAL5 register.
 
@@ -399,7 +528,10 @@ namespace eFlex {
 
          @param value Value that will been write into register
       */
-      inline void setVal5Value (uint16_t value);
+      inline void setVal5Value (uint16_t value) {
+
+        m_ptr->SM[m_smidx].VAL5 = value;
+      }
 
       /**
          @brief Get the PWM VALx registers.
@@ -407,49 +539,79 @@ namespace eFlex {
          @param valueRegister VALx register that will be read value
          @return The VALx register value
       */
-      inline uint16_t VALxValue (pwm_value_register_t valueRegister);
+      inline uint16_t VALxValue (pwm_value_register_t valueRegister) {
+        return PWM_GetVALxValue (ptr(), SM[m_smidx], valueRegister);
+      }
+
       /**
          @brief Get the PWM INIT register.
 
          @return The register value
       */
-      inline uint16_t initValue ();
+      inline uint16_t initValue () {
+
+        return m_ptr->SM[m_smidx].INIT;
+      }
+
       /**
          @brief Get the PWM VAL1 register.
 
          @return The register value
       */
-      inline uint16_t val0Value ();
+      inline uint16_t val0Value () {
+
+        return m_ptr->SM[m_smidx].VAL0;
+      }
+
       /**
          @brief Get the PWM VAL1 register.
 
          @return The register value
       */
-      inline uint16_t val1Value ();
+      inline uint16_t val1Value () {
+
+        return m_ptr->SM[m_smidx].VAL1;
+      }
+
       /**
          @brief Get the PWM VAL2 register.
 
          @return The register value
       */
-      inline uint16_t val2Value ();
+      inline uint16_t val2Value () {
+
+        return m_ptr->SM[m_smidx].VAL2;
+      }
+
       /**
          @brief Get the PWM VAL3 register.
 
          @return The register value
       */
-      inline uint16_t val3Value ();
+      inline uint16_t val3Value () {
+
+        return m_ptr->SM[m_smidx].VAL3;
+      }
+
       /**
          @brief Get the PWM VAL4 register.
 
          @return The register value
       */
-      inline uint16_t val4Value ();
+      inline uint16_t val4Value () {
+
+        return m_ptr->SM[m_smidx].VAL4;
+      }
+
       /**
          @brief Get the PWM VAL5 register.
 
          @return The register value
       */
-      inline uint16_t val5Value ();
+      inline uint16_t val5Value () {
+
+        return m_ptr->SM[m_smidx].VAL5;
+      }
 
       /**
          @brief Enables or disables the PWM output trigger.
@@ -461,7 +623,9 @@ namespace eFlex {
          @param valueRegister Value register that will activate the trigger
          @param activate      true: Enable the trigger; false: Disable the trigger
       */
-      inline void enableOutputTrigger (pwm_value_register_t valueRegister, bool activate = true);
+      inline void enableOutputTrigger (pwm_value_register_t valueRegister, bool activate = true) {
+        PWM_OutputTriggerEnable (ptr(), SM[m_smidx], valueRegister, activate);
+      }
 
       /**
          @brief Enables the PWM output trigger.
@@ -471,7 +635,9 @@ namespace eFlex {
          @param valueRegisterMask Value register mask that will activate one or more (VAL0-5) trigger
                                   enumeration ::_pwm_value_register_mask
       */
-      inline void enableOutputTrigger (uint16_t valueRegisterMask);
+      inline void enableOutputTrigger (uint16_t valueRegisterMask) {
+        PWM_ActivateOutputTrigger (ptr(), SM[m_smidx], valueRegisterMask);
+      }
 
       /**
          @brief Disables the PWM output trigger.
@@ -481,7 +647,9 @@ namespace eFlex {
          @param valueRegisterMask Value register mask that will Deactivate one or more (VAL0-5) trigger
                                   enumeration ::_pwm_value_register_mask
       */
-      inline void disableOutputTrigger (uint16_t valueRegisterMask);
+      inline void disableOutputTrigger (uint16_t valueRegisterMask) {
+        PWM_DeactivateOutputTrigger (ptr(), SM[m_smidx], valueRegisterMask);
+      }
 
       /**
          @brief Sets the software control output for a pin to high or low.
@@ -492,7 +660,9 @@ namespace eFlex {
          @param channel Channel to configure
          @param value      true: Supply a logic 1, false: Supply a logic 0.
       */
-      inline void setupSwCtrlOut (Channel channel, bool value);
+      inline void setupSwCtrlOut (Channel channel, bool value) {
+        PWM_SetupSwCtrlOut (ptr(), SM[m_smidx], kPwmChan (channel), value);
+      }
 
       /**
          @brief Set PWM output fault status
@@ -505,7 +675,9 @@ namespace eFlex {
          @param channel Channel to configure
          @param faultState PWM output fault status
       */
-      inline void setPwmFaultState (Channel channel, pwm_fault_state_t faultState);
+      inline void setPwmFaultState (Channel channel, pwm_fault_state_t faultState) {
+        PWM_SetPwmFaultState (ptr(), SM[m_smidx], kPwmChan (channel),  faultState);
+      }
 
       /**
          @brief Set PWM fault disable mapping
@@ -520,7 +692,9 @@ namespace eFlex {
          @param value              Fault disable mapping mask value
                                    enumeration ::pwm_fault_disable_t
       */
-      inline void setupFaultDisableMap (Channel channel, pwm_fault_channels_t pwm_fault_channels, uint16_t value);
+      inline void setupFaultDisableMap (Channel channel, pwm_fault_channels_t pwm_fault_channels, uint16_t value) {
+        PWM_SetupFaultDisableMap (ptr(), SM[m_smidx], kPwmChan (channel),  pwm_fault_channels,  value);
+      }
 
       /**
          @brief Set PWM output enable
@@ -529,7 +703,9 @@ namespace eFlex {
 
          @param channel         PWM channel to configure
       */
-      inline void enableOutput (Channel channel);
+      inline void enableOutput (Channel channel) {
+        PWM_OutputEnable (ptr(), kPwmChan (channel), SM[m_smidx]);
+      }
 
       /**
          @brief Set PWM output disable
@@ -538,7 +714,9 @@ namespace eFlex {
 
          @param channel         PWM channel to configure
       */
-      inline void disableOutput (Channel channel);
+      inline void disableOutput (Channel channel) {
+        PWM_OutputDisable (ptr(), kPwmChan (channel), SM[m_smidx]);
+      }
 
       /**
          @brief Get the dutycycle value.
@@ -547,7 +725,9 @@ namespace eFlex {
 
          @return Current channel dutycycle value.
       */
-      inline uint8_t dutyCycle (Channel channel);
+      inline uint8_t dutyCycle (Channel channel) {
+        return PWM_GetPwmChannelState (ptr(), SM[m_smidx], kPwmChan (channel));
+      }
 
       /**
          @brief Set PWM output in idle status (high or low).
@@ -559,14 +739,18 @@ namespace eFlex {
 
          @return false if there was error setting up the signal; true if set output idle success
       */
-      inline bool setOutputToIdle (Channel channel, bool idleStatus);
+      inline bool setOutputToIdle (Channel channel, bool idleStatus) {
+        return (PWM_SetOutputToIdle (ptr(), kPwmChan (channel), SM[m_smidx], idleStatus) == kStatus_Success);
+      }
 
       /**
          @brief Set the pwm submodule prescaler.
 
          @param prescaler          Set prescaler value
       */
-      inline void setClockMode (pwm_clock_prescale_t prescaler);
+      inline void setClockMode (pwm_clock_prescale_t prescaler) {
+        PWM_SetClockMode (ptr(), SM[m_smidx], prescaler);
+      }
 
       /**
          @brief This function enables-disables the forcing of the output of a given eFlexPwm channel to logic 0.
@@ -575,7 +759,9 @@ namespace eFlex {
          @param forcetozero        true: Enable the pwm force output to zero; false: Disable the pwm output resumes normal
                                    function.
       */
-      inline void setPwmForceOutputToZero (Channel channel, bool forcetozero);
+      inline void setPwmForceOutputToZero (Channel channel, bool forcetozero) {
+        PWM_SetPwmForceOutputToZero (ptr(), SM[m_smidx], kPwmChan (channel), forcetozero);
+      }
 
       /**
          @brief This function set the output state of the PWM pin as requested for the current cycle.
@@ -583,18 +769,44 @@ namespace eFlex {
          @param channel         PWM channel to configure
          @param outputstate        Set pwm output state, see @ref pwm_output_state_t.
       */
-      inline void setChannelOutput (Channel channel, pwm_output_state_t outputstate);
+      inline void setChannelOutput (Channel channel, pwm_output_state_t outputstate) {
+        PWM_SetChannelOutput (ptr(), SM[m_smidx], kPwmChan (channel),  outputstate);
+      }
 
-      
+
 
       void dumpRegs (Stream &out = Serial);
 
     protected:
-      inline PWM_Type *ptr();
-      inline const PWM_Type *ptr() const;
-      inline pwm_signal_param_t *kPwmSignals();
-      inline const pwm_signal_param_t *kPwmSignals() const;
-      static inline void setSignalToDefault (pwm_signal_param_t &signal);
+      inline PWM_Type *ptr() {
+
+        return m_ptr;
+      }
+
+      inline const PWM_Type *ptr() const {
+
+        return m_ptr;
+      }
+
+      inline pwm_signal_param_t *kPwmSignals() {
+
+        return m_signal;
+      }
+
+      inline const pwm_signal_param_t *kPwmSignals() const {
+
+        return m_signal;
+      }
+
+      static inline void setSignalToDefault (pwm_signal_param_t &signal) {
+
+        signal.pwmchannelenable = true;
+        signal.level = kPWM_HighTrue;
+        signal.dutyCyclePercent = 50;
+        signal.deadtimeValue = 0;
+        signal.faultState = kPWM_PwmFaultState0;
+        signal.pwmChannel = kPWM_PwmA;
+      }
 
     private:
       Pin m_pin[NofPins];
@@ -604,6 +816,6 @@ namespace eFlex {
       pwm_signal_param_t m_signal[NofPins];
       Config m_config;
   };
-}
 
-#include "source/eFlexPwmSubmodule_p.h"
+  extern SubModule *SmList[NofTimers][NofSubmodules];
+}
