@@ -1,0 +1,4 @@
+<map id="eFlex::SubModule::updateDutyCycle" name="eFlex::SubModule::updateDutyCycle">
+<area shape="rect" id="node1" title="Updates the PWM signal&#39;s dutycycle with 16&#45;bit accuracy." alt="" coords="5,5,196,47"/>
+<area shape="rect" id="node2" href="$a00853.html#ade3f08a7df0226a59f1a87eed1dc05ec" title="Get the dutycycle value." alt="" coords="244,13,455,39"/>
+</map>

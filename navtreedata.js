@@ -25,12 +25,18 @@
 var NAVTREE =
 [
   [ "eFlexPwm", "index.html", [
+    [ "Modules", "modules.html", "modules" ],
+    [ "Namespace Members", "namespacemembers.html", [
+      [ "All", "namespacemembers.html", null ],
+      [ "Enumerations", "namespacemembers_enum.html", null ]
+    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", null ],
-        [ "Functions", "functions_func.html", null ]
+        [ "Functions", "functions_func.html", null ],
+        [ "Variables", "functions_vars.html", null ]
       ] ]
     ] ]
   ] ]
@@ -38,7 +44,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"annotated.html"
+"a00026.html",
+"a00849.html#a1e4ffda11a57160d92030400a9db7d03"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
