@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Project Name="library" Version="10.0.0" InternalType="">
+  <VirtualDirectory Name="examples">
+    <VirtualDirectory Name="eFlexPwmSimple">
+      <File Name="examples/eFlexPwmSimple/eFlexPwmSimple.ino"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <VirtualDirectory Name="src">
+    <File Name="src/eFlexPwm.h"/>
+    <VirtualDirectory Name="source">
+      <File Name="src/source/ePowerStage.cpp"/>
+      <File Name="src/source/eFlexPwm_p.h"/>
+      <File Name="src/source/eFlexPwmTimer_p.h"/>
+      <File Name="src/source/eFlexPwmTimer.cpp"/>
+      <File Name="src/source/eFlexPwmSubmodule_p.h"/>
+      <File Name="src/source/eFlexPwmSubmodule.cpp"/>
+      <File Name="src/source/eFlexPwmPin_p.h"/>
+      <File Name="src/source/eFlexPwmPin.cpp"/>
+      <File Name="src/source/eFlexPwmConfig_p.h"/>
+      <File Name="src/source/eFlexPwmConfig.cpp"/>
+      <File Name="src/source/eFlexPwm.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="nxp">
+      <VirtualDirectory Name="drivers">
+        <File Name="src/nxp/drivers/fsl_pwm.h"/>
+        <File Name="src/nxp/drivers/fsl_pwm.c"/>
+        <File Name="src/nxp/drivers/fsl_compat.h"/>
+      </VirtualDirectory>
+    </VirtualDirectory>
+    <VirtualDirectory Name="component">
+      <File Name="src/component/ePowerStage.h"/>
+      <File Name="src/component/eFlexPwmTimer.h"/>
+      <File Name="src/component/eFlexPwmSubmodule.h"/>
+      <File Name="src/component/eFlexPwmPin.h"/>
+      <File Name="src/component/eFlexPwmGlobal.h"/>
+      <File Name="src/component/eFlexPwmConfig.h"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <Description/>
+  <Dependencies/>
+  <Settings Type="Executable">
+    <GlobalSettings>
+      <Compiler Options="" C_Options="" Assembler="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="">
+        <LibraryPath Value="."/>
+      </Linker>
+      <ResourceCompiler Options=""/>
+    </GlobalSettings>
+    <Configuration Name="Debug" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g -Wall" C_Options="" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="-O0" Required="yes">
+        <LibraryPath Value="."/>
+        <LibraryPath Value="Debug"/>
+      </Linker>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./Debug" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="./Debug" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <BuildSystem Name="Default"/>
+      <Environment EnvVarSetName="&lt;Use Workspace Settings&gt;" DbgSetName="&lt;Use Global Settings&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName/>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+  </Settings>
+</CodeLite_Project>

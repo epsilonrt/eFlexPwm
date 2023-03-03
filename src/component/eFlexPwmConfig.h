@@ -13,58 +13,158 @@ namespace eFlex {
   class Timer;
   class Submodule;
 
-  //-----------------------------------------------------------------------------
-  //                                Config class
-  //-----------------------------------------------------------------------------
+  /**
+     @brief Configuration
+
+  */
   class Config {
     public:
+
       /**
          @brief  Construct a new Config object with the default settings
 
          The default values are:
-         @code
-           config->enableDebugMode = false;
-           config->enableWait = false;
-           config->reloadSelect = kPWM_LocalReload;
-           config->clockSource = kPWM_BusClock;
-           config->prescale = kPWM_Prescale_Divide_1;
-           config->initializationControl = kPWM_Initialize_LocalSync;
-           config->forceTrigger = kPWM_Force_Local;
-           config->reloadFrequency = kPWM_LoadEveryOportunity;
-           config->reloadLogic = kPWM_ReloadImmediate;
-           config->pairOperation = kPWM_Independent;
-           config->pwmFreqHz = 5000;
-           config->mode = kPWM_CenterAligned;
-         @endcodem_sm
-         @param config Pointer to user's PWM config structure.
+           - \c pwmFreqHz() = 5000
+           - \c mode() = CenterAligned
+           - \c debugModeEnabled() = false
+           - \c waitModeEnabled() = false
+           - \c reloadSelect() = kPWM_LocalReload
+           - \c clockSource() = kPWM_BusClock
+           - \c prescale() = kPWM_Prescale_Divide_1
+           - \c initializationControl() = kPWM_Initialize_LocalSync
+           - \c forceTrigger() = kPWM_Force_Local
+           - \c reloadFrequency() = kPWM_LoadEveryOportunity
+           - \c reloadLogic() = kPWM_ReloadImmediate
+           - \c pairOperation() = kPWM_Independent
       */
       Config();
 
-      inline bool enableDebugMode() const;
-      inline bool enableWait() const;
-      inline pwm_reload_source_select_t reloadSelect() const;
-      inline pwm_clock_source_t clockSource() const;
-      inline pwm_clock_prescale_t prescale() const;
-      inline pwm_init_source_t initializationControl() const;
-      inline pwm_force_output_trigger_t forceTrigger() const;
-      inline pwm_load_frequency_t reloadFrequency() const;
-      inline pwm_register_reload_t reloadLogic() const;
-      inline pwm_chnl_pair_operation_t pairOperation() const;
-      inline uint32_t pwmFreqHz() const;
-      inline pwm_mode_t mode() const;
-
-      inline void setEnableDebugMode (bool enableDebugMode);
-      inline void setEnableWait (bool enableWait);
-      inline void setReloadSelect (pwm_reload_source_select_t reloadSelect);
-      inline void setClockSource (pwm_clock_source_t clockSource);
-      inline void setPrescale (pwm_clock_prescale_t prescale);
-      inline void setInitializationControl (pwm_init_source_t initializationControl);
-      inline void setForceTrigger (pwm_force_output_trigger_t forceTrigger);
-      inline void setReloadFrequency (pwm_load_frequency_t reloadFrequency);
-      inline void setReloadLogic (pwm_register_reload_t reloadLogic) ;
-      inline void setPairOperation (pwm_chnl_pair_operation_t pairOperation) ;
+      /**
+         @brief Set the PWM signal frequency in Hz
+      */
       inline void setPwmFreqHz (uint32_t pwmFreqHz);
-      inline void setMode (pwm_mode_t mode);
+      /**
+         @brief PWM signal frequency in Hz, default 5000
+      */
+      inline uint32_t pwmFreqHz() const;
+
+      /**
+        @brief Set the PWM operation mode
+      */
+      inline void setMode (pwm_mode_t  mode) {
+
+        m_mode = mode;
+      }
+      /**
+        @brief PWM operation mode, default \c CenterAligned
+      */
+      inline pwm_mode_t  mode() const {
+
+        return m_mode;
+      }
+
+      /**
+        @brief Set the reload source select
+      */
+      inline void setReloadSelect (pwm_reload_source_select_t reloadSelect);
+      /**
+         @brief Option to initialize the counter, default \c kPWM_LocalReload
+      */
+      inline pwm_reload_source_select_t reloadSelect() const;
+
+      /**
+         @brief Select the  Clock source for the counter
+      */
+      inline void setClockSource (pwm_clock_source_t clockSource);
+      /**
+         @brief Clock source for the counter, default \c kPWM_BusClock
+      */
+      inline pwm_clock_source_t clockSource() const;
+
+      /**
+         @brief Set the Pre-scaler to divide down the clock
+      */
+      inline void setPrescale (pwm_clock_prescale_t prescale);
+      /**
+         @brief Pre-scaler to divide down the clock, default \c kPWM_Prescale_Divide_1
+      */
+      inline pwm_clock_prescale_t prescale() const;
+
+      /**
+         @brief Set the  Option to initialize the counter
+      */
+      inline void setInitializationControl (pwm_init_source_t initializationControl);
+      /**
+         @brief Reload source select, default \c kPWM_Initialize_LocalSync
+      */
+      inline pwm_init_source_t initializationControl() const;
+
+      /**
+         @brief Specify which signal will trigger a FORCE_OUT
+      */
+      inline void setForceTrigger (pwm_force_output_trigger_t forceTrigger);
+      /**
+         @brief Specify which signal will trigger a FORCE_OUT, default \c kPWM_Force_Local
+      */
+      inline pwm_force_output_trigger_t forceTrigger() const;
+
+      /**
+         @brief Specifies when to reload
+      */
+      inline void setReloadFrequency (pwm_load_frequency_t reloadFrequency);
+      /**
+         @brief Specifies when to reload, default \c kPWM_LoadEveryOportunity
+
+         used when user's choice is not immediate reload
+      */
+      inline pwm_load_frequency_t reloadFrequency() const;
+
+      /**
+         @brief Set the PWM Reload logic setup
+      */
+      inline void setReloadLogic (pwm_register_reload_t reloadLogic);
+      /**
+         @brief PWM Reload logic setup, default \c kPWM_ReloadImmediate
+      */
+      inline pwm_register_reload_t reloadLogic() const;
+
+      /**
+         @brief Set the channel pair in indepedent or complementary mode
+      */
+      inline void setPairOperation (pwm_chnl_pair_operation_t pairOperation);
+      /**
+         @brief Channel pair in indepedent or complementary mode, default \c kPWM_Independent
+      */
+      inline pwm_chnl_pair_operation_t pairOperation() const;
+
+
+      /**
+         @brief enable Debug Mode
+
+         @param enable true PWM continues to run in debug mode, false PWM is paused in debug mode
+      */
+      inline void enableDebugMode (bool enable);
+      /**
+         @brief Debug mode, default false
+
+         @return true PWM continues to run in debug mode
+         @return false PWM is paused in debug mode
+      */
+      inline bool debugModeEnabled() const;
+
+      /**
+         @brief enable Wait Mode
+
+         @param enable true PWM is paused in debug mode, false PWM is paused in WAIT mode
+      */
+      inline void enableWaitMode (bool enable);
+      /**
+         @brief Wait mode, default false
+
+         @return true PWM is paused in debug mode
+         @return false PWM is paused in WAIT mode
+      */
+      inline bool waitModeEnabled() const;
 
     protected:
       pwm_config_t *kPwmConfig();
