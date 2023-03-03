@@ -10,7 +10,6 @@
 
 namespace eFlex {
 
-  #ifndef DOXYGEN
   extern Timer TM[NofTimers];
 
   //-----------------------------------------------------------------------------
@@ -164,5 +163,4 @@ namespace eFlex {
   inline void Timer::setupFaults (pwm_fault_input_t faultNum, const pwm_fault_param_t *faultParams) {
     PWM_SetupFaults (ptr(), faultNum, faultParams);
   }
-  #endif
 }

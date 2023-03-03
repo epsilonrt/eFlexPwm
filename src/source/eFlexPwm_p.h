@@ -8,7 +8,6 @@
 
 namespace eFlex {
 
-  #ifndef DOXYGEN
   const pwm_submodule_t SM[NofSubmodules] = {
     kPWM_Module_0,
     kPWM_Module_1,
@@ -29,5 +28,4 @@ namespace eFlex {
 
     return (c == ChanA ? kPWM_PwmA : kPWM_PwmB);
   }
-  #endif
 }

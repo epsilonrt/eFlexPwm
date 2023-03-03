@@ -10,6 +10,7 @@
 
 #define EFLEXPWM_DUMPREG_ENABLED 1
 
+/// @brief Library namespace
 namespace eFlex {
   //   Constants
   // ----------------------------------------------------------------------------

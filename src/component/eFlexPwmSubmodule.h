@@ -15,6 +15,10 @@ namespace eFlex {
   //-----------------------------------------------------------------------------
   //                            SubModule class
   //-----------------------------------------------------------------------------
+  /**
+   * @brief Submodule
+   * 
+   */
   class SubModule {
     public:
       /**
@@ -151,11 +155,6 @@ namespace eFlex {
       inline void setPwmLdok (bool value = true);
 
       /**
-         @name Module PWM output
-         @{
-      */
-
-      /**
          @brief Set PWM phase shift for PWM channel running on channel PWM_A, PWM_B which with 50% duty cycle..
 
          @param channel  PWM channel to configure
@@ -167,8 +166,6 @@ namespace eFlex {
          @return Returns false if there was error setting up the signal; true otherwise
       */
       inline bool setupPwmPhaseShift (Channel channel, uint32_t pwmFreq_Hz, uint8_t shiftvalue, bool doSync = true);
-
-      /** @}*/
 
       /**
          @brief Sets up the PWM input capture
@@ -194,11 +191,6 @@ namespace eFlex {
       inline void setupForceSignal (Channel channel, pwm_force_signal_t mode);
 
       /**
-         @name Interrupts Interface
-         @{
-      */
-
-      /**
          @brief Enables the selected PWM interrupts
 
          @param mask      The interrupts to enable. This is a logical OR of members of the
@@ -221,13 +213,6 @@ namespace eFlex {
                  enumeration ::pwm_interrupt_enable_t
       */
       inline uint32_t enabledInterrupts ();
-
-      /** @}*/
-
-      /**
-         @name DMA Interface
-         @{
-      */
 
       /**
          @brief Capture DMA Enable Source Select.
@@ -259,13 +244,6 @@ namespace eFlex {
       */
       inline void enableDMAWrite (bool activate);
 
-      /** @}*/
-
-      /**
-         @name Status Interface
-         @{
-      */
-
       /**
          @brief Gets the PWM status flags
 
@@ -282,7 +260,7 @@ namespace eFlex {
       */
       inline void clearStatusFlags (uint32_t mask);
 
-      /** @}*/
+      
 
       /**
          @brief Set the PWM VALx registers.
@@ -451,7 +429,7 @@ namespace eFlex {
       */
       inline void setChannelOutput (Channel channel, pwm_output_state_t outputstate);
 
-      /** @}*/
+      
 
       void dumpRegs (Stream &out = Serial);
 
@@ -473,4 +451,3 @@ namespace eFlex {
 }
 
 #include "source/eFlexPwmSubmodule_p.h"
-

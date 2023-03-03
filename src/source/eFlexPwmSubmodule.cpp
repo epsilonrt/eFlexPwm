@@ -83,7 +83,7 @@ namespace eFlex {
           setPwmLdok (false);
         }
         success &= (PWM_SetupPwm (ptr(), SM[m_smidx], m_signal, (m_pin[ChanB].isValid() ? 2 : 1),
-                                  m_config.mode(), m_config.pwmFreqHz(), timer().srcClockHz()) == kStatus_Success);
+                                  m_config.m_mode, m_config.pwmFreqHz(), timer().srcClockHz()) == kStatus_Success);
         if (doSync) {
 
           setPwmLdok (true);

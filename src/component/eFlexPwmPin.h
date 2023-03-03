@@ -15,7 +15,7 @@ namespace eFlex {
   //-----------------------------------------------------------------------------
 
   /**
-     @brief PWM pin
+     @brief Arduino pin
 
      This class allows to configure, initialize the PWM pins
   */
@@ -79,4 +79,3 @@ namespace eFlex {
 }
 
 #include "source/eFlexPwmPin_p.h"
-
