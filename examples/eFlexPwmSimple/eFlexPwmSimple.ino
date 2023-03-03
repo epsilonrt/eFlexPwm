@@ -85,7 +85,7 @@ void setup() {
   /* PWM A & PWM B form a complementary PWM pair */
   myConfig.setPairOperation (kPWM_ComplementaryPwmA);
   myConfig.setPwmFreqHz (PwmFreq);
-  myConfig.setEnableDebugMode (true);
+  myConfig.enableDebugMode (true);
 
   /* Initialize submodule 0 */
   if (Sm20.configure (myConfig) != true) {
