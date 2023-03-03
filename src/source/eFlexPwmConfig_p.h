@@ -8,19 +8,17 @@
 
 namespace eFlex {
 
-  #ifndef DOXYGEN
-
   //-----------------------------------------------------------------------------
   //                            Config class
   //-----------------------------------------------------------------------------
 
-  inline bool Config::enableDebugMode() const {
+  inline bool Config::debugModeEnabled() const {
 
     return m_config.enableDebugMode;
   }
 
   // ----------------------------------------------------------------------------
-  inline bool Config::enableWait() const {
+  inline bool Config::waitModeEnabled() const {
 
     return m_config.enableWait;
   }
@@ -79,21 +77,17 @@ namespace eFlex {
     return m_pwmfreq;
   }
 
-  // ----------------------------------------------------------------------------
-  inline pwm_mode_t Config::mode() const {
 
-    return m_mode;
+  // ----------------------------------------------------------------------------
+  inline void Config::enableDebugMode (bool enable) {
+
+    m_config.enableDebugMode = enable;
   }
 
   // ----------------------------------------------------------------------------
-  inline void Config::setEnableDebugMode (bool enableDebugMode) {
-    m_config.enableDebugMode = enableDebugMode;
-  }
+  inline void Config::enableWaitMode (bool enable) {
 
-  // ----------------------------------------------------------------------------
-  inline void Config::setEnableWait (bool enableWait) {
-
-    m_config.enableWait = enableWait;
+    m_config.enableWait = enable;
   }
 
   // ----------------------------------------------------------------------------
@@ -149,11 +143,5 @@ namespace eFlex {
 
     m_pwmfreq = pwmFreqHz;
   }
-
-  // ----------------------------------------------------------------------------
-  inline void Config::setMode (pwm_mode_t mode) {
-
-    m_mode = mode;
-  }
-  #endif
+  
 }

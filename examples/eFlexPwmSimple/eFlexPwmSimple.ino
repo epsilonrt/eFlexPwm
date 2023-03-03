@@ -65,7 +65,7 @@ void setup() {
   // start of PWM configuration -----------------------------------------------
   /* Submodule configuration, default values are:
 
-    config->enableDebugMode = false;
+    config->debugModeEnabled = false;
     config->enableWait = false;
     config->reloadSelect = kPWM_LocalReload;
     config->clockSource = kPWM_BusClock;
