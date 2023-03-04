@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>eFlexPwm: _pwm_fault_input_filter_param</title>
+<title>eFlexPwm: _pwm_fault_param</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -86,83 +86,102 @@ $(document).ready(function(){initNavTree('a00869.html',''); initResizable(); });
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a00866.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">_pwm_fault_input_filter_param<div class="ingroups"><a class="el" href="a00026.html">NXP Driver</a></div></div>  </div>
+<div class="title">_pwm_fault_param<div class="ingroups"><a class="el" href="a00026.html">NXP Driver</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Structure for the user to configure the fault input filter.  
+<p>Structure is used to hold the parameters to configure a PWM fault.  
  <a href="a00869.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="a00023_source.html">nxp-enums-struct.h</a>&gt;</code></p>
 <div class="dynheader">
-Collaboration diagram for _pwm_fault_input_filter_param:</div>
+Collaboration diagram for _pwm_fault_param:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="a00867.svg" width="296" height="258"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="a00867.svg" width="646" height="243"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:abb7e34c951669986c592e45a2eec0106"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00869.html#abb7e34c951669986c592e45a2eec0106">faultFilterCount</a></td></tr>
-<tr class="separator:abb7e34c951669986c592e45a2eec0106"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a931f76f38319d2076afed4fbecbfd2d1"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00869.html#a931f76f38319d2076afed4fbecbfd2d1">faultFilterPeriod</a></td></tr>
-<tr class="separator:a931f76f38319d2076afed4fbecbfd2d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39a93e8a5be2ad94daf79c1ee65a6c69"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00869.html#a39a93e8a5be2ad94daf79c1ee65a6c69">faultGlitchStretch</a></td></tr>
-<tr class="separator:a39a93e8a5be2ad94daf79c1ee65a6c69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f13b52bcddc37a16408f919dac81e71"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00027.html#gaf395aaf3ac1adf5f0ea4bfb852b0e2c5">pwm_fault_clear_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00869.html#a2f13b52bcddc37a16408f919dac81e71">faultClearingMode</a></td></tr>
+<tr class="separator:a2f13b52bcddc37a16408f919dac81e71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7479759363aa7db76a698904fbcfda76"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00869.html#a7479759363aa7db76a698904fbcfda76">faultLevel</a></td></tr>
+<tr class="separator:a7479759363aa7db76a698904fbcfda76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc88fd8edb612b2385ecca08528b84e2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00869.html#abc88fd8edb612b2385ecca08528b84e2">enableCombinationalPath</a></td></tr>
+<tr class="separator:abc88fd8edb612b2385ecca08528b84e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae11342f0f3c097f3d83a041de6efb5c8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00027.html#ga4c3a482d8cb54d7bc6cb29710d3a7983">pwm_fault_recovery_mode_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00869.html#ae11342f0f3c097f3d83a041de6efb5c8">recoverMode</a></td></tr>
+<tr class="separator:ae11342f0f3c097f3d83a041de6efb5c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Structure for the user to configure the fault input filter. </p>
+<div class="textblock"><p>Structure is used to hold the parameters to configure a PWM fault. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00342">342</a> of file <a class="el" href="a00023_source.html">nxp-enums-struct.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00350">350</a> of file <a class="el" href="a00023_source.html">nxp-enums-struct.h</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="abb7e34c951669986c592e45a2eec0106"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abb7e34c951669986c592e45a2eec0106">&#9670;&nbsp;</a></span>faultFilterCount</h2>
+<a id="abc88fd8edb612b2385ecca08528b84e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc88fd8edb612b2385ecca08528b84e2">&#9670;&nbsp;</a></span>enableCombinationalPath</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t _pwm_fault_input_filter_param::faultFilterCount</td>
+          <td class="memname">bool _pwm_fault_param::enableCombinationalPath</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Fault filter count </p>
+<p>true: Combinational Path from fault input is enabled; false: No combination path is available </p>
 
-<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00343">343</a> of file <a class="el" href="a00023_source.html">nxp-enums-struct.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00354">354</a> of file <a class="el" href="a00023_source.html">nxp-enums-struct.h</a>.</p>
 
 </div>
 </div>
-<a id="a931f76f38319d2076afed4fbecbfd2d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a931f76f38319d2076afed4fbecbfd2d1">&#9670;&nbsp;</a></span>faultFilterPeriod</h2>
+<a id="a2f13b52bcddc37a16408f919dac81e71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f13b52bcddc37a16408f919dac81e71">&#9670;&nbsp;</a></span>faultClearingMode</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t _pwm_fault_input_filter_param::faultFilterPeriod</td>
+          <td class="memname"><a class="el" href="a00027.html#gaf395aaf3ac1adf5f0ea4bfb852b0e2c5">pwm_fault_clear_t</a> _pwm_fault_param::faultClearingMode</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Fault filter period;value of 0 will bypass the filter </p>
+<p>Fault clearing mode to use </p>
 
-<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00344">344</a> of file <a class="el" href="a00023_source.html">nxp-enums-struct.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00351">351</a> of file <a class="el" href="a00023_source.html">nxp-enums-struct.h</a>.</p>
 
 </div>
 </div>
-<a id="a39a93e8a5be2ad94daf79c1ee65a6c69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39a93e8a5be2ad94daf79c1ee65a6c69">&#9670;&nbsp;</a></span>faultGlitchStretch</h2>
+<a id="a7479759363aa7db76a698904fbcfda76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7479759363aa7db76a698904fbcfda76">&#9670;&nbsp;</a></span>faultLevel</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool _pwm_fault_input_filter_param::faultGlitchStretch</td>
+          <td class="memname">bool _pwm_fault_param::faultLevel</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Fault Glitch Stretch Enable: A logic 1 means that input fault signals will be stretched to at least 2 IPBus clock cycles </p>
+<p>true: Logic 1 indicates fault; false: Logic 0 indicates fault </p>
 
-<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00345">345</a> of file <a class="el" href="a00023_source.html">nxp-enums-struct.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00352">352</a> of file <a class="el" href="a00023_source.html">nxp-enums-struct.h</a>.</p>
+
+</div>
+</div>
+<a id="ae11342f0f3c097f3d83a041de6efb5c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae11342f0f3c097f3d83a041de6efb5c8">&#9670;&nbsp;</a></span>recoverMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00027.html#ga4c3a482d8cb54d7bc6cb29710d3a7983">pwm_fault_recovery_mode_t</a> _pwm_fault_param::recoverMode</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Specify when to re-enable the PWM output </p>
+
+<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00356">356</a> of file <a class="el" href="a00023_source.html">nxp-enums-struct.h</a>.</p>
 
 </div>
 </div>
@@ -171,8 +190,8 @@ Public Attributes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="a00869.html">_pwm_fault_input_filter_param</a></li>
-    <li class="footer">Generated on Sat Mar 4 2023 07:26:37 for eFlexPwm by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="navelem"><a class="el" href="a00869.html">_pwm_fault_param</a></li>
+    <li class="footer">Generated on Sat Mar 4 2023 22:03:20 for eFlexPwm by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

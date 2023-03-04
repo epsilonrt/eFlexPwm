@@ -1,3 +1,9 @@
-<map id="eFlex::Timer" name="eFlex::Timer">
-<area shape="rect" id="node1" title="PWM Module." alt="" coords="5,5,188,229"/>
+<map id="_pwm_signal_param" name="_pwm_signal_param">
+<area shape="rect" id="node1" title="Structure for the user to define the PWM signal characteristics." alt="" coords="361,145,517,223"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,184,83"/>
+<area shape="rect" id="node3" title=" " alt="" coords="208,5,283,83"/>
+<area shape="rect" id="node4" title=" " alt="" coords="307,5,493,83"/>
+<area shape="rect" id="node5" title=" " alt="" coords="517,5,568,83"/>
+<area shape="rect" id="node6" title=" " alt="" coords="619,5,685,83"/>
+<area shape="rect" id="node7" title=" " alt="" coords="729,5,895,83"/>
 </map>

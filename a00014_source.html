@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>eFlexPwm: eFlexPwmPin.h Source File</title>
+<title>eFlexPwm: eFlexPwmGlobal.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,7 +83,7 @@ $(document).ready(function(){initNavTree('a00014_source.html',''); initResizable
 
 <div class="header">
   <div class="headertitle">
-<div class="title">eFlexPwmPin.h</div>  </div>
+<div class="title">eFlexPwmGlobal.h</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
@@ -94,60 +94,91 @@ $(document).ready(function(){initNavTree('a00014_source.html',''); initResizable
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">*/</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;eFlexPwmGlobal.h&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;nxp/drivers/fsl_pwm.h&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="a00029.html">eFlex</a> {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#define EFLEXPWM_DUMPREG_ENABLED 1</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a00849.html">   18</a></span>&#160;  <span class="keyword">class </span><a class="code" href="a00849.html">Pin</a> {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a00849.html#a2b82b08445b81ab6df6a7aa7e80cfbf4">   25</a></span>&#160;      <a class="code" href="a00849.html#a2b82b08445b81ab6df6a7aa7e80cfbf4">Pin</a> (<span class="keywordtype">int</span> number = -1);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a00849.html#adc50bb6e29367a899e31371d48a5e200">   32</a></span>&#160;      <span class="keywordtype">bool</span> <a class="code" href="a00849.html#adc50bb6e29367a899e31371d48a5e200">begin</a>();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a00849.html#aa1b175b137a8372b7b36771a17d12f3f">   39</a></span>&#160;      <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="a00849.html#aa1b175b137a8372b7b36771a17d12f3f">isValid</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">return</span> (m_number != -1);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      }</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a00849.html#a73cf9f76b7870c9624452e484d2380ca">   49</a></span>&#160;      <span class="keyword">inline</span> uint8_t <a class="code" href="a00849.html#a73cf9f76b7870c9624452e484d2380ca">timerIndex</a> ()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">return</span> ( (m_module &gt;&gt; 4) &amp; 3);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      }</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="a00029.html">eFlex</a> {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a00029.html#a9ae9b25ec6bd587ce6faba74e8b8fd8c">   19</a></span>&#160;  <span class="keyword">enum</span> <a class="code" href="a00029.html#a9ae9b25ec6bd587ce6faba74e8b8fd8c">Channel</a> {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    ChanA = 0,</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    ChanB = 1</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  };</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#ifndef DOXYGEN</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="comment">//   Constants</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="comment">// ----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keyword">const</span> uint8_t NofTimers = 4; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keyword">const</span> uint8_t NofSubmodules = FSL_FEATURE_PWM_SUBMODULE_COUNT; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keyword">const</span> uint8_t NofPins = PWM_SUBMODULE_CHANNEL; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">enum</span> TimerIndex {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    Pwm1 = 0,</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    Pwm2,</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    Pwm3,</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    Pwm4</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  };</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keyword">enum</span> TimerFlag {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    Pwm1Flag = (1 &lt;&lt; Pwm1),</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    Pwm2Flag = (1 &lt;&lt; Pwm2),</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    Pwm3Flag = (1 &lt;&lt; Pwm3),</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    Pwm4Flag = (1 &lt;&lt; Pwm4),</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    AllTimersFlag = (Pwm1Flag | Pwm2Flag | Pwm3Flag | Pwm4Flag)</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  };</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keyword">enum</span> SubmoduleIndex {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    Submodule1 = 0,</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    Submodule2,</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    Submodule3,</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    Submodule4</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  };</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="a00849.html#a1e4ffda11a57160d92030400a9db7d03">   58</a></span>&#160;      <span class="keyword">inline</span> uint8_t <a class="code" href="a00849.html#a1e4ffda11a57160d92030400a9db7d03">submoduleIndex</a> ()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">return</span> (m_module &amp; 3);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      }</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="a00849.html#a110a42f43ff7fa9dc3975e16a0bc89a6">   67</a></span>&#160;      <span class="keyword">inline</span> uint8_t <a class="code" href="a00849.html#a110a42f43ff7fa9dc3975e16a0bc89a6">muxval</a> ()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">return</span> m_muxval;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      }</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="a00849.html#a089ddff66f3645344fde2df6c39f383f">   76</a></span>&#160;      <span class="keyword">inline</span> uint8_t <a class="code" href="a00849.html#a089ddff66f3645344fde2df6c39f383f">channel</a> ()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordflow">return</span> m_channel;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      }</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;      <span class="keywordtype">int</span> m_number;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      uint8_t m_module;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;      uint8_t m_muxval;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;      uint8_t m_channel;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  };</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}</div>
-<div class="ttc" id="aa00029_html"><div class="ttname"><a href="a00029.html">eFlex</a></div><div class="ttdoc">Library namespace.</div><div class="ttdef"><b>Definition:</b> <a href="a00008_source.html#l00011">eFlexPwmConfig.h:11</a></div></div>
-<div class="ttc" id="aa00849_html"><div class="ttname"><a href="a00849.html">eFlex::Pin</a></div><div class="ttdoc">Arduino pin.</div><div class="ttdef"><b>Definition:</b> <a href="a00014_source.html#l00018">eFlexPwmPin.h:18</a></div></div>
-<div class="ttc" id="aa00849_html_a089ddff66f3645344fde2df6c39f383f"><div class="ttname"><a href="a00849.html#a089ddff66f3645344fde2df6c39f383f">eFlex::Pin::channel</a></div><div class="ttdeci">uint8_t channel() const</div><div class="ttdef"><b>Definition:</b> <a href="a00014_source.html#l00076">eFlexPwmPin.h:76</a></div></div>
-<div class="ttc" id="aa00849_html_a110a42f43ff7fa9dc3975e16a0bc89a6"><div class="ttname"><a href="a00849.html#a110a42f43ff7fa9dc3975e16a0bc89a6">eFlex::Pin::muxval</a></div><div class="ttdeci">uint8_t muxval() const</div><div class="ttdef"><b>Definition:</b> <a href="a00014_source.html#l00067">eFlexPwmPin.h:67</a></div></div>
-<div class="ttc" id="aa00849_html_a1e4ffda11a57160d92030400a9db7d03"><div class="ttname"><a href="a00849.html#a1e4ffda11a57160d92030400a9db7d03">eFlex::Pin::submoduleIndex</a></div><div class="ttdeci">uint8_t submoduleIndex() const</div><div class="ttdoc">Sumbmodule index of this pin.</div><div class="ttdef"><b>Definition:</b> <a href="a00014_source.html#l00058">eFlexPwmPin.h:58</a></div></div>
-<div class="ttc" id="aa00849_html_a2b82b08445b81ab6df6a7aa7e80cfbf4"><div class="ttname"><a href="a00849.html#a2b82b08445b81ab6df6a7aa7e80cfbf4">eFlex::Pin::Pin</a></div><div class="ttdeci">Pin(int number=-1)</div><div class="ttdoc">Construct a new Pin object.</div></div>
-<div class="ttc" id="aa00849_html_a73cf9f76b7870c9624452e484d2380ca"><div class="ttname"><a href="a00849.html#a73cf9f76b7870c9624452e484d2380ca">eFlex::Pin::timerIndex</a></div><div class="ttdeci">uint8_t timerIndex() const</div><div class="ttdoc">Timer index of this pin.</div><div class="ttdef"><b>Definition:</b> <a href="a00014_source.html#l00049">eFlexPwmPin.h:49</a></div></div>
-<div class="ttc" id="aa00849_html_aa1b175b137a8372b7b36771a17d12f3f"><div class="ttname"><a href="a00849.html#aa1b175b137a8372b7b36771a17d12f3f">eFlex::Pin::isValid</a></div><div class="ttdeci">bool isValid() const</div><div class="ttdoc">Checks if pin is valid.</div><div class="ttdef"><b>Definition:</b> <a href="a00014_source.html#l00039">eFlexPwmPin.h:39</a></div></div>
-<div class="ttc" id="aa00849_html_adc50bb6e29367a899e31371d48a5e200"><div class="ttname"><a href="a00849.html#adc50bb6e29367a899e31371d48a5e200">eFlex::Pin::begin</a></div><div class="ttdeci">bool begin()</div><div class="ttdoc">Enables pin for PWM use.</div></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keyword">enum</span> SubmoduleFlag {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    Submodule1Flag = (1 &lt;&lt; Submodule1),</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    Submodule2Flag = (1 &lt;&lt; Submodule2),</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    Submodule3Flag = (1 &lt;&lt; Submodule3),</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    Submodule4Flag = (1 &lt;&lt; Submodule4),</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    AllSubmodulesFlag = (Submodule1Flag | Submodule2Flag | Submodule3Flag | Submodule4Flag)</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  };</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keyword">const</span> <a class="code" href="a00027.html#ga894e00d9d6094af129d6fbe6a903815e">pwm_submodule_t</a> SM[NofSubmodules] = {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="a00027.html#gga6f836cf6b5fb89b2052853e8b3a7c316add38c1b5a7f784f71f3cebf9a1bf3ff6">kPWM_Module_0</a>,</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="a00027.html#gga6f836cf6b5fb89b2052853e8b3a7c316a47a6ce50cc1613c9988bf21d9bb44c4c">kPWM_Module_1</a>,</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="a00027.html#gga6f836cf6b5fb89b2052853e8b3a7c316a0340ee44d37ea0644debbc392abe0218">kPWM_Module_2</a>,</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="a00027.html#gga6f836cf6b5fb89b2052853e8b3a7c316a262d2987720c085ebda6b24b4e646ab9">kPWM_Module_3</a></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  };</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="comment">//   Variables</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="comment">// ----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <span class="keyword">extern</span> PWM_Type *PWM[NofTimers];</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keyword">extern</span> uint8_t SmMask[NofTimers];</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="comment">//   Code</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="comment">// ----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <span class="comment">// ----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="keyword">inline</span> <a class="code" href="a00027.html#ga708443867a0407a1d6c1197cdb465a36">pwm_channels_t</a> kPwmChan (<a class="code" href="a00029.html#a9ae9b25ec6bd587ce6faba74e8b8fd8c">Channel</a> c) {</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">return</span> (c == ChanA ? kPWM_PwmA : kPWM_PwmB);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}</div>
+<div class="ttc" id="aa00027_html_ga708443867a0407a1d6c1197cdb465a36"><div class="ttname"><a href="a00027.html#ga708443867a0407a1d6c1197cdb465a36">pwm_channels_t</a></div><div class="ttdeci">enum _pwm_channels pwm_channels_t</div><div class="ttdoc">List of PWM channels in each module.</div></div>
+<div class="ttc" id="aa00027_html_ga894e00d9d6094af129d6fbe6a903815e"><div class="ttname"><a href="a00027.html#ga894e00d9d6094af129d6fbe6a903815e">pwm_submodule_t</a></div><div class="ttdeci">enum _pwm_submodule pwm_submodule_t</div><div class="ttdoc">List of PWM submodules.</div></div>
+<div class="ttc" id="aa00027_html_gga6f836cf6b5fb89b2052853e8b3a7c316a0340ee44d37ea0644debbc392abe0218"><div class="ttname"><a href="a00027.html#gga6f836cf6b5fb89b2052853e8b3a7c316a0340ee44d37ea0644debbc392abe0218">kPWM_Module_2</a></div><div class="ttdeci">@ kPWM_Module_2</div><div class="ttdef"><b>Definition:</b> <a href="a00023_source.html#l00026">nxp-enums-struct.h:26</a></div></div>
+<div class="ttc" id="aa00027_html_gga6f836cf6b5fb89b2052853e8b3a7c316a262d2987720c085ebda6b24b4e646ab9"><div class="ttname"><a href="a00027.html#gga6f836cf6b5fb89b2052853e8b3a7c316a262d2987720c085ebda6b24b4e646ab9">kPWM_Module_3</a></div><div class="ttdeci">@ kPWM_Module_3</div><div class="ttdef"><b>Definition:</b> <a href="a00023_source.html#l00028">nxp-enums-struct.h:27</a></div></div>
+<div class="ttc" id="aa00027_html_gga6f836cf6b5fb89b2052853e8b3a7c316a47a6ce50cc1613c9988bf21d9bb44c4c"><div class="ttname"><a href="a00027.html#gga6f836cf6b5fb89b2052853e8b3a7c316a47a6ce50cc1613c9988bf21d9bb44c4c">kPWM_Module_1</a></div><div class="ttdeci">@ kPWM_Module_1</div><div class="ttdef"><b>Definition:</b> <a href="a00023_source.html#l00025">nxp-enums-struct.h:25</a></div></div>
+<div class="ttc" id="aa00027_html_gga6f836cf6b5fb89b2052853e8b3a7c316add38c1b5a7f784f71f3cebf9a1bf3ff6"><div class="ttname"><a href="a00027.html#gga6f836cf6b5fb89b2052853e8b3a7c316add38c1b5a7f784f71f3cebf9a1bf3ff6">kPWM_Module_0</a></div><div class="ttdeci">@ kPWM_Module_0</div><div class="ttdef"><b>Definition:</b> <a href="a00023_source.html#l00024">nxp-enums-struct.h:24</a></div></div>
+<div class="ttc" id="aa00029_html"><div class="ttname"><a href="a00029.html">eFlex</a></div><div class="ttdoc">Library namespace.</div><div class="ttdef"><b>Definition:</b> <a href="a00011_source.html#l00011">eFlexPwmConfig.h:11</a></div></div>
+<div class="ttc" id="aa00029_html_a9ae9b25ec6bd587ce6faba74e8b8fd8c"><div class="ttname"><a href="a00029.html#a9ae9b25ec6bd587ce6faba74e8b8fd8c">eFlex::Channel</a></div><div class="ttdeci">Channel</div><div class="ttdoc">PWM Channel.</div><div class="ttdef"><b>Definition:</b> <a href="a00014_source.html#l00019">eFlexPwmGlobal.h:19</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_9b051f5a462ebc902d5afef8d9317d03.html">component</a></li><li class="navelem"><b>eFlexPwmPin.h</b></li>
-    <li class="footer">Generated on Sat Mar 4 2023 07:26:37 for eFlexPwm by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_9b051f5a462ebc902d5afef8d9317d03.html">component</a></li><li class="navelem"><b>eFlexPwmGlobal.h</b></li>
+    <li class="footer">Generated on Sat Mar 4 2023 22:03:20 for eFlexPwm by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['timer_433',['Timer',['../a00857.html#aee23d5a7ce96736b718133ba02051c29',1,'eFlex::Timer']]],
-  ['timer_434',['timer',['../a00853.html#aa40c1df60470ec679779e533497c13e8',1,'eFlex::SubModule']]],
-  ['timerindex_435',['timerIndex',['../a00849.html#a73cf9f76b7870c9624452e484d2380ca',1,'eFlex::Pin']]]
+  ['reloadfrequency_397',['reloadFrequency',['../a00845.html#a33e32eb047f0fde8a0dda6726172a500',1,'eFlex::Config']]],
+  ['reloadlogic_398',['reloadLogic',['../a00845.html#a538f121da18a10694185e7a2e2507527',1,'eFlex::Config']]],
+  ['reloadselect_399',['reloadSelect',['../a00845.html#ae8e346ecd0feb51a911a922b156cad9d',1,'eFlex::Config']]]
 ];

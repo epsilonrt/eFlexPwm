@@ -1,0 +1,6 @@
+<map id="eFlex::SubModule::setPwmFrequency" name="eFlex::SubModule::setPwmFrequency">
+<area shape="rect" id="node1" title="Set the Pwm Frequency." alt="" coords="5,27,204,69"/>
+<area shape="rect" id="node2" href="$a00845.html#a3d4339759f62349d27251ce306df71ba" title="Set the PWM signal frequency in Hz." alt="" coords="252,5,464,32"/>
+<area shape="rect" id="node4" href="$a00849.html#aa4810cdf84c9f232ca3233b43fe1b7a1" title="Update PWM signals for a PWM submodule." alt="" coords="263,57,453,98"/>
+<area shape="rect" id="node3" href="$a00845.html#a374cc186c604229736e1a5123df994d5" title="PWM signal frequency in Hz, default 5000." alt="" coords="512,5,704,32"/>
+</map>

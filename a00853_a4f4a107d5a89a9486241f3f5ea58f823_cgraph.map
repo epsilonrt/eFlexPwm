@@ -1,0 +1,4 @@
+<map id="eFlex::Timer::stop" name="eFlex::Timer::stop">
+<area shape="rect" id="node1" title="Stops the PWM counter for a single or multiple submodules." alt="" coords="5,5,145,32"/>
+<area shape="rect" id="node2" href="$a00853.html#a7df19c5a8ae37e08711e94b12ec8efa3" title="Starts or stops the PWM counter for a single or multiple submodules." alt="" coords="193,5,336,32"/>
+</map>

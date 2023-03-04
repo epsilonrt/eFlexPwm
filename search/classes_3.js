@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['submodule_349',['SubModule',['../a00853.html',1,'eFlex']]]
+  ['timer_355',['Timer',['../a00853.html',1,'eFlex']]]
 ];

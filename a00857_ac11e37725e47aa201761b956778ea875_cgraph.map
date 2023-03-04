@@ -1,4 +1,0 @@
-<map id="eFlex::Timer::setPwmLdok" name="eFlex::Timer::setPwmLdok">
-<area shape="rect" id="node1" title="Sets or clears the PWM LDOK bit on all instantiated submodules for this timer." alt="" coords="5,5,200,32"/>
-<area shape="rect" id="node2" href="$a00857.html#a912dfe6251548f10903204c134e36083" title="Sets or clears the PWM LDOK bit on a single or multiple submodules." alt="" coords="248,5,443,32"/>
-</map>

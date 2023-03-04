@@ -1,5 +1,6 @@
-<map id="_pwm_fault_input_filter_param" name="_pwm_fault_input_filter_param">
-<area shape="rect" id="node1" title="Structure for the user to configure the fault input filter." alt="" coords="23,160,198,252"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,56,83"/>
-<area shape="rect" id="node3" title=" " alt="" coords="157,5,224,83"/>
+<map id="_pwm_fault_param" name="_pwm_fault_param">
+<area shape="rect" id="node1" title="Structure is used to hold the parameters to configure a PWM fault." alt="" coords="229,160,375,237"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,252,83"/>
+<area shape="rect" id="node3" title=" " alt="" coords="277,5,327,83"/>
+<area shape="rect" id="node4" title=" " alt="" coords="426,5,605,83"/>
 </map>
