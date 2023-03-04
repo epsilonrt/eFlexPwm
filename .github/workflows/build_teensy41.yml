@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        example: [examples/eFlexPwmSimple]
+        example: [examples/eFlexPwmSimple, examples/eFlexPwmSinglePhaseInverter]
 
     steps:
 

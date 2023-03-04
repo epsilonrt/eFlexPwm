@@ -21,7 +21,8 @@
 
   This example displays a message on the Serial link (USB CDC), and any error messages: 
 
-  eFlexPWM Simple Test
+  eFlexPwm Simple Example
+  Submodules successfuly started
 */
 #include <Arduino.h>
 #include <eFlexPwm.h>
@@ -30,10 +31,6 @@
 // ----------------------------------------------------------------------------
 // avoid systematically prefixing objects with the namespace
 using namespace eFlex;
-
-//   Prototypes
-// ----------------------------------------------------------------------------
-void setupPwm();
 
 //   Variables
 // ----------------------------------------------------------------------------
@@ -61,7 +58,7 @@ void setup() {
   pinMode (LED_BUILTIN, OUTPUT);
 
   digitalWrite (LED_BUILTIN, HIGH);
-  Serial.println ("eFlexPWM Test");
+  Serial.println ("eFlexPwm Simple Example");
   // start of PWM configuration -----------------------------------------------
   /* Submodule configuration, default values are:
 
@@ -139,6 +136,10 @@ void setup() {
   if (Tm2.begin() != true) {
     Serial.println ("Failed to start submodules");
     exit (EXIT_FAILURE);
+  }
+  else {
+
+    Serial.println ("Submodules successfuly started");
   }
   // end of PWM setup
   digitalWrite (LED_BUILTIN, LOW);
