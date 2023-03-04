@@ -12,7 +12,7 @@ namespace eFlex {
   //                            SubModule class
   //-----------------------------------------------------------------------------
   SubModule::SubModule (int pinA, int pinB) :
-    m_pin ({Pin (pinA), Pin (pinB) }), m_tmidx (-1), m_smidx (-1), m_ptr (0) {
+    m_pin ({Pin (pinA), Pin (pinB) }), m_tmidx (-1), m_smidx (-1), m_ptr (0), m_wasbegin (false) {
     static_assert ( (ChanA == 0U), "kPWM_PwmB declaration mismatch; check the code !");
     static_assert ( (ChanB == 1U), "kPWM_PwmA declaration mismatch; check the code !");
 
@@ -67,7 +67,7 @@ namespace eFlex {
   bool SubModule::begin (bool doStart, bool doSync) {
     bool success = isValid();
 
-    if (success) {
+    if (success && !m_wasbegin) {
 
       success &= m_pin[ChanA].begin();
 
@@ -78,7 +78,9 @@ namespace eFlex {
 
       if (success) {
 
-        success &= updateSetup (doSync);
+        m_wasbegin = success; // if not true, no update !
+        success &= updateSetting (doSync);
+        m_wasbegin = success;
         if (doStart && success) {
 
           start();
@@ -89,12 +91,16 @@ namespace eFlex {
   }
 
   //-----------------------------------------------------------------------------
-  bool SubModule::updateSetup (bool doSync) {
-    bool  success = (PWM_SetupPwm (ptr(), SM[m_smidx], m_signal, (m_pin[ChanB].isValid() ? 2 : 1),
-                                   m_config.mode(), m_config.pwmFreqHz(), timer().srcClockHz()) == kStatus_Success);
-    if (doSync) {
+  bool SubModule::updateSetting (bool doSync) {
+    bool  success = false;
 
-      setPwmLdok (true);
+    if (m_wasbegin) {
+      success = (PWM_SetupPwm (ptr(), SM[m_smidx], m_signal, (m_pin[ChanB].isValid() ? 2 : 1),
+                               m_config.mode(), m_config.pwmFreqHz(), timer().srcClockHz()) == kStatus_Success);
+      if (doSync) {
+
+        setPwmLdok (true);
+      }
     }
     return success;
   }
@@ -144,19 +150,13 @@ namespace eFlex {
   // ----------------------------------------------------------------------------
   Timer &SubModule::timer() {
 
-    return TM[m_tmidx];
+    return *TM[m_tmidx];
   }
 
   //-----------------------------------------------------------------------------
-  void SubModule::start() {
+  void SubModule::start (bool startit) {
 
-    timer().start (1 << index());
-  }
-
-  //-----------------------------------------------------------------------------
-  void SubModule::stop() {
-
-    timer().stop (1 << index());
+    timer().start (1 << index(), startit);
   }
 
   //-----------------------------------------------------------------------------
@@ -167,55 +167,12 @@ namespace eFlex {
 
   // ----------------------------------------------------------------------------
   bool SubModule::setupPwmPhaseShift (Channel channel, uint8_t shiftvalue, bool doSync) {
+
     return (PWM_SetupPwmPhaseShift (ptr(), SM[m_smidx], kPwmChan (channel), m_config.pwmFreqHz(), timer().srcClockHz(), shiftvalue, doSync) == kStatus_Success);
   }
 
   //-----------------------------------------------------------------------------
-  void SubModule::setDutyCyclePercent (uint8_t dutyCyclePercent) {
-
-    for (uint8_t i = 0; i < NofPins; i++) {
-      m_signal[i].dutyCyclePercent = dutyCyclePercent;
-    }
-  }
-
-  //-----------------------------------------------------------------------------
-  void SubModule::setLevel (pwm_level_select_t level) {
-
-    for (uint8_t i = 0; i < NofPins; i++) {
-
-      m_signal[i].level = level;
-    }
-  }
-
-  //-----------------------------------------------------------------------------
-  void SubModule::setDeadtime (uint16_t deadtimeValue) {
-
-    for (uint8_t i = 0; i < NofPins; i++) {
-
-      m_signal[i].deadtimeValue = deadtimeValue;
-    }
-  }
-
-  //-----------------------------------------------------------------------------
-  void SubModule::setEnable (bool activate) {
-
-    for (uint8_t i = 0; i < NofPins; i++) {
-
-      m_signal[i].pwmchannelenable = activate;
-    }
-  }
-
-  //-----------------------------------------------------------------------------
-  void SubModule::setFaultState (pwm_fault_state_t faultState) {
-
-    for (uint8_t i = 0; i < NofPins; i++) {
-
-      m_signal[i].faultState = faultState;
-    }
-  }
-
-  //-----------------------------------------------------------------------------
-  void SubModule::dumpRegs (Stream   &out) {
+  void SubModule::printRegs (Stream   &out) {
     #ifdef EFLEXPWM_DUMPREG_ENABLED
     const char *names1[] = {
       "CNT",                               /**< Counter Register, array offset: 0x0, array step: 0x60 */
@@ -291,4 +248,9 @@ namespace eFlex {
     out.println ("");
     #endif
   }
+
+  // List of registered submodules
+  // array initialized to zero, the sub-modules are saved in this array by their constructor.
+  // [Timer][SubModule]
+  SubModule *SmList[NofTimers][NofSubmodules];
 }

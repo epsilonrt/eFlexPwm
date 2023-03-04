@@ -12,48 +12,49 @@
 namespace eFlex {
 
   /**
-     @brief PWM Module
+    @brief PWM Module
+
+    This class cannot be instantiated directly and can only be used by a call to SubModule::timer()
 
   */
   class Timer {
 
     public:
       /**
-         @brief Construct a new Timer Module
+        @brief Sets up the PWM signals for all instantiated submodules of the timer
 
-         @param index
-      */
-      Timer (uint8_t index);
+          The function initializes the submodule according to the parameters passed in by the user. The function
+          also sets up the value compare registers to match the PWM signal requirements.
+          If the dead time insertion logic is enabled, the pulse period is reduced by the
+          dead time period specified by the user.
 
-      /**
-         @brief
+        @param doStart starts signal generation
+        @param doSync synchronizes the operation by surrounding it with setPwmLdok (false) / setPwmLdok (true)
 
-         @param doStart starts signal generation
-         @param doSync synchronizes the operation by surrounding it with setPwmLdok (false) / setPwmLdok (true)
-         @return true
-         @return false
+        @return Returns false if there was error setting up the signal; true otherwise
       */
       bool begin (bool doStart = true, bool doSync = true);
 
-      void setDutyCyclePercent (uint8_t dutyCyclePercent);
-      void setLevel (pwm_level_select_t level);
-      void setDeadtime (uint16_t deadtimeValue);
-      void setEnable (bool activate = true);
-      void setFaultState (pwm_fault_state_t faultState);
+      /**
+        @brief Returns the timer module index (0 for PWM1...)
+      */
+      inline uint8_t index() const {
+        return m_tmidx;
+      }
 
       /**
-         @brief Enable or disable all instantiated submodules of the timer
+        @brief Enable or disable all instantiated submodules of the timer
 
          This function allows you to enable/disable the output pins without
          changing anything in the configuration. When the timer is
          disabled, its output pins are forced to zero.
 
-         @param value true to enable, false otherwise
+        @param value true to enable, false otherwise
       */
       void enable (bool value = true);
 
       /**
-         @brief Disable all instantiated submodules of the timer
+        @brief Disable all instantiated submodules of the timer
 
          This function allows you to disable the output pins without
          changing anything in the configuration. When the submodule is
@@ -64,39 +65,39 @@ namespace eFlex {
       }
 
       /**
-         @brief Returns true if the timer is enabled
+        @brief Returns true if the timer is enabled
       */
       inline bool isEnabled() const {
         return m_isenabled;
       }
 
       /**
-         @brief PWM main counter clock in Hz.
-      */
-      inline uint32_t srcClockHz() const {
-        return F_BUS_ACTUAL;
-      }
-
-      /**
-        @brief Starts the PWM counter for a single or multiple submodules.
+        @brief Starts or stops the PWM counter for a single or multiple submodules.
 
         Sets the Run bit which enables the clocks to the PWM submodule. This function can start multiple
         submodules at the same time.
 
         @param subModulesToStart PWM submodules to start. This is a logical OR of members of the
                                   enumeration ::pwm_module_control_t
+        @param startit true to start, false to stop
       */
-      inline void start (uint8_t subModulesToStart) {
-        PWM_StartTimer (ptr(), subModulesToStart);
+      inline void start (uint8_t subModulesToStart, bool startit = true) {
+        if (startit) {
+          PWM_StartTimer (ptr(), subModulesToStart);
+        }
+        else {
+          PWM_StopTimer (ptr(), subModulesToStart);
+        }
       }
 
       /**
-        @brief Starts the PWM counter for all instantiated submodules for this timer
-
+        @brief Starts or stops the PWM counter for all instantiated submodules for this timer
+        
+        @param startit true to start, false to stop
         @note This operation is not useful if \c begin() was called with doStart=true
-      */
-      inline void start () {
-        start (SmMask[m_tmidx]);
+       */
+      inline void start (bool startit = true) {
+        start (SmMask[m_tmidx], startit);
       }
 
       /**
@@ -109,15 +110,111 @@ namespace eFlex {
                                  enumeration ::pwm_module_control_t
       */
       inline void stop (uint8_t subModulesToStop) {
-        PWM_StopTimer (ptr(), subModulesToStop);
+        start (subModulesToStop, false);
       }
 
       /**
         @brief Stops the PWM counter for all instantiated submodules for this timer
       */
       inline void stop () {
-        stop (SmMask[m_tmidx]);
+        stop (false);
       }
+
+      /**
+        @brief Setting the duty cycle for all submodules before calling begin
+
+        @note If you want this value to take effect after the call to \ref begin, you must call \ref updateSetting
+        @param dutyCyclePercent duty cycle in percent
+      */
+      void setupDutyCyclePercent (uint8_t dutyCyclePercent);
+
+      /**
+        @brief Setting the output pulse mode for all submodules before calling begin
+
+        @note If you want this value to take effect after the call to \ref begin, you must call \ref updateSetting
+        @param level output pulse mode
+      */
+      void setupLevel (pwm_level_select_t level);
+
+      /**
+        @brief Setting the deadtime for all submodules before calling begin
+
+        @note If you want this value to take effect after the call to \ref begin, you must call \ref updateSetting
+
+        @param deadtimeValue The deadtime value in clock cycles; only used if channel pair is operating in complementary mode
+      */
+      void setupDeadtime (uint16_t deadtimeValue);
+
+      /**
+        @brief Setting output enable for all submodules before calling begin
+
+        @note If you want this value to take effect after the call to \ref begin, you must call \ref updateSetting
+        @param activate true to enable the outputs
+      */
+      void setupOutputEnable (bool activate = true);
+
+      /**
+        @brief Setting the output fault status for all submodules before calling begin
+
+        @note If you want this value to take effect after the call to \ref begin, you must call \ref updateSetting
+
+        @param faultState the output fault status
+      */
+      void setupFaultState (pwm_fault_state_t faultState);
+
+
+      /*!
+        @brief Update PWM signals for all submodules
+
+         The function initializes the submodule according to the parameters passed in by the user. The function
+         also sets up the value compare registers to match the PWM signal requirements.
+         If the dead time insertion logic is enabled, the pulse period is reduced by the
+         dead time period specified by the user.
+
+        @param doSync      true: Set LDOK bit for the submodule;
+                            false: LDOK bit don't set, need to call setPwmLdok to sync update.
+
+        @return Returns false if there was error setting up the signal; true otherwise
+      */
+      bool updateSetting (bool doSync = true);
+
+      /**
+        @brief PWM main counter clock in Hz.
+      */
+      inline uint32_t srcClockHz() const {
+        return F_BUS_ACTUAL;
+      }
+
+      /**
+        @brief Print PWM module registers to the output stream
+
+        @note submodule registers are not printed.
+
+        @param out the output stream, Serial by default
+      */
+      void printRegs (Stream &out = Serial) const;
+
+      /**
+        @brief Print registers of PWM module and its submodules to the output stream
+        
+        @param out the output stream, Serial by default
+       */
+      void printAllRegs (Stream &out = Serial) const;
+
+      /**
+        @brief Sets or clears the PWM LDOK bit on all instantiated submodules for this timer
+
+        @note This operation is not useful if \c begin() was called with doSync=true
+
+        @param value              true: Set LDOK bit for the submodule list; false: Clear LDOK bit
+      */
+      inline void setPwmLdok (bool value = true) {
+        setPwmLdok (SmMask[m_tmidx], value);
+      }
+
+      //-----------------------------------------------------------------------
+      //                            NXP SDK WRAPPER
+      //-----------------------------------------------------------------------
 
       /**
         @brief Sets or clears the PWM LDOK bit on a single or multiple submodules
@@ -136,18 +233,6 @@ namespace eFlex {
       }
 
       /**
-        @brief Sets or clears the PWM LDOK bit on all instantiated submodules for this timer
-
-        @note This operation is not useful if \c begin() was called with doSync=true
-
-        @param value              true: Set LDOK bit for the submodule list; false: Clear LDOK bit
-      */
-      inline void setPwmLdok (bool value = true) {
-        setPwmLdok (SmMask[m_tmidx], value);
-      }
-
-
-      /**
         @brief Sets up the PWM fault input filter.
 
         @param faultInputFilterParams Parameters passed in to set up the fault input filter.
@@ -157,48 +242,36 @@ namespace eFlex {
       }
 
       /**
-         @brief Sets up the PWM fault protection.
+        @brief Sets up the PWM fault protection.
 
          PWM has 4 fault inputs.
 
-         @param faultNum    PWM fault to configure.
-         @param faultParams Pointer to the PWM fault config structure
+        @param faultNum    PWM fault to configure.
+        @param faultParams Pointer to the PWM fault config structure
       */
       inline void setupFaults (pwm_fault_input_t faultNum, const pwm_fault_param_t *faultParams) {
         PWM_SetupFaults (ptr(), faultNum, faultParams);
       }
 
-      /**
-         @brief
-
-         @return uint8_t
-      */
-      inline uint8_t index() const {
-        return m_tmidx;
-      }
-
-      void dumpRegs (Stream &out = Serial) const;
-      void dumpAllRegs (Stream &out = Serial) const;
-
     protected:
+      /**
+        @brief Construct a new Timer Module
+        cannot be publicly instantiated
+        @param index the timer module index (0 for PWM1...)
+      */
+      Timer (uint8_t index);
       inline PWM_Type *ptr() {
-
         return m_ptr;
       }
       inline const PWM_Type *ptr() const {
-
         return m_ptr;
       }
-
-    private:
-      friend class SubModule;
-      friend class Pin;
 
     private:
       uint8_t m_tmidx;
       PWM_Type *m_ptr;
       bool m_isenabled;
   };
-  extern Timer TM[NofTimers];
+  extern Timer * TM[NofTimers];
 }
 

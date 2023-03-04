@@ -67,59 +67,87 @@ namespace eFlex {
 
 
   // ----------------------------------------------------------------------------
-  void Timer::setLevel (pwm_level_select_t level) {
+  void Timer::setupLevel (pwm_level_select_t level) {
 
     for (uint8_t i = 0; i < NofSubmodules; i++) {
 
       SubModule *s = SmList[m_tmidx][i];
       if (s) {
 
-        s ->setLevel (level);
+        s ->setupLevel (level);
       }
     }
   }
 
   // ----------------------------------------------------------------------------
-  void Timer::setDeadtime (uint16_t deadtimeValue) {
+  void Timer::setupDeadtime (uint16_t deadtimeValue) {
 
     for (uint8_t i = 0; i < NofSubmodules; i++) {
 
       SubModule *s = SmList[m_tmidx][i];
       if (s) {
 
-        s ->setDeadtime (deadtimeValue);
+        s ->setupDeadtime (deadtimeValue);
       }
     }
   }
 
   // ----------------------------------------------------------------------------
-  void Timer::setEnable (bool activate) {
+  void Timer::setupOutputEnable (bool activate) {
 
     for (uint8_t i = 0; i < NofSubmodules; i++) {
 
       SubModule *s = SmList[m_tmidx][i];
       if (s) {
 
-        s ->setEnable (activate);
+        s ->setupOutputEnable (activate);
       }
     }
   }
 
   // ----------------------------------------------------------------------------
-  void Timer::setFaultState (pwm_fault_state_t faultState) {
+  void Timer::setupDutyCyclePercent (uint8_t dutyCyclePercent) {
 
     for (uint8_t i = 0; i < NofSubmodules; i++) {
 
       SubModule *s = SmList[m_tmidx][i];
       if (s) {
 
-        s ->setFaultState (faultState);
+        s ->setupDutyCyclePercent (dutyCyclePercent);
+      }
+    }
+  }
+
+  // ----------------------------------------------------------------------------
+  void Timer::setupFaultState (pwm_fault_state_t faultState) {
+
+    for (uint8_t i = 0; i < NofSubmodules; i++) {
+
+      SubModule *s = SmList[m_tmidx][i];
+      if (s) {
+
+        s ->setupFaultState (faultState);
       }
     }
   }
 
   //-----------------------------------------------------------------------------
-  void Timer::dumpRegs (Stream &out) const {
+  bool Timer::updateSetting (bool doSync) {
+    bool success = true;
+
+    for (uint8_t i = 0; i < NofSubmodules; i++) {
+
+      SubModule *s = SmList[m_tmidx][i];
+      if (s) {
+
+        success &= s ->updateSetting (doSync);
+      }
+    }
+    return success;
+  }
+
+  //-----------------------------------------------------------------------------
+  void Timer::printRegs (Stream &out) const {
     #ifdef EFLEXPWM_DUMPREG_ENABLED
     const char *names[] = {
       "OUTEN",                             /**< Output Enable Register, offset: 0x180 */
@@ -146,12 +174,12 @@ namespace eFlex {
   }
 
   //-----------------------------------------------------------------------------
-  void Timer::dumpAllRegs (Stream &out) const {
+  void Timer::printAllRegs (Stream &out) const {
     #ifdef EFLEXPWM_DUMPREG_ENABLED
 
     delay (10);
     out.println ("Timer >>>>>");
-    dumpRegs (out);
+    printRegs (out);
     out.println ("");
 
     for (uint8_t i = 0; i < NofSubmodules; i++) {
@@ -160,10 +188,36 @@ namespace eFlex {
       if (s) {
 
         out.printf ("SubM %u +++++\n", i);
-        s->dumpRegs (out);
+        s->printRegs (out);
         out.println ("");
       }
     }
     #endif
   }
+
+  class TimerFactory : public Timer {
+    public:
+      /**
+        @brief Construct a new Timer Module
+
+        @param index the timer module index (0 for PWM1...)
+      */
+      TimerFactory (uint8_t index) : Timer (index) {}
+  };
+
+  // All timers are instantiated globally
+  TimerFactory TMF[NofTimers] = {
+    TimerFactory (Pwm1),
+    TimerFactory (Pwm2),
+    TimerFactory (Pwm3),
+    TimerFactory (Pwm4)
+  };
+
+  Timer *TM[NofTimers] = {
+    & TMF[Pwm1],
+    & TMF[Pwm2],
+    & TMF[Pwm3],
+    & TMF[Pwm4]
+  };
+
 }

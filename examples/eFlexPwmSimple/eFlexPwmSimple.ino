@@ -126,14 +126,14 @@ void setup() {
     Set deadtime count, we set this to about 1000ns for all submodules pins
     You can also, modify it for all the pins of a sub-module, eg. :
 
-      Sm20.setDeadtime (deadTimeVal);
+      Sm20.setupDeadtime (deadTimeVal);
 
     or even for a particular pin, eg. :
 
-      Sm20.setDeadtime (deadTimeVal, ChanA);
+      Sm20.setupDeadtime (deadTimeVal, ChanA);
   */
   uint16_t deadTimeVal = ( (uint64_t) Tm2.srcClockHz() * 1000) / 1000000000;
-  Tm2.setDeadtime (deadTimeVal);
+  Tm2.setupDeadtime (deadTimeVal);
 
   // synchronize registers and start all submodules
   if (Tm2.begin() != true) {

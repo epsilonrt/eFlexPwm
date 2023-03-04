@@ -25,8 +25,8 @@ namespace eFlex {
   //   Constants
   // ----------------------------------------------------------------------------
   const uint8_t NofTimers = 4; ///< Number of timers in the MCU
-  const uint8_t NofSubmodules = 4; ///< number of submodules per timer
-  const uint8_t NofPins = 2; ///< max number of pins per sub-module (A/B)
+  const uint8_t NofSubmodules = FSL_FEATURE_PWM_SUBMODULE_COUNT; ///< number of submodules per timer
+  const uint8_t NofPins = PWM_SUBMODULE_CHANNEL; ///< max number of pins per sub-module (A/B)
 
   enum TimerIndex {
     Pwm1 = 0,
