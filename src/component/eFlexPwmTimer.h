@@ -8,6 +8,7 @@
 
 #include "eFlexPwmPin.h"
 #include "eFlexPwmSubmodule.h"
+#include "eFlexPwmFaultConfig.h"
 
 namespace eFlex {
 
@@ -249,8 +250,8 @@ namespace eFlex {
         @param faultNum    PWM fault to configure.
         @param faultParams Pointer to the PWM fault config structure
       */
-      inline void setupFaults (pwm_fault_input_t faultNum, const pwm_fault_param_t *faultParams) {
-        PWM_SetupFaults (ptr(), faultNum, faultParams);
+      inline void setupFaults (pwm_fault_input_t faultNum, const FaultConfig &faultConfig) {
+        PWM_SetupFaults (ptr(), faultNum, faultConfig.kPwmConfig());
       }
 
     protected:
