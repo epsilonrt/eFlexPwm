@@ -18,7 +18,8 @@
 
   This program works under interrupt and takes advantage of the i.MX RT1062 computing power.
   The Teensy's LED is lit during the interrupt routine in order to be able to measure its execution time.
-  The measurements taken show an average time of 580ns !
+  The measurements taken show an average time of 550ns !
+  https://raw.githubusercontent.com/epsilonrt/eFlexPwm/r0.2/extras/images/dslogic_single_phase_inverter_isr_time_50hz.png
   
   This example displays a message on the Serial link (USB CDC), SPWM frequency (Fs) and any error messages:
 
@@ -79,7 +80,8 @@ void IsrOverflowSm20() {
   float32_t s;
 
   // The Teensy's LED is lit during the interrupt routine in order to be able to measure its execution time.
-  digitalWrite (LED_BUILTIN, HIGH);
+  digitalWriteFast (LED_BUILTIN, HIGH);
+  
   s = roundf ( (MidDutyCycle - 1) * arm_sin_f32 (vSpeed * ++vSample));
 
   Sm20.updateDutyCycle (static_cast<uint16_t> (MidDutyCycle + s));
@@ -88,7 +90,7 @@ void IsrOverflowSm20() {
   Sm20.clearStatusFlags (kPWM_CompareVal1Flag);
   Tm2.setPwmLdok();
 
-  digitalWrite (LED_BUILTIN, LOW);
+  digitalWriteFast (LED_BUILTIN, LOW);
 }
 
 // ----------------------------------------------------------------------------
