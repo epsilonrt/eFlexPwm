@@ -93,10 +93,10 @@ namespace eFlex {
 
       /**
         @brief Starts or stops the PWM counter for all instantiated submodules for this timer
-        
+
         @param startit true to start, false to stop
         @note This operation is not useful if \c begin() was called with doStart=true
-       */
+      */
       inline void start (bool startit = true) {
         start (SmMask[m_tmidx], startit);
       }
@@ -197,9 +197,9 @@ namespace eFlex {
 
       /**
         @brief Print registers of PWM module and its submodules to the output stream
-        
+
         @param out the output stream, Serial by default
-       */
+      */
       void printAllRegs (Stream &out = Serial) const;
 
       /**
@@ -236,23 +236,22 @@ namespace eFlex {
       /**
         @brief Sets up the PWM fault input filter.
 
-        @param faultInputFilterParams Parameters passed in to set up the fault input filter.
+        @param faultConfig FaultConfig passed in to set up the fault input filter.
       */
-      inline void setupFaultInputFilter (const pwm_fault_input_filter_param_t *faultInputFilterParams) {
-        PWM_SetupFaultInputFilter (ptr(), faultInputFilterParams);
+      inline void setupFaultInputFilter (const FaultConfig &faultConfig) {
+        PWM_SetupFaultInputFilter (ptr(), faultConfig.kPwmFilter());
       }
 
       /**
         @brief Sets up the PWM fault protection.
 
-         PWM has 4 fault inputs.
+         PWM has 4 FAULTx inputs.
 
         @param faultNum    PWM fault to configure.
-        @param faultParams Pointer to the PWM fault config structure
+        @param faultConfig FaultConfig passed in to set up
+        @param faultPin if provided, the faultPin pin is connected to the FAULTx input (x=faultNum), by XBARA (Inter-Peripheral Crossbar Switch)
       */
-      inline void setupFaults (pwm_fault_input_t faultNum, const FaultConfig &faultConfig) {
-        PWM_SetupFaults (ptr(), faultNum, faultConfig.kPwmConfig());
-      }
+      void setupFaults (uint8_t faultNum, const FaultConfig &faultConfig, int faultPin = -1);
 
     protected:
       /**
@@ -273,6 +272,6 @@ namespace eFlex {
       PWM_Type *m_ptr;
       bool m_isenabled;
   };
-  extern Timer * TM[NofTimers];
+  extern Timer *TM[NofTimers];
 }
 

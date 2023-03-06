@@ -10,7 +10,6 @@
 
 #define EFLEXPWM_DUMPREG_ENABLED 1
 
-extern "C" void xbar_connect(unsigned int input, unsigned int output);
 
 /// @brief Library namespace
 namespace eFlex {

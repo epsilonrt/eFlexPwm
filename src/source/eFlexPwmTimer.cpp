@@ -6,6 +6,8 @@
 */
 #include "component/eFlexPwmTimer.h"
 
+extern "C" void xbar_connect (unsigned int input, unsigned int output);
+
 namespace eFlex {
 
   //-----------------------------------------------------------------------------
@@ -144,6 +146,46 @@ namespace eFlex {
       }
     }
     return success;
+  }
+
+  const uint8_t XBarFaultOutput [NofTimers][4] = {
+    {
+      XBARA1_OUT_FLEXPWM1_FAULT0,
+      XBARA1_OUT_FLEXPWM1_FAULT1,
+      XBARA1_OUT_FLEXPWM1_FAULT2,
+      XBARA1_OUT_FLEXPWM1_FAULT3
+    },
+    {
+      XBARA1_OUT_FLEXPWM2_FAULT0,
+      XBARA1_OUT_FLEXPWM2_FAULT1,
+      XBARA1_OUT_FLEXPWM2_FAULT2,
+      XBARA1_OUT_FLEXPWM2_FAULT3
+    },
+    {
+      XBARA1_OUT_FLEXPWM3_FAULT0,
+      XBARA1_OUT_FLEXPWM3_FAULT1,
+      XBARA1_OUT_FLEXPWM3_FAULT2,
+      XBARA1_OUT_FLEXPWM3_FAULT3
+    },
+    {
+
+      XBARA1_OUT_FLEXPWM4_FAULT0,
+      XBARA1_OUT_FLEXPWM4_FAULT1,
+      XBARA1_OUT_FLEXPWM4_FAULT2,
+      XBARA1_OUT_FLEXPWM4_FAULT3
+    }
+  };
+
+  //-----------------------------------------------------------------------------
+  void Timer::setupFaults (uint8_t faultNum, const FaultConfig &faultConfig, int faultPin) {
+
+    if ( (faultNum & 0x03) == 0) {
+      if (faultPin > 0) {
+
+        xbar_connect (faultPin, XBarFaultOutput[m_tmidx][faultNum]);
+      }
+      PWM_SetupFaults (ptr(), faultNum, faultConfig.kPwmConfig());
+    }
   }
 
   //-----------------------------------------------------------------------------
