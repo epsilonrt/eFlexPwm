@@ -5,8 +5,7 @@
    SPDX-License-Identifier: BSD-3-Clause
 */
 #include "component/eFlexPwmTimer.h"
-
-extern "C" void xbar_connect (unsigned int input, unsigned int output);
+#include "component/XBara.h"
 
 namespace eFlex {
 
@@ -50,6 +49,7 @@ namespace eFlex {
 
       start();
     }
+    // Serial.printf ("%s:FSTS 0x%04X\n", __func__, ptr()->FSTS);
     return success;
   }
 
@@ -148,44 +148,63 @@ namespace eFlex {
     return success;
   }
 
-  const uint8_t XBarFaultOutput [NofTimers][4] = {
+  const xbar_output_signal_t XBarFaultOutput [NofTimers][4] = {
     {
-      XBARA1_OUT_FLEXPWM1_FAULT0,
-      XBARA1_OUT_FLEXPWM1_FAULT1,
-      XBARA1_OUT_FLEXPWM1_FAULT2,
-      XBARA1_OUT_FLEXPWM1_FAULT3
+      kXBARA1_OutputFlexpwm1Fault0,
+      kXBARA1_OutputFlexpwm1Fault1,
+      kXBARA1_OutputFlexpwm1234Fault2,
+      kXBARA1_OutputFlexpwm1234Fault3
     },
     {
-      XBARA1_OUT_FLEXPWM2_FAULT0,
-      XBARA1_OUT_FLEXPWM2_FAULT1,
-      XBARA1_OUT_FLEXPWM2_FAULT2,
-      XBARA1_OUT_FLEXPWM2_FAULT3
+      kXBARA1_OutputFlexpwm2Fault0,
+      kXBARA1_OutputFlexpwm2Fault1,
+      kXBARA1_OutputFlexpwm1234Fault2,
+      kXBARA1_OutputFlexpwm1234Fault3
     },
     {
-      XBARA1_OUT_FLEXPWM3_FAULT0,
-      XBARA1_OUT_FLEXPWM3_FAULT1,
-      XBARA1_OUT_FLEXPWM3_FAULT2,
-      XBARA1_OUT_FLEXPWM3_FAULT3
+      kXBARA1_OutputFlexpwm3Fault0,
+      kXBARA1_OutputFlexpwm3Fault1,
+      kXBARA1_OutputFlexpwm1234Fault2,
+      kXBARA1_OutputFlexpwm1234Fault3
     },
     {
 
-      XBARA1_OUT_FLEXPWM4_FAULT0,
-      XBARA1_OUT_FLEXPWM4_FAULT1,
-      XBARA1_OUT_FLEXPWM4_FAULT2,
-      XBARA1_OUT_FLEXPWM4_FAULT3
+      kXBARA1_OutputFlexpwm4Fault0,
+      kXBARA1_OutputFlexpwm4Fault1,
+      kXBARA1_OutputFlexpwm1234Fault2,
+      kXBARA1_OutputFlexpwm1234Fault3
     }
   };
 
   //-----------------------------------------------------------------------------
-  void Timer::setupFaults (uint8_t faultNum, const FaultConfig &faultConfig, int faultPin) {
+  bool Timer::xbaraConnect (uint8_t faultNum, int faultPin, uint8_t mode) {
 
-    if ( (faultNum & 0x03) == 0) {
-      if (faultPin > 0) {
+    if ( (faultNum & ~0x03) == 0) {
 
-        xbar_connect (faultPin, XBarFaultOutput[m_tmidx][faultNum]);
+      if (faultPin >= 0) {
+        const xbar_input_signal_t *input = XBaraSetupInput (faultPin, mode);
+
+        if (input) {
+
+          XBaraConnect (*input, XBarFaultOutput[m_tmidx][faultNum]);
+          // Serial.printf ("%s:FSTS 0x%04X\n", __func__, ptr()->FSTS);
+          return true;
+        }
       }
-      PWM_SetupFaults (ptr(), faultNum, faultConfig.kPwmConfig());
     }
+    return false;
+  }
+
+  //-----------------------------------------------------------------------------
+  bool Timer::setupFaults (uint8_t faultNum, const FaultConfig &faultConfig) {
+
+    if ( (faultNum & ~0x03) == 0) {
+
+      PWM_SetupFaults (ptr(), static_cast<pwm_fault_input_t> (faultNum), faultConfig.kPwmConfig());
+      // Serial.printf ("%s:FSTS 0x%04X\n", __func__, ptr()->FSTS);
+      return true;
+    }
+    return false;
   }
 
   //-----------------------------------------------------------------------------

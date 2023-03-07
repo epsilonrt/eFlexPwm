@@ -249,9 +249,21 @@ namespace eFlex {
 
         @param faultNum    PWM fault to configure.
         @param faultConfig FaultConfig passed in to set up
-        @param faultPin if provided, the faultPin pin is connected to the FAULTx input (x=faultNum), by XBARA (Inter-Peripheral Crossbar Switch)
+                        
+        @return true, false if faultPin is not an XBar pin available on the board 
       */
-      void setupFaults (uint8_t faultNum, const FaultConfig &faultConfig, int faultPin = -1);
+      bool setupFaults (uint8_t faultNum, const FaultConfig &faultConfig);
+
+      /**
+        @brief This function connects the Arduino input to the FAULTx input
+        
+        @param faultNum PWM fault to configure.
+        @param faultPin Arduino pin number, the faultPin is connected to the FAULTx input (x=faultNum), by XBARA (Inter-Peripheral Crossbar Switch)
+                        (cf https://github.com/KurtE/TeensyDocuments/raw/master/Teensy4x%20Pins.xlsx for Teensy4)
+        @param faultPinMode Arduino input pin mode : INPUT, INPUT_PULLUP, INPUT_PULLDOWN (any other value is considered INPUT)
+        @return true, false if faultPin is not an XBar pin available on the board 
+       */
+      bool xbaraConnect (uint8_t faultNum, int faultPin, uint8_t faultPinMode = INPUT);
 
     protected:
       /**
