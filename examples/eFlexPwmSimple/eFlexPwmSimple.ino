@@ -36,6 +36,7 @@ using namespace eFlex;
 // ----------------------------------------------------------------------------
 /* PWM frequence in hz. */
 const uint32_t PwmFreq = 18000;
+const float32_t DeadTimeNs = 50.0;    // deadtime in nanoseconds
 
 // My eFlexPWM submodules (Hardware > PWM2: SM[0], SM[2], SM[3])
 SubModule Sm20 (4, 33);
@@ -82,7 +83,6 @@ void setup() {
   /* PWM A & PWM B form a complementary PWM pair */
   myConfig.setPairOperation (kPWM_ComplementaryPwmA);
   myConfig.setPwmFreqHz (PwmFreq);
-  myConfig.enableDebugMode (true);
 
   /* Initialize submodule 0 */
   if (Sm20.configure (myConfig) != true) {
@@ -129,7 +129,7 @@ void setup() {
 
       Sm20.setupDeadtime (deadTimeVal, ChanA);
   */
-  uint16_t deadTimeVal = ( (uint64_t) Tm2.srcClockHz() * 1000) / 1000000000;
+  uint16_t deadTimeVal = ( (uint64_t) Tm2.srcClockHz() * DeadTimeNs) / 1000000000;
   Tm2.setupDeadtime (deadTimeVal);
 
   // synchronize registers and start all submodules
