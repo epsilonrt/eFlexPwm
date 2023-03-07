@@ -2,15 +2,15 @@
   eFlexPwm Fault Example
 
   This is the same example as SIMPLE with fault detection.
-   
-  A low level on one of the selected FAULTx inputs triggers an immediate deactivation 
-  of the timers and an interruption. 
+
+  A low level on one of the selected FAULTx inputs triggers an immediate deactivation
+  of the timers and an interruption.
   The outputs are reactivated if the user sends the character C on Serial.
 
   This example generates 3 pairs of PWM signals on a Teensy 4.1 board
-  Each signal pair corresponds to the PWMA output and the PWMB (A's complement) 
+  Each signal pair corresponds to the PWMA output and the PWMB (A's complement)
   output of an eFlexPWM submodule.
-  In this example, sub-modules 0, 2 and 3 of PWM2 are used. On the Teensy 4.1 board, 
+  In this example, sub-modules 0, 2 and 3 of PWM2 are used. On the Teensy 4.1 board,
   this corresponds to the following pins:
   | PWM | SubModule | Pol | Teensy | Native |
   |-----|-----------|-----|--------|--------|
@@ -25,7 +25,7 @@
   The duty cycle of sub-module 2 is equal to that of sub-module 0 divided by 2.
   The duty cycle of sub-module 3 is equal to that of sub-module 0 divided by 4.
 
-  This example displays a message on the Serial link (USB CDC), and any error messages: 
+  This example displays a message on the Serial link (USB CDC), and any error messages:
 
   eFlexPwm Fault Example
   Submodules successfuly started
@@ -34,9 +34,19 @@
 */
 #include <Arduino.h>
 #include <eFlexPwm.h>
+#include <util/atomic.h>
+#ifdef DEBUG
+#include <TeensyDebug.h>
+#pragma GCC optimize ("O0")
+#define WAIT_FOR_DEBUGGER_SECONDS 120
+#define WAIT_FOR_SERIAL_SECONDS 20
+#endif
 
 //   Definitions
 // ----------------------------------------------------------------------------
+//#define WAIT_SERIAL_CONNECT
+//#define DUMP_PWMCONFIG
+
 // avoid systematically prefixing objects with the namespace
 using namespace eFlex;
 
@@ -44,21 +54,78 @@ using namespace eFlex;
 // ----------------------------------------------------------------------------
 /* PWM frequence in hz. */
 const uint32_t PwmFreq = 18000;
+const uint32_t DeadTimeNs = 50;    // deadtime in nanoseconds
+const uint8_t FaultPin[] = {0, 1, 2, 3};
 
 // My eFlexPWM submodules (Hardware > PWM2: SM[0], SM[2], SM[3])
 SubModule Sm20 (4, 33);
 SubModule Sm22 (6, 9);
 SubModule Sm23 (36, 37);
-/* 
-  all the sub-modules are part of the same timer: PWM2, 
-  Tm2 simplifies access to the functions that concern all the sub-modules
-*/
 Timer &Tm2 = Sm20.timer();
 
 // the duty cycle in %
 uint8_t dutyCyclePercent = 0;
 
+volatile int faultIrqSource = -1;
+
 //   Code
+// ----------------------------------------------------------------------------
+void setupDebug();
+
+void IsrPwm2Fault() {
+  digitalWriteFast(LED_BUILTIN, HIGH);
+
+  uint32_t statusFlags = Sm20.statusFlags();
+  uint32_t mask = kPWM_Fault0Flag;
+
+  for (uint8_t i = 0; i < 4; i++) {
+    if (statusFlags & mask) {
+
+      faultIrqSource = i;
+      break;
+    }
+    mask <<= 1;
+  }
+  Sm20.clearStatusFlags (mask);
+  digitalWriteFast(LED_BUILTIN, LOW);
+}
+
+// ----------------------------------------------------------------------------
+/*
+  TODO
+  Ne fonctionne pas. Dès que l'on active la gestion des fautes avec Timer::setupFaults(), 
+  les broches d'entrées FAULTx sont vues à l'état haut ce qui est confirmé par les bits 
+  FFPIN dans le registre FSTS, pourtant les bits FFLAG restent à l'état bas. 
+  Cela ne change pas même si on route les entrées FAULTx vers un niveau haut ou bas 
+  avec XBAR. 
+  Le seule chose qui désactive l'erreur au démarrage est la configuration setFaultLevel(true) 
+  mais dans ce cas, il n'est pas possible de faire passer le timer en erreur.
+ */
+void setupFault() {
+  FaultConfig MyFaultConfig;
+
+  MyFaultConfig.setFaultLevel (false); // if false, failed !
+  // Tm2.setupFaultState(kPWM_PwmFaultState1);
+  Tm2.setupFaultInputFilter(MyFaultConfig);
+
+  for (uint8_t i = 0; i < 4; i++) {
+
+    if (Tm2.setupFaults (i, MyFaultConfig) != true) {
+      Serial.printf ("Unable to setup FAULT%d\n", i);
+      exit (EXIT_FAILURE);
+    }
+  }
+#if 0
+  /* Set PWM fault disable mapping for submodule 0/2/3 */
+  Sm20.setupFaultDisableMap (ChanA, kPWM_faultchannel_0,
+                             kPWM_FaultDisable_0 | kPWM_FaultDisable_1 | kPWM_FaultDisable_2 | kPWM_FaultDisable_3);
+  Sm22.setupFaultDisableMap (ChanA, kPWM_faultchannel_0,
+                             kPWM_FaultDisable_0 | kPWM_FaultDisable_1 | kPWM_FaultDisable_2 | kPWM_FaultDisable_3);
+  Sm23.setupFaultDisableMap (ChanA, kPWM_faultchannel_0,
+                             kPWM_FaultDisable_0 | kPWM_FaultDisable_1 | kPWM_FaultDisable_2 | kPWM_FaultDisable_3);
+#endif
+}
+
 // ----------------------------------------------------------------------------
 void setup() {
 
@@ -66,23 +133,19 @@ void setup() {
   pinMode (LED_BUILTIN, OUTPUT);
 
   digitalWrite (LED_BUILTIN, HIGH);
-  Serial.println ("eFlexPwm Simple Example");
-  // start of PWM configuration -----------------------------------------------
-  /* Submodule configuration, default values are:
+  setupDebug();
 
-    config->debugModeEnabled = false;
-    config->enableWait = false;
-    config->reloadSelect = kPWM_LocalReload;
-    config->clockSource = kPWM_BusClock;
-    config->prescale = kPWM_Prescale_Divide_1;
-    config->initializationControl = kPWM_Initialize_LocalSync;
-    config->forceTrigger = kPWM_Force_Local;
-    config->reloadFrequency = kPWM_LoadEveryOportunity;
-    config->reloadLogic = kPWM_ReloadImmediate;
-    config->pairOperation = kPWM_Independent;
-    config->pwmFreqHz = 5000;
-    config->mode = kPWM_CenterAligned;
-  */
+  for (uint8_t i = 0; i < 4; i++) {
+    /*
+      Configure all fault inputs and connect them to GPIO pins
+    */
+    if (Tm2.xbaraConnect (i, FaultPin[i], INPUT_PULLUP) != true) {
+      Serial.printf ("Unable to connect FAULT%d\n", i);
+      exit (EXIT_FAILURE);
+    }
+  }
+
+  // start of PWM configuration -----------------------------------------------
   Config myConfig;
 
   /* Use full cycle reload */
@@ -90,7 +153,6 @@ void setup() {
   /* PWM A & PWM B form a complementary PWM pair */
   myConfig.setPairOperation (kPWM_ComplementaryPwmA);
   myConfig.setPwmFreqHz (PwmFreq);
-  myConfig.enableDebugMode (true);
 
   /* Initialize submodule 0 */
   if (Sm20.configure (myConfig) != true) {
@@ -114,30 +176,9 @@ void setup() {
     exit (EXIT_FAILURE);
   }
 
-  /* Signal and pin configuration, parameters that can be changed :
-      dutyCyclePercent :  Initial PWM pulse width, value should be between 0 to 100
-                                    0=inactive signal(0% duty cycle)...
-                                    100=always active signal (100% duty cycle)
-                          default value: 50%
-      level            :  PWM output active level select, default value: kPWM_HighTrue
-      deadtimeValue    :  The deadtime value; only used if channel pair is
-                                    operating in complementary mode
-                          default value: 0
-      faultState       :  PWM output fault status, default value: kPWM_PwmFaultState0
-      pwmchannelenable :  Enable PWM output, default value: true
-  */
+  setupFault();
 
-  /*
-    Set deadtime count, we set this to about 1000ns for all submodules pins
-    You can also, modify it for all the pins of a sub-module, eg. :
-
-      Sm20.setupDeadtime (deadTimeVal);
-
-    or even for a particular pin, eg. :
-
-      Sm20.setupDeadtime (deadTimeVal, ChanA);
-  */
-  uint16_t deadTimeVal = ( (uint64_t) Tm2.srcClockHz() * 1000) / 1000000000;
+  uint16_t deadTimeVal = ( (uint64_t) Tm2.srcClockHz() * DeadTimeNs) / 1000000000;
   Tm2.setupDeadtime (deadTimeVal);
 
   // synchronize registers and start all submodules
@@ -149,13 +190,35 @@ void setup() {
 
     Serial.println ("Submodules successfuly started");
   }
+
+#if 1
+  // Fault interrupts are common to all submodules
+  Sm20.enableInterrupts (kPWM_Fault0InterruptEnable | kPWM_Fault1InterruptEnable | kPWM_Fault2InterruptEnable | kPWM_Fault3InterruptEnable);
+  attachInterruptVector (IRQ_FLEXPWM2_FAULT, &IsrPwm2Fault);
+  Sm20.clearStatusFlags (kPWM_Fault0Flag | kPWM_Fault1Flag | kPWM_Fault2Flag | kPWM_Fault3Flag);
+  NVIC_ENABLE_IRQ (IRQ_FLEXPWM2_FAULT);
+#endif
+
+  #ifdef DUMP_PWMCONFIG
+  Tm2.printAllRegs();
+  #endif
   // end of PWM setup
   digitalWrite (LED_BUILTIN, LOW);
 }
 
 void loop() {
-  // turn the LED on (HIGH is the voltage level)
-  digitalWrite (LED_BUILTIN, HIGH);
+
+  int faultSource;
+  ATOMIC_BLOCK (ATOMIC_RESTORESTATE) {
+    faultSource = faultIrqSource;
+  }
+
+  if (faultSource >= 0) {
+    Serial.printf ("FAULT%d triggered !\n", faultSource);
+    ATOMIC_BLOCK (ATOMIC_RESTORESTATE) {
+      faultIrqSource = -1;
+    }
+  }
 
   dutyCyclePercent += 5;
 
@@ -168,12 +231,74 @@ void loop() {
   Tm2.setPwmLdok();
 
   if (dutyCyclePercent >= 100) {
-    
+
     dutyCyclePercent = 5;
   }
 
-  // turn the LED off by making the voltage LOW
-  digitalWrite (LED_BUILTIN, LOW);
   // Delay at least 100 PWM periods
   delayMicroseconds ( (1000000U / PwmFreq) * 100);
+}
+
+void setupDebug() {
+  // Debugger (gdb) support
+  #ifdef DEBUG
+  {
+    bool debug_avail = false;
+    bool serial_avail = false;
+
+    SerialUSB1.begin (19200);
+
+    for (uint8_t i = 0; i < WAIT_FOR_DEBUGGER_SECONDS; i++) {
+
+      digitalWrite (LED_BUILTIN, HIGH);
+      delay (800);
+      digitalWrite (LED_BUILTIN, LOW);
+      delay (200);
+
+      // Debugger will use second USB Serial; this line is not need if using menu option
+      if (SerialUSB1) {
+
+        debug_avail = true;
+        break;
+      }
+
+      if (Serial) {
+
+        serial_avail = true;
+        break;
+      }
+    }
+
+    if (debug_avail) {
+
+      debug.begin (SerialUSB1);
+      delay (100);
+      halt_cpu(); /* stop on startup; if not, Teensy keeps running and you
+                 have to set a breakpoint or use Ctrl-C. */
+      delay (100);
+      debug.printf ("Debugger is connected. Connect USB serial monitor now ...\n");
+    }
+
+    // Serial wait block
+    for (uint16_t i = 0; i < (WAIT_FOR_SERIAL_SECONDS * 10); i++) {
+
+      if ( (Serial) || (serial_avail)) {
+
+        Serial.println ("Serial ready.");
+        break;
+      }
+      else {
+
+        delay (100);
+        digitalWrite (LED_BUILTIN, !digitalRead (LED_BUILTIN));
+      }
+    }
+  }
+  #else
+  #ifdef WAIT_SERIAL_CONNECT
+  while (!Serial)
+    ; // wait for serial port to connect.
+  Serial.println ("eFlexPwm Fault Example");
+  #endif
+  #endif
 }
