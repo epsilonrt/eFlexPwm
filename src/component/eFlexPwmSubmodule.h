@@ -8,10 +8,10 @@
 
 #include "eFlexPwmPin.h"
 #include "eFlexPwmConfig.h"
+#include "eFlexPwmTimer.h"
 
 namespace eFlex {
 
-  class Timer;
   /**
     @brief Submodule
 
@@ -112,7 +112,10 @@ namespace eFlex {
 
         @note This operation is not useful if \c begin() was called with doStart=true
       */
-      void start (bool value = true);
+      inline void start (bool value = true) {
+        timer().start (1 << index(), value);
+      }
+
 
       /**
         @brief Stops the PWM counter for this submodule
@@ -128,12 +131,17 @@ namespace eFlex {
 
         @param value true: Set LDOK bit for the submodule list; false: Clear LDOK bit
       */
-      void setPwmLdok (bool value = true);
+      inline void setPwmLdok (bool value = true) {
+
+        timer().setPwmLdok (1 << index(), value);
+      }
 
       /**
         @brief Returns the parent PWM module
       */
-      Timer &timer();
+      inline Timer &timer() {
+        return *TM[m_tmidx];
+      }
 
       /**
         @brief Returns the Submodule index (0 for Submodule0...)
@@ -146,16 +154,13 @@ namespace eFlex {
         @brief Set the Pwm Frequency
 
         @param freq PWM signal frequency in Hz
-        @param doSync      true: Set LDOK bit for the submodule;
-                            false: LDOK bit don't set, need to call setPwmLdok to sync update.
-
-        @return Returns false if there was error setting up the signal; true otherwise
+        @param doSync true : Set LDOK bit for the submodule;
+                      false: LDOK bit don't set, need to call setPwmLdok to sync update.
+        @param adjustPrescaler false: no change prescaler, if freq is less than minPwmFrequency(), nothing is done and false is returned;
+                            true: calls adjustPrescaler() to try to adjust the prescaler, the prescaler is adjusted if possible, otherwise, false is returned.
+        @return false if there was error setting up the signal; true otherwise
       */
-      // TODO: Test setPwmFrequency()
-      inline bool setPwmFrequency (uint32_t freq, bool doSync = true) {
-        m_config.setPwmFreqHz (freq);
-        return updateSetting (doSync);
-      }
+      bool setPwmFrequency (uint32_t freq, bool doSync = true, bool adjustPrescaler = false);
 
       /**
          @brief Current PWM signal frequency in Hz
@@ -589,7 +594,10 @@ namespace eFlex {
 
         @return Returns false if there was error setting up the signal; true otherwise
       */
-      bool setupPwmPhaseShift (Channel channel, uint8_t shiftvalue, bool doSync = true);
+      inline bool setupPwmPhaseShift (Channel channel, uint8_t shiftvalue, bool doSync = true) {
+
+        return (PWM_SetupPwmPhaseShift (ptr(), SM[m_smidx], kPwmChan (channel), m_config.pwmFreqHz(), timer().srcClockHz(), shiftvalue, doSync) == kStatus_Success);
+      }
 
       /**
         @brief Sets up the PWM input capture
@@ -867,6 +875,7 @@ namespace eFlex {
       */
       inline void setPrescaler (pwm_clock_prescale_t prescaler) {
         m_config.setPrescale (prescaler);
+        m_fpmin = Timer::prescalerToMinPwmFrequency (prescaler);
         PWM_SetClockMode (ptr(), SM[m_smidx], prescaler);
       }
 
@@ -881,6 +890,12 @@ namespace eFlex {
         setPrescaler (prescaler);
       }
 
+      /**
+        @brief the pwm submodule prescaler
+       */
+      inline pwm_clock_prescale_t prescaler() const {
+        return config().prescale();
+      }
 
       /**
         @brief This function enables-disables the forcing of the output of a given eFlexPwm channel to logic 0.
@@ -902,6 +917,26 @@ namespace eFlex {
       inline void setChannelOutput (Channel channel, pwm_output_state_t outputstate) {
         PWM_SetChannelOutput (ptr(), SM[m_smidx], kPwmChan (channel),  outputstate);
       }
+
+      /**
+        @brief Current minimal PWM frequency in Hz
+
+        this value is calculated by \ref configure() and updated by \ref setPrescaler()
+      */
+      inline uint32_t minPwmFrequency() const {
+        return m_fpmin;
+      }
+
+      /**
+        @brief Adjust the prescaler if necessary
+
+        Checks if pwmFreq is less than the minPwmFrequency() and increases the prescaler if necessary.
+        If not and if the prescaler is greater than 1, try to decrease it.
+        
+        @param pwmFreq the desired PWM frequency
+        @return true if adjustment made, false otherwise 
+       */
+      bool adjustPrescaler (uint32_t pwmFreq);
 
     protected:
       inline PWM_Type *ptr() {
@@ -937,6 +972,7 @@ namespace eFlex {
       pwm_signal_param_t m_signal[NofPins];
       Config m_config;
       bool m_wasbegin;
+      uint32_t m_fpmin;
   };
 
   extern SubModule *SmList[NofTimers][NofSubmodules];

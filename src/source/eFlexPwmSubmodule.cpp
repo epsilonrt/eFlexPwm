@@ -4,7 +4,7 @@
 
    SPDX-License-Identifier: BSD-3-Clause
 */
-#include "component/eFlexPwmTimer.h"
+#include "component/eFlexPwmSubmodule.h"
 
 namespace eFlex {
 
@@ -58,6 +58,7 @@ namespace eFlex {
     if (isValid()) {
 
       m_config = config;
+      m_fpmin = Timer::prescalerToMinPwmFrequency (config.prescale());
       return (PWM_Init (ptr(), SM[m_smidx], config.kPwmConfig()) == kStatus_Success) ;
     }
     return false;
@@ -147,28 +148,49 @@ namespace eFlex {
     return ( (m_ptr->MASK & mask) == 0);
   }
 
-  // ----------------------------------------------------------------------------
-  Timer &SubModule::timer() {
+  //-----------------------------------------------------------------------------
+  bool SubModule::adjustPrescaler (uint32_t freq) {
+    pwm_clock_prescale_t prescaler = config().prescale();
 
-    return *TM[m_tmidx];
+    if (freq < minPwmFrequency())  {
+      bool changed = false;
+
+      while ( (freq < Timer::prescalerToMinPwmFrequency (prescaler)) && (prescaler < kPWM_Prescale_Divide_128)) {
+
+        prescaler = static_cast<pwm_clock_prescale_t> (static_cast<unsigned> (prescaler) + 1);
+        changed = true;
+      }
+
+      if (changed) {
+
+        setPrescaler (prescaler);
+      }
+      return changed;
+    }
+    else if (prescaler > kPWM_Prescale_Divide_1) {
+
+      prescaler = static_cast<pwm_clock_prescale_t> (static_cast<unsigned> (prescaler) - 1);
+
+      if (freq >= Timer::prescalerToMinPwmFrequency (prescaler)) {
+
+        setPrescaler (prescaler);
+        return true;
+      }
+    }
+    return false;
   }
 
   //-----------------------------------------------------------------------------
-  void SubModule::start (bool startit) {
+  bool SubModule::setPwmFrequency (uint32_t freq, bool doSync, bool adjust) {
 
-    timer().start (1 << index(), startit);
-  }
+    if (adjust) {
 
-  //-----------------------------------------------------------------------------
-  void SubModule::setPwmLdok (bool value) {
+      adjustPrescaler (freq);
+    }
 
-    timer().setPwmLdok (1 << index(), value);
-  }
 
-  // ----------------------------------------------------------------------------
-  bool SubModule::setupPwmPhaseShift (Channel channel, uint8_t shiftvalue, bool doSync) {
-
-    return (PWM_SetupPwmPhaseShift (ptr(), SM[m_smidx], kPwmChan (channel), m_config.pwmFreqHz(), timer().srcClockHz(), shiftvalue, doSync) == kStatus_Success);
+    m_config.setPwmFreqHz (freq);
+    return updateSetting (doSync);
   }
 
   //-----------------------------------------------------------------------------
