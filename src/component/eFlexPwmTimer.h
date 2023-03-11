@@ -179,10 +179,17 @@ namespace eFlex {
       bool updateSetting (bool doSync = true);
 
       /**
+        @brief Bus clock in Hz.
+      */
+      static inline uint32_t busClockHz()  {
+        return F_BUS_ACTUAL;
+      }
+
+      /**
         @brief PWM main counter clock in Hz.
       */
       inline uint32_t srcClockHz() const {
-        return F_BUS_ACTUAL;
+        return busClockHz();
       }
 
       /**
