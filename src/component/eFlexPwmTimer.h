@@ -7,7 +7,6 @@
 #pragma once
 
 #include "eFlexPwmPin.h"
-#include "eFlexPwmSubmodule.h"
 
 namespace eFlex {
 
@@ -92,10 +91,10 @@ namespace eFlex {
 
       /**
         @brief Starts or stops the PWM counter for all instantiated submodules for this timer
-        
+
         @param startit true to start, false to stop
         @note This operation is not useful if \c begin() was called with doStart=true
-       */
+      */
       inline void start (bool startit = true) {
         start (SmMask[m_tmidx], startit);
       }
@@ -203,9 +202,9 @@ namespace eFlex {
 
       /**
         @brief Print registers of PWM module and its submodules to the output stream
-        
+
         @param out the output stream, Serial by default
-       */
+      */
       void printAllRegs (Stream &out = Serial) const;
 
       /**
@@ -260,6 +259,23 @@ namespace eFlex {
         PWM_SetupFaults (ptr(), faultNum, faultParams);
       }
 
+      /**
+       * @brief Calculates the minimum PWM frequency corresponding to a prescaler
+       * 
+       * @param prescaler 1,2,4,8,16,32,64,128
+       * @return minimum PWM frequency in Hz
+       */
+      static inline uint32_t prescalerToMinPwmFrequency (unsigned prescaler) {
+        return (busClockHz() / (static_cast<uint32_t> (prescaler & 0x7F) * 65535UL) + 1);
+      }
+
+      /**
+       * @overload  uint32_t prescalerToMinPwmFrequency (unsigned prescaler)
+       */
+      static inline uint32_t prescalerToMinPwmFrequency (pwm_clock_prescale_t prescaler) {
+        return prescalerToMinPwmFrequency (1U << prescaler);
+      }
+
     protected:
       /**
         @brief Construct a new Timer Module
@@ -279,6 +295,6 @@ namespace eFlex {
       PWM_Type *m_ptr;
       bool m_isenabled;
   };
-  extern Timer * TM[NofTimers];
+  extern Timer *TM[NofTimers];
 }
 
