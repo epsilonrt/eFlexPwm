@@ -865,9 +865,22 @@ namespace eFlex {
 
         @param prescaler          Set prescaler value
       */
-      inline void setClockMode (pwm_clock_prescale_t prescaler) {
+      inline void setPrescaler (pwm_clock_prescale_t prescaler) {
+        m_config.setPrescale (prescaler);
         PWM_SetClockMode (ptr(), SM[m_smidx], prescaler);
       }
+
+      /**
+        @brief Set the pwm submodule prescaler.
+
+        @deprecated will be removed in next major release, use \ref setPrescaler() instead
+
+        @param prescaler          Set prescaler value
+      */
+      inline void setClockMode (pwm_clock_prescale_t prescaler) {
+        setPrescaler (prescaler);
+      }
+
 
       /**
         @brief This function enables-disables the forcing of the output of a given eFlexPwm channel to logic 0.
