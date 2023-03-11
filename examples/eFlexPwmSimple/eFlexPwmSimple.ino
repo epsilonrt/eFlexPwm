@@ -36,7 +36,7 @@ using namespace eFlex;
 // ----------------------------------------------------------------------------
 /* PWM frequence in hz. */
 const uint32_t PwmFreq = 18000;
-const float32_t DeadTimeNs = 50.0;    // deadtime in nanoseconds
+const float DeadTimeNs = 50.0;    // deadtime in nanoseconds
 
 // My eFlexPWM submodules (Hardware > PWM2: SM[0], SM[2], SM[3])
 SubModule Sm20 (4, 33);
