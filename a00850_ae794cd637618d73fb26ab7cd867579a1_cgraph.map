@@ -1,0 +1,6 @@
+<map id="eFlex::SubModule::setPwmMode" name="eFlex::SubModule::setPwmMode">
+<area shape="rect" id="node1" title="Set the Pwm operation mode." alt="" coords="5,35,240,61"/>
+<area shape="rect" id="node2" href="$a00846.html#abd22d035264cf576d23b6fddf9a544ce" title="Set the PWM operation mode." alt="" coords="298,5,469,32"/>
+<area shape="rect" id="node4" href="$a00850.html#aa4810cdf84c9f232ca3233b43fe1b7a1" title="Update PWM signals for a PWM submodule." alt="" coords="288,57,479,98"/>
+<area shape="rect" id="node3" href="$a00846.html#aedec21c9b22a2f485ba5fef4035a21e5" title="PWM operation mode, default CenterAligned." alt="" coords="527,5,679,32"/>
+</map>

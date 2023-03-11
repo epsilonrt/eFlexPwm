@@ -1,0 +1,4 @@
+<map id="eFlex::SubModule::setupFaultState" name="eFlex::SubModule::setupFaultState">
+<area shape="rect" id="node1" title="Setting the output fault status for all channels before calling begin." alt="" coords="5,5,219,47"/>
+<area shape="rect" id="node2" href="$a00850.html#a651dc11a1d0fb5b22174b6818a4330b7" title="Setting the output fault status before calling begin." alt="" coords="267,5,480,47"/>
+</map>

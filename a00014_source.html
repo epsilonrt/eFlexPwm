@@ -98,9 +98,9 @@ $(document).ready(function(){initNavTree('a00014_source.html',''); initResizable
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#define EFLEXPWM_DUMPREG_ENABLED 1</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="a00029.html">eFlex</a> {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="a00030.html">eFlex</a> {</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a00029.html#a9ae9b25ec6bd587ce6faba74e8b8fd8c">   19</a></span>&#160;  <span class="keyword">enum</span> <a class="code" href="a00029.html#a9ae9b25ec6bd587ce6faba74e8b8fd8c">Channel</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a00030.html#a9ae9b25ec6bd587ce6faba74e8b8fd8c">   19</a></span>&#160;  <span class="keyword">enum</span> <a class="code" href="a00030.html#a9ae9b25ec6bd587ce6faba74e8b8fd8c">Channel</a> {</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    ChanA = 0,</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    ChanB = 1</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  };</div>
@@ -142,11 +142,11 @@ $(document).ready(function(){initNavTree('a00014_source.html',''); initResizable
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    AllSubmodulesFlag = (Submodule1Flag | Submodule2Flag | Submodule3Flag | Submodule4Flag)</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  };</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keyword">const</span> <a class="code" href="a00027.html#ga894e00d9d6094af129d6fbe6a903815e">pwm_submodule_t</a> SM[NofSubmodules] = {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="a00027.html#gga6f836cf6b5fb89b2052853e8b3a7c316add38c1b5a7f784f71f3cebf9a1bf3ff6">kPWM_Module_0</a>,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="a00027.html#gga6f836cf6b5fb89b2052853e8b3a7c316a47a6ce50cc1613c9988bf21d9bb44c4c">kPWM_Module_1</a>,</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="a00027.html#gga6f836cf6b5fb89b2052853e8b3a7c316a0340ee44d37ea0644debbc392abe0218">kPWM_Module_2</a>,</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="a00027.html#gga6f836cf6b5fb89b2052853e8b3a7c316a262d2987720c085ebda6b24b4e646ab9">kPWM_Module_3</a></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keyword">const</span> <a class="code" href="a00028.html#ga894e00d9d6094af129d6fbe6a903815e">pwm_submodule_t</a> SM[NofSubmodules] = {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="a00028.html#gga6f836cf6b5fb89b2052853e8b3a7c316add38c1b5a7f784f71f3cebf9a1bf3ff6">kPWM_Module_0</a>,</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="a00028.html#gga6f836cf6b5fb89b2052853e8b3a7c316a47a6ce50cc1613c9988bf21d9bb44c4c">kPWM_Module_1</a>,</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="a00028.html#gga6f836cf6b5fb89b2052853e8b3a7c316a0340ee44d37ea0644debbc392abe0218">kPWM_Module_2</a>,</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="a00028.html#gga6f836cf6b5fb89b2052853e8b3a7c316a262d2987720c085ebda6b24b4e646ab9">kPWM_Module_3</a></div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  };</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="comment">//   Variables</span></div>
@@ -158,27 +158,27 @@ $(document).ready(function(){initNavTree('a00014_source.html',''); initResizable
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="comment">// ----------------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <span class="comment">// ----------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="keyword">inline</span> <a class="code" href="a00027.html#ga708443867a0407a1d6c1197cdb465a36">pwm_channels_t</a> kPwmChan (<a class="code" href="a00029.html#a9ae9b25ec6bd587ce6faba74e8b8fd8c">Channel</a> c) {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="keyword">inline</span> <a class="code" href="a00028.html#ga708443867a0407a1d6c1197cdb465a36">pwm_channels_t</a> kPwmChan (<a class="code" href="a00030.html#a9ae9b25ec6bd587ce6faba74e8b8fd8c">Channel</a> c) {</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">return</span> (c == ChanA ? kPWM_PwmA : kPWM_PwmB);</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  }</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}</div>
-<div class="ttc" id="aa00027_html_ga708443867a0407a1d6c1197cdb465a36"><div class="ttname"><a href="a00027.html#ga708443867a0407a1d6c1197cdb465a36">pwm_channels_t</a></div><div class="ttdeci">enum _pwm_channels pwm_channels_t</div><div class="ttdoc">List of PWM channels in each module.</div></div>
-<div class="ttc" id="aa00027_html_ga894e00d9d6094af129d6fbe6a903815e"><div class="ttname"><a href="a00027.html#ga894e00d9d6094af129d6fbe6a903815e">pwm_submodule_t</a></div><div class="ttdeci">enum _pwm_submodule pwm_submodule_t</div><div class="ttdoc">List of PWM submodules.</div></div>
-<div class="ttc" id="aa00027_html_gga6f836cf6b5fb89b2052853e8b3a7c316a0340ee44d37ea0644debbc392abe0218"><div class="ttname"><a href="a00027.html#gga6f836cf6b5fb89b2052853e8b3a7c316a0340ee44d37ea0644debbc392abe0218">kPWM_Module_2</a></div><div class="ttdeci">@ kPWM_Module_2</div><div class="ttdef"><b>Definition:</b> <a href="a00023_source.html#l00026">nxp-enums-struct.h:26</a></div></div>
-<div class="ttc" id="aa00027_html_gga6f836cf6b5fb89b2052853e8b3a7c316a262d2987720c085ebda6b24b4e646ab9"><div class="ttname"><a href="a00027.html#gga6f836cf6b5fb89b2052853e8b3a7c316a262d2987720c085ebda6b24b4e646ab9">kPWM_Module_3</a></div><div class="ttdeci">@ kPWM_Module_3</div><div class="ttdef"><b>Definition:</b> <a href="a00023_source.html#l00028">nxp-enums-struct.h:27</a></div></div>
-<div class="ttc" id="aa00027_html_gga6f836cf6b5fb89b2052853e8b3a7c316a47a6ce50cc1613c9988bf21d9bb44c4c"><div class="ttname"><a href="a00027.html#gga6f836cf6b5fb89b2052853e8b3a7c316a47a6ce50cc1613c9988bf21d9bb44c4c">kPWM_Module_1</a></div><div class="ttdeci">@ kPWM_Module_1</div><div class="ttdef"><b>Definition:</b> <a href="a00023_source.html#l00025">nxp-enums-struct.h:25</a></div></div>
-<div class="ttc" id="aa00027_html_gga6f836cf6b5fb89b2052853e8b3a7c316add38c1b5a7f784f71f3cebf9a1bf3ff6"><div class="ttname"><a href="a00027.html#gga6f836cf6b5fb89b2052853e8b3a7c316add38c1b5a7f784f71f3cebf9a1bf3ff6">kPWM_Module_0</a></div><div class="ttdeci">@ kPWM_Module_0</div><div class="ttdef"><b>Definition:</b> <a href="a00023_source.html#l00024">nxp-enums-struct.h:24</a></div></div>
-<div class="ttc" id="aa00029_html"><div class="ttname"><a href="a00029.html">eFlex</a></div><div class="ttdoc">Library namespace.</div><div class="ttdef"><b>Definition:</b> <a href="a00011_source.html#l00011">eFlexPwmConfig.h:11</a></div></div>
-<div class="ttc" id="aa00029_html_a9ae9b25ec6bd587ce6faba74e8b8fd8c"><div class="ttname"><a href="a00029.html#a9ae9b25ec6bd587ce6faba74e8b8fd8c">eFlex::Channel</a></div><div class="ttdeci">Channel</div><div class="ttdoc">PWM Channel.</div><div class="ttdef"><b>Definition:</b> <a href="a00014_source.html#l00019">eFlexPwmGlobal.h:19</a></div></div>
+<div class="ttc" id="aa00028_html_ga708443867a0407a1d6c1197cdb465a36"><div class="ttname"><a href="a00028.html#ga708443867a0407a1d6c1197cdb465a36">pwm_channels_t</a></div><div class="ttdeci">enum _pwm_channels pwm_channels_t</div><div class="ttdoc">List of PWM channels in each module.</div></div>
+<div class="ttc" id="aa00028_html_ga894e00d9d6094af129d6fbe6a903815e"><div class="ttname"><a href="a00028.html#ga894e00d9d6094af129d6fbe6a903815e">pwm_submodule_t</a></div><div class="ttdeci">enum _pwm_submodule pwm_submodule_t</div><div class="ttdoc">List of PWM submodules.</div></div>
+<div class="ttc" id="aa00028_html_gga6f836cf6b5fb89b2052853e8b3a7c316a0340ee44d37ea0644debbc392abe0218"><div class="ttname"><a href="a00028.html#gga6f836cf6b5fb89b2052853e8b3a7c316a0340ee44d37ea0644debbc392abe0218">kPWM_Module_2</a></div><div class="ttdeci">@ kPWM_Module_2</div><div class="ttdef"><b>Definition:</b> <a href="a00023_source.html#l00026">nxp-enums-struct.h:26</a></div></div>
+<div class="ttc" id="aa00028_html_gga6f836cf6b5fb89b2052853e8b3a7c316a262d2987720c085ebda6b24b4e646ab9"><div class="ttname"><a href="a00028.html#gga6f836cf6b5fb89b2052853e8b3a7c316a262d2987720c085ebda6b24b4e646ab9">kPWM_Module_3</a></div><div class="ttdeci">@ kPWM_Module_3</div><div class="ttdef"><b>Definition:</b> <a href="a00023_source.html#l00028">nxp-enums-struct.h:27</a></div></div>
+<div class="ttc" id="aa00028_html_gga6f836cf6b5fb89b2052853e8b3a7c316a47a6ce50cc1613c9988bf21d9bb44c4c"><div class="ttname"><a href="a00028.html#gga6f836cf6b5fb89b2052853e8b3a7c316a47a6ce50cc1613c9988bf21d9bb44c4c">kPWM_Module_1</a></div><div class="ttdeci">@ kPWM_Module_1</div><div class="ttdef"><b>Definition:</b> <a href="a00023_source.html#l00025">nxp-enums-struct.h:25</a></div></div>
+<div class="ttc" id="aa00028_html_gga6f836cf6b5fb89b2052853e8b3a7c316add38c1b5a7f784f71f3cebf9a1bf3ff6"><div class="ttname"><a href="a00028.html#gga6f836cf6b5fb89b2052853e8b3a7c316add38c1b5a7f784f71f3cebf9a1bf3ff6">kPWM_Module_0</a></div><div class="ttdeci">@ kPWM_Module_0</div><div class="ttdef"><b>Definition:</b> <a href="a00023_source.html#l00024">nxp-enums-struct.h:24</a></div></div>
+<div class="ttc" id="aa00030_html"><div class="ttname"><a href="a00030.html">eFlex</a></div><div class="ttdoc">Library namespace.</div><div class="ttdef"><b>Definition:</b> <a href="a00011_source.html#l00011">eFlexPwmConfig.h:11</a></div></div>
+<div class="ttc" id="aa00030_html_a9ae9b25ec6bd587ce6faba74e8b8fd8c"><div class="ttname"><a href="a00030.html#a9ae9b25ec6bd587ce6faba74e8b8fd8c">eFlex::Channel</a></div><div class="ttdeci">Channel</div><div class="ttdoc">PWM Channel.</div><div class="ttdef"><b>Definition:</b> <a href="a00014_source.html#l00019">eFlexPwmGlobal.h:19</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_9b051f5a462ebc902d5afef8d9317d03.html">component</a></li><li class="navelem"><b>eFlexPwmGlobal.h</b></li>
-    <li class="footer">Generated on Sun Mar 5 2023 16:11:16 for eFlexPwm by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Mar 11 2023 21:35:09 for eFlexPwm by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

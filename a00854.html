@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>eFlexPwm: Member List</title>
+<title>eFlexPwm: eFlex::Timer</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('a00857.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('a00854.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -82,25 +82,806 @@ $(document).ready(function(){initNavTree('a00857.html',''); initResizable(); });
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="a00851.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">_pwm_signal_param Member List</div>  </div>
+<div class="title">eFlex::Timer</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00857.html">_pwm_signal_param</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00857.html#af1314750a4fa633c3239f21b6e3d8011">deadtimeValue</a></td><td class="entry"><a class="el" href="a00857.html">_pwm_signal_param</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00857.html#abe4ec56f4d45feb292323168ea46b979">dutyCyclePercent</a></td><td class="entry"><a class="el" href="a00857.html">_pwm_signal_param</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00857.html#aeb29f9cdd2bc095c801ec3af58066f5b">faultState</a></td><td class="entry"><a class="el" href="a00857.html">_pwm_signal_param</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00857.html#a44995982957ed3062dc5e0d9190060a6">level</a></td><td class="entry"><a class="el" href="a00857.html">_pwm_signal_param</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00857.html#a9221d3f3b26c4e1a8dd060c9636893d8">pwmChannel</a></td><td class="entry"><a class="el" href="a00857.html">_pwm_signal_param</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00857.html#a885b1c672030a08d19ab823aed181410">pwmchannelenable</a></td><td class="entry"><a class="el" href="a00857.html">_pwm_signal_param</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>PWM Module.  
+ <a href="a00854.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for eFlex::Timer:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="a00852.svg" width="255" height="279"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a763e9d1b46a2a4b927d5d50dd79a6c57"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a763e9d1b46a2a4b927d5d50dd79a6c57">begin</a> (bool doStart=true, bool doSync=true)</td></tr>
+<tr class="memdesc:a763e9d1b46a2a4b927d5d50dd79a6c57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the PWM signals for all instantiated submodules of the timer.  <a href="a00854.html#a763e9d1b46a2a4b927d5d50dd79a6c57">More...</a><br /></td></tr>
+<tr class="separator:a763e9d1b46a2a4b927d5d50dd79a6c57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0965799272eae8684bdecea213206669"><td class="memItemLeft" align="right" valign="top"><a id="a0965799272eae8684bdecea213206669"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a0965799272eae8684bdecea213206669">index</a> () const</td></tr>
+<tr class="memdesc:a0965799272eae8684bdecea213206669"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the timer module index (0 for PWM1...) <br /></td></tr>
+<tr class="separator:a0965799272eae8684bdecea213206669"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53f5ff06db007c460385dd307aa84f02"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a53f5ff06db007c460385dd307aa84f02">enable</a> (bool value=true)</td></tr>
+<tr class="memdesc:a53f5ff06db007c460385dd307aa84f02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable all instantiated submodules of the timer.  <a href="a00854.html#a53f5ff06db007c460385dd307aa84f02">More...</a><br /></td></tr>
+<tr class="separator:a53f5ff06db007c460385dd307aa84f02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0740b70e58566cff8ea194e98f90af3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a0740b70e58566cff8ea194e98f90af3a">disable</a> ()</td></tr>
+<tr class="memdesc:a0740b70e58566cff8ea194e98f90af3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable all instantiated submodules of the timer.  <a href="a00854.html#a0740b70e58566cff8ea194e98f90af3a">More...</a><br /></td></tr>
+<tr class="separator:a0740b70e58566cff8ea194e98f90af3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac02695e6b9b881e0677bc44a7c469176"><td class="memItemLeft" align="right" valign="top"><a id="ac02695e6b9b881e0677bc44a7c469176"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#ac02695e6b9b881e0677bc44a7c469176">isEnabled</a> () const</td></tr>
+<tr class="memdesc:ac02695e6b9b881e0677bc44a7c469176"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the timer is enabled. <br /></td></tr>
+<tr class="separator:ac02695e6b9b881e0677bc44a7c469176"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7df19c5a8ae37e08711e94b12ec8efa3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a7df19c5a8ae37e08711e94b12ec8efa3">start</a> (uint8_t subModulesToStart, bool startit=true)</td></tr>
+<tr class="memdesc:a7df19c5a8ae37e08711e94b12ec8efa3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts or stops the PWM counter for a single or multiple submodules.  <a href="a00854.html#a7df19c5a8ae37e08711e94b12ec8efa3">More...</a><br /></td></tr>
+<tr class="separator:a7df19c5a8ae37e08711e94b12ec8efa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f2a4527d4f10f1faffb174e1e92573e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a1f2a4527d4f10f1faffb174e1e92573e">start</a> (bool startit=true)</td></tr>
+<tr class="memdesc:a1f2a4527d4f10f1faffb174e1e92573e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts or stops the PWM counter for all instantiated submodules for this timer.  <a href="a00854.html#a1f2a4527d4f10f1faffb174e1e92573e">More...</a><br /></td></tr>
+<tr class="separator:a1f2a4527d4f10f1faffb174e1e92573e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f4a107d5a89a9486241f3f5ea58f823"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a4f4a107d5a89a9486241f3f5ea58f823">stop</a> (uint8_t subModulesToStop)</td></tr>
+<tr class="memdesc:a4f4a107d5a89a9486241f3f5ea58f823"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the PWM counter for a single or multiple submodules.  <a href="a00854.html#a4f4a107d5a89a9486241f3f5ea58f823">More...</a><br /></td></tr>
+<tr class="separator:a4f4a107d5a89a9486241f3f5ea58f823"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37221e103e7b29c3f172d228dd7d9c07"><td class="memItemLeft" align="right" valign="top"><a id="a37221e103e7b29c3f172d228dd7d9c07"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a37221e103e7b29c3f172d228dd7d9c07">stop</a> ()</td></tr>
+<tr class="memdesc:a37221e103e7b29c3f172d228dd7d9c07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the PWM counter for all instantiated submodules for this timer. <br /></td></tr>
+<tr class="separator:a37221e103e7b29c3f172d228dd7d9c07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67792c3a2192eb5b2524b60797cedbab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a67792c3a2192eb5b2524b60797cedbab">setupDutyCyclePercent</a> (uint8_t dutyCyclePercent)</td></tr>
+<tr class="memdesc:a67792c3a2192eb5b2524b60797cedbab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setting the duty cycle for all submodules before calling begin.  <a href="a00854.html#a67792c3a2192eb5b2524b60797cedbab">More...</a><br /></td></tr>
+<tr class="separator:a67792c3a2192eb5b2524b60797cedbab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af494f54908c6be0023d7d1371a95f876"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#af494f54908c6be0023d7d1371a95f876">setupLevel</a> (<a class="el" href="a00028.html#gafc4951ae5b73fded4e2daaae18c896cf">pwm_level_select_t</a> level)</td></tr>
+<tr class="memdesc:af494f54908c6be0023d7d1371a95f876"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setting the output pulse mode for all submodules before calling begin.  <a href="a00854.html#af494f54908c6be0023d7d1371a95f876">More...</a><br /></td></tr>
+<tr class="separator:af494f54908c6be0023d7d1371a95f876"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9800e0c4a6fd9e80fade3ada20032d67"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a9800e0c4a6fd9e80fade3ada20032d67">setupDeadtime</a> (uint16_t deadtimeValue)</td></tr>
+<tr class="memdesc:a9800e0c4a6fd9e80fade3ada20032d67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setting the deadtime for all submodules before calling begin.  <a href="a00854.html#a9800e0c4a6fd9e80fade3ada20032d67">More...</a><br /></td></tr>
+<tr class="separator:a9800e0c4a6fd9e80fade3ada20032d67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add510f4a518adc7d47b78892bd0dc176"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#add510f4a518adc7d47b78892bd0dc176">setupOutputEnable</a> (bool activate=true)</td></tr>
+<tr class="memdesc:add510f4a518adc7d47b78892bd0dc176"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setting output enable for all submodules before calling begin.  <a href="a00854.html#add510f4a518adc7d47b78892bd0dc176">More...</a><br /></td></tr>
+<tr class="separator:add510f4a518adc7d47b78892bd0dc176"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8ffbeda9fc40fadf3622b48991f3f73"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#ac8ffbeda9fc40fadf3622b48991f3f73">setupFaultState</a> (<a class="el" href="a00028.html#gaa401a06cea7b0f26e45793fb23871e85">pwm_fault_state_t</a> faultState)</td></tr>
+<tr class="memdesc:ac8ffbeda9fc40fadf3622b48991f3f73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setting the output fault status for all submodules before calling begin.  <a href="a00854.html#ac8ffbeda9fc40fadf3622b48991f3f73">More...</a><br /></td></tr>
+<tr class="separator:ac8ffbeda9fc40fadf3622b48991f3f73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35f30518a9822b9b26112edfd03d46f0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a35f30518a9822b9b26112edfd03d46f0">updateSetting</a> (bool doSync=true)</td></tr>
+<tr class="memdesc:a35f30518a9822b9b26112edfd03d46f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update PWM signals for all submodules.  <a href="a00854.html#a35f30518a9822b9b26112edfd03d46f0">More...</a><br /></td></tr>
+<tr class="separator:a35f30518a9822b9b26112edfd03d46f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a638663998d9d1bd6d5d52dee191a32c1"><td class="memItemLeft" align="right" valign="top"><a id="a638663998d9d1bd6d5d52dee191a32c1"></a>
+uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a638663998d9d1bd6d5d52dee191a32c1">srcClockHz</a> () const</td></tr>
+<tr class="memdesc:a638663998d9d1bd6d5d52dee191a32c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">PWM main counter clock in Hz. <br /></td></tr>
+<tr class="separator:a638663998d9d1bd6d5d52dee191a32c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24321bc25f4f7449bd38c895095ee527"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a24321bc25f4f7449bd38c895095ee527">printRegs</a> (Stream &amp;out=Serial) const</td></tr>
+<tr class="memdesc:a24321bc25f4f7449bd38c895095ee527"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print PWM module registers to the output stream.  <a href="a00854.html#a24321bc25f4f7449bd38c895095ee527">More...</a><br /></td></tr>
+<tr class="separator:a24321bc25f4f7449bd38c895095ee527"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab61350fd479c051f208235ae040eaa1a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#ab61350fd479c051f208235ae040eaa1a">printAllRegs</a> (Stream &amp;out=Serial) const</td></tr>
+<tr class="memdesc:ab61350fd479c051f208235ae040eaa1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print registers of PWM module and its submodules to the output stream.  <a href="a00854.html#ab61350fd479c051f208235ae040eaa1a">More...</a><br /></td></tr>
+<tr class="separator:ab61350fd479c051f208235ae040eaa1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac11e37725e47aa201761b956778ea875"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#ac11e37725e47aa201761b956778ea875">setPwmLdok</a> (bool value=true)</td></tr>
+<tr class="memdesc:ac11e37725e47aa201761b956778ea875"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets or clears the PWM LDOK bit on all instantiated submodules for this timer.  <a href="a00854.html#ac11e37725e47aa201761b956778ea875">More...</a><br /></td></tr>
+<tr class="separator:ac11e37725e47aa201761b956778ea875"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a912dfe6251548f10903204c134e36083"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a912dfe6251548f10903204c134e36083">setPwmLdok</a> (uint8_t subModulesToUpdate, bool value)</td></tr>
+<tr class="memdesc:a912dfe6251548f10903204c134e36083"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets or clears the PWM LDOK bit on a single or multiple submodules.  <a href="a00854.html#a912dfe6251548f10903204c134e36083">More...</a><br /></td></tr>
+<tr class="separator:a912dfe6251548f10903204c134e36083"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fccca105bb8d7be4aec2bc07c6825e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a4fccca105bb8d7be4aec2bc07c6825e8">setupFaultInputFilter</a> (const <a class="el" href="a00027.html#ga1b886198c17bb833ab2ff19cc2c57f19">pwm_fault_input_filter_param_t</a> *faultInputFilterParams)</td></tr>
+<tr class="memdesc:a4fccca105bb8d7be4aec2bc07c6825e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the PWM fault input filter.  <a href="a00854.html#a4fccca105bb8d7be4aec2bc07c6825e8">More...</a><br /></td></tr>
+<tr class="separator:a4fccca105bb8d7be4aec2bc07c6825e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ada62bfe23d8ccdca88c37e5b72ab18"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a2ada62bfe23d8ccdca88c37e5b72ab18">setupFaults</a> (<a class="el" href="a00028.html#gab73ae8b289462330a8fc1138deeb394f">pwm_fault_input_t</a> faultNum, const <a class="el" href="a00027.html#ga06b0cb4e84dc259e52203dfefb138ffc">pwm_fault_param_t</a> *faultParams)</td></tr>
+<tr class="memdesc:a2ada62bfe23d8ccdca88c37e5b72ab18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the PWM fault protection.  <a href="a00854.html#a2ada62bfe23d8ccdca88c37e5b72ab18">More...</a><br /></td></tr>
+<tr class="separator:a2ada62bfe23d8ccdca88c37e5b72ab18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a10e405e49abacbd9b5061693027dc052"><td class="memItemLeft" align="right" valign="top"><a id="a10e405e49abacbd9b5061693027dc052"></a>
+static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a10e405e49abacbd9b5061693027dc052">busClockHz</a> ()</td></tr>
+<tr class="memdesc:a10e405e49abacbd9b5061693027dc052"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bus clock in Hz. <br /></td></tr>
+<tr class="separator:a10e405e49abacbd9b5061693027dc052"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40dd5373e7cfc6090d2fb4be2fcfe58a"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a40dd5373e7cfc6090d2fb4be2fcfe58a">prescalerToMinPwmFrequency</a> (unsigned prescaler)</td></tr>
+<tr class="memdesc:a40dd5373e7cfc6090d2fb4be2fcfe58a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the minimum PWM frequency corresponding to a prescaler.  <a href="a00854.html#a40dd5373e7cfc6090d2fb4be2fcfe58a">More...</a><br /></td></tr>
+<tr class="separator:a40dd5373e7cfc6090d2fb4be2fcfe58a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3294b678855c5b8063f76d06a1522d18"><td class="memItemLeft" align="right" valign="top"><a id="a3294b678855c5b8063f76d06a1522d18"></a>
+static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>prescalerToMinPwmFrequency</b> (<a class="el" href="a00028.html#ga58b13c1bafdb270a8f514bfb618b4c01">pwm_clock_prescale_t</a> prescaler)</td></tr>
+<tr class="separator:a3294b678855c5b8063f76d06a1522d18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>PWM Module. </p>
+<p>This class cannot be instantiated directly and can only be used by a call to <a class="el" href="a00850.html#aa40c1df60470ec679779e533497c13e8" title="Returns the parent PWM module.">SubModule::timer()</a> </p>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00019">19</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a763e9d1b46a2a4b927d5d50dd79a6c57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a763e9d1b46a2a4b927d5d50dd79a6c57">&#9670;&nbsp;</a></span>begin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool eFlex::Timer::begin </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>doStart</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>doSync</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets up the PWM signals for all instantiated submodules of the timer. </p>
+<p>The function initializes the submodule according to the parameters passed in by the user. The function also sets up the value compare registers to match the PWM signal requirements. If the dead time insertion logic is enabled, the pulse period is reduced by the dead time period specified by the user.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">doStart</td><td>starts signal generation </td></tr>
+    <tr><td class="paramname">doSync</td><td>synchronizes the operation by surrounding it with setPwmLdok (false) / setPwmLdok (true)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns false if there was error setting up the signal; true otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a0740b70e58566cff8ea194e98f90af3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0740b70e58566cff8ea194e98f90af3a">&#9670;&nbsp;</a></span>disable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void eFlex::Timer::disable </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Disable all instantiated submodules of the timer. </p>
+<p>This function allows you to disable the output pins without changing anything in the configuration. When the submodule is disabled, its output pins are forced to zero. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00062">62</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
+
+<p class="reference">References <a class="el" href="a00854.html#a53f5ff06db007c460385dd307aa84f02">enable()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="a00854_a0740b70e58566cff8ea194e98f90af3a_cgraph.svg" width="374" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
+<a id="a53f5ff06db007c460385dd307aa84f02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53f5ff06db007c460385dd307aa84f02">&#9670;&nbsp;</a></span>enable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void eFlex::Timer::enable </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>value</em> = <code>true</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable or disable all instantiated submodules of the timer. </p>
+<p>This function allows you to enable/disable the output pins without changing anything in the configuration. When the timer is disabled, its output pins are forced to zero.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>true to enable, false otherwise </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="reference">Referenced by <a class="el" href="a00854.html#a0740b70e58566cff8ea194e98f90af3a">disable()</a>.</p>
+
+</div>
+</div>
+<a id="a40dd5373e7cfc6090d2fb4be2fcfe58a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40dd5373e7cfc6090d2fb4be2fcfe58a">&#9670;&nbsp;</a></span>prescalerToMinPwmFrequency()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t eFlex::Timer::prescalerToMinPwmFrequency </td>
+          <td>(</td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>prescaler</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calculates the minimum PWM frequency corresponding to a prescaler. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">prescaler</td><td>1,2,4,8,16,32,64,128 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>minimum PWM frequency in Hz</dd></dl>
+<p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00268">268</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
+
+<p class="reference">References <a class="el" href="a00854.html#a10e405e49abacbd9b5061693027dc052">busClockHz()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a00850.html#aa660277558d8f74b62535e70e9924682">eFlex::SubModule::setPrescaler()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="a00854_a40dd5373e7cfc6090d2fb4be2fcfe58a_cgraph.svg" width="434" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
+<a id="ab61350fd479c051f208235ae040eaa1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab61350fd479c051f208235ae040eaa1a">&#9670;&nbsp;</a></span>printAllRegs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void eFlex::Timer::printAllRegs </td>
+          <td>(</td>
+          <td class="paramtype">Stream &amp;&#160;</td>
+          <td class="paramname"><em>out</em> = <code>Serial</code></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Print registers of PWM module and its submodules to the output stream. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">out</td><td>the output stream, Serial by default </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a24321bc25f4f7449bd38c895095ee527"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24321bc25f4f7449bd38c895095ee527">&#9670;&nbsp;</a></span>printRegs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void eFlex::Timer::printRegs </td>
+          <td>(</td>
+          <td class="paramtype">Stream &amp;&#160;</td>
+          <td class="paramname"><em>out</em> = <code>Serial</code></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Print PWM module registers to the output stream. </p>
+<dl class="section note"><dt>Note</dt><dd>submodule registers are not printed.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">out</td><td>the output stream, Serial by default </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac11e37725e47aa201761b956778ea875"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac11e37725e47aa201761b956778ea875">&#9670;&nbsp;</a></span>setPwmLdok() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void eFlex::Timer::setPwmLdok </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>value</em> = <code>true</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets or clears the PWM LDOK bit on all instantiated submodules for this timer. </p>
+<dl class="section note"><dt>Note</dt><dd>This operation is not useful if <code><a class="el" href="a00854.html#a763e9d1b46a2a4b927d5d50dd79a6c57" title="Sets up the PWM signals for all instantiated submodules of the timer.">begin()</a></code> was called with doSync=true</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>true: Set LDOK bit for the submodule list; false: Clear LDOK bit </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00217">217</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a00850.html#a36870aca0c3468167eb79b64bb6a308d">eFlex::SubModule::setPwmLdok()</a>.</p>
+
+</div>
+</div>
+<a id="a912dfe6251548f10903204c134e36083"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a912dfe6251548f10903204c134e36083">&#9670;&nbsp;</a></span>setPwmLdok() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void eFlex::Timer::setPwmLdok </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>subModulesToUpdate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets or clears the PWM LDOK bit on a single or multiple submodules. </p>
+<p>Set LDOK bit to load buffered values into CTRL[PRSC] and the INIT, FRACVAL and VAL registers. The values are loaded immediately if kPWM_ReloadImmediate option was choosen during config. Else the values are loaded at the next PWM reload point. This function can issue the load command to multiple submodules at the same time.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">subModulesToUpdate</td><td>PWM submodules to update with buffered values. This is a logical OR of members of the enumeration <a class="el" href="a00028.html#gaa326b29466de3794000878daaebe8885" title="Options for submodule master control operation.">pwm_module_control_t</a> </td></tr>
+    <tr><td class="paramname">value</td><td>true: Set LDOK bit for the submodule list; false: Clear LDOK bit </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00237">237</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
+
+</div>
+</div>
+<a id="a9800e0c4a6fd9e80fade3ada20032d67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9800e0c4a6fd9e80fade3ada20032d67">&#9670;&nbsp;</a></span>setupDeadtime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void eFlex::Timer::setupDeadtime </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>deadtimeValue</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Setting the deadtime for all submodules before calling begin. </p>
+<dl class="section note"><dt>Note</dt><dd>If you want this value to take effect after the call to <a class="el" href="a00854.html#a763e9d1b46a2a4b927d5d50dd79a6c57">begin</a>, you must call <a class="el" href="a00854.html#a35f30518a9822b9b26112edfd03d46f0">updateSetting</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">deadtimeValue</td><td>The deadtime value in clock cycles; only used if channel pair is operating in complementary mode </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a67792c3a2192eb5b2524b60797cedbab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67792c3a2192eb5b2524b60797cedbab">&#9670;&nbsp;</a></span>setupDutyCyclePercent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void eFlex::Timer::setupDutyCyclePercent </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>dutyCyclePercent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Setting the duty cycle for all submodules before calling begin. </p>
+<dl class="section note"><dt>Note</dt><dd>If you want this value to take effect after the call to <a class="el" href="a00854.html#a763e9d1b46a2a4b927d5d50dd79a6c57">begin</a>, you must call <a class="el" href="a00854.html#a35f30518a9822b9b26112edfd03d46f0">updateSetting</a> </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dutyCyclePercent</td><td>duty cycle in percent </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4fccca105bb8d7be4aec2bc07c6825e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fccca105bb8d7be4aec2bc07c6825e8">&#9670;&nbsp;</a></span>setupFaultInputFilter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void eFlex::Timer::setupFaultInputFilter </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00027.html#ga1b886198c17bb833ab2ff19cc2c57f19">pwm_fault_input_filter_param_t</a> *&#160;</td>
+          <td class="paramname"><em>faultInputFilterParams</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets up the PWM fault input filter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">faultInputFilterParams</td><td>Parameters passed in to set up the fault input filter. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00246">246</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
+
+</div>
+</div>
+<a id="a2ada62bfe23d8ccdca88c37e5b72ab18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ada62bfe23d8ccdca88c37e5b72ab18">&#9670;&nbsp;</a></span>setupFaults()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void eFlex::Timer::setupFaults </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00028.html#gab73ae8b289462330a8fc1138deeb394f">pwm_fault_input_t</a>&#160;</td>
+          <td class="paramname"><em>faultNum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a00027.html#ga06b0cb4e84dc259e52203dfefb138ffc">pwm_fault_param_t</a> *&#160;</td>
+          <td class="paramname"><em>faultParams</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets up the PWM fault protection. </p>
+<p>PWM has 4 fault inputs.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">faultNum</td><td>PWM fault to configure. </td></tr>
+    <tr><td class="paramname">faultParams</td><td>Pointer to the PWM fault config structure </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00258">258</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
+
+</div>
+</div>
+<a id="ac8ffbeda9fc40fadf3622b48991f3f73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8ffbeda9fc40fadf3622b48991f3f73">&#9670;&nbsp;</a></span>setupFaultState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void eFlex::Timer::setupFaultState </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00028.html#gaa401a06cea7b0f26e45793fb23871e85">pwm_fault_state_t</a>&#160;</td>
+          <td class="paramname"><em>faultState</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Setting the output fault status for all submodules before calling begin. </p>
+<dl class="section note"><dt>Note</dt><dd>If you want this value to take effect after the call to <a class="el" href="a00854.html#a763e9d1b46a2a4b927d5d50dd79a6c57">begin</a>, you must call <a class="el" href="a00854.html#a35f30518a9822b9b26112edfd03d46f0">updateSetting</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">faultState</td><td>the output fault status </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af494f54908c6be0023d7d1371a95f876"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af494f54908c6be0023d7d1371a95f876">&#9670;&nbsp;</a></span>setupLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void eFlex::Timer::setupLevel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00028.html#gafc4951ae5b73fded4e2daaae18c896cf">pwm_level_select_t</a>&#160;</td>
+          <td class="paramname"><em>level</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Setting the output pulse mode for all submodules before calling begin. </p>
+<dl class="section note"><dt>Note</dt><dd>If you want this value to take effect after the call to <a class="el" href="a00854.html#a763e9d1b46a2a4b927d5d50dd79a6c57">begin</a>, you must call <a class="el" href="a00854.html#a35f30518a9822b9b26112edfd03d46f0">updateSetting</a> </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">level</td><td>output pulse mode </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="add510f4a518adc7d47b78892bd0dc176"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add510f4a518adc7d47b78892bd0dc176">&#9670;&nbsp;</a></span>setupOutputEnable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void eFlex::Timer::setupOutputEnable </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>activate</em> = <code>true</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Setting output enable for all submodules before calling begin. </p>
+<dl class="section note"><dt>Note</dt><dd>If you want this value to take effect after the call to <a class="el" href="a00854.html#a763e9d1b46a2a4b927d5d50dd79a6c57">begin</a>, you must call <a class="el" href="a00854.html#a35f30518a9822b9b26112edfd03d46f0">updateSetting</a> </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">activate</td><td>true to enable the outputs </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a1f2a4527d4f10f1faffb174e1e92573e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f2a4527d4f10f1faffb174e1e92573e">&#9670;&nbsp;</a></span>start() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void eFlex::Timer::start </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>startit</em> = <code>true</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Starts or stops the PWM counter for all instantiated submodules for this timer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">startit</td><td>true to start, false to stop </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This operation is not useful if <code><a class="el" href="a00854.html#a763e9d1b46a2a4b927d5d50dd79a6c57" title="Sets up the PWM signals for all instantiated submodules of the timer.">begin()</a></code> was called with doStart=true </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00098">98</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
+
+<p class="reference">References <a class="el" href="a00854.html#a7df19c5a8ae37e08711e94b12ec8efa3">start()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="a00854_a1f2a4527d4f10f1faffb174e1e92573e_cgraph.svg" width="344" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
+<a id="a7df19c5a8ae37e08711e94b12ec8efa3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7df19c5a8ae37e08711e94b12ec8efa3">&#9670;&nbsp;</a></span>start() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void eFlex::Timer::start </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>subModulesToStart</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>startit</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Starts or stops the PWM counter for a single or multiple submodules. </p>
+<p>Sets the Run bit which enables the clocks to the PWM submodule. This function can start multiple submodules at the same time.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">subModulesToStart</td><td>PWM submodules to start. This is a logical OR of members of the enumeration <a class="el" href="a00028.html#gaa326b29466de3794000878daaebe8885" title="Options for submodule master control operation.">pwm_module_control_t</a> </td></tr>
+    <tr><td class="paramname">startit</td><td>true to start, false to stop </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00083">83</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a00854.html#a1f2a4527d4f10f1faffb174e1e92573e">start()</a>, <a class="el" href="a00850.html#ac9cfdf4aadf5a3803cb7d3fe2ce66f0a">eFlex::SubModule::start()</a>, and <a class="el" href="a00854.html#a4f4a107d5a89a9486241f3f5ea58f823">stop()</a>.</p>
+
+</div>
+</div>
+<a id="a4f4a107d5a89a9486241f3f5ea58f823"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f4a107d5a89a9486241f3f5ea58f823">&#9670;&nbsp;</a></span>stop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void eFlex::Timer::stop </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>subModulesToStop</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Stops the PWM counter for a single or multiple submodules. </p>
+<p>Clears the Run bit which resets the submodule's counter. This function can stop multiple submodules at the same time.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">subModulesToStop</td><td>PWM submodules to stop. This is a logical OR of members of the enumeration <a class="el" href="a00028.html#gaa326b29466de3794000878daaebe8885" title="Options for submodule master control operation.">pwm_module_control_t</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00111">111</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
+
+<p class="reference">References <a class="el" href="a00854.html#a7df19c5a8ae37e08711e94b12ec8efa3">start()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="a00854_a4f4a107d5a89a9486241f3f5ea58f823_cgraph.svg" width="342" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
+<a id="a35f30518a9822b9b26112edfd03d46f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35f30518a9822b9b26112edfd03d46f0">&#9670;&nbsp;</a></span>updateSetting()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool eFlex::Timer::updateSetting </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>doSync</em> = <code>true</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Update PWM signals for all submodules. </p>
+<p>The function initializes the submodule according to the parameters passed in by the user. The function also sets up the value compare registers to match the PWM signal requirements. If the dead time insertion logic is enabled, the pulse period is reduced by the dead time period specified by the user.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">doSync</td><td>true: Set LDOK bit for the submodule; false: LDOK bit don't set, need to call setPwmLdok to sync update.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns false if there was error setting up the signal; true otherwise </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sun Mar 5 2023 16:11:16 for eFlexPwm by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="navelem"><a class="el" href="a00030.html">eFlex</a></li><li class="navelem"><a class="el" href="a00854.html">Timer</a></li>
+    <li class="footer">Generated on Sat Mar 11 2023 21:35:09 for eFlexPwm by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

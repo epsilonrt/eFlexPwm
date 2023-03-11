@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['outputenablesetting_243',['outputEnableSetting',['../a00849.html#a86a2553b8a14f7d2df173c18b5a1d336',1,'eFlex::SubModule']]]
+  ['nxp_20driver_245',['NXP Driver',['../a00027.html',1,'']]],
+  ['nxp_20enumerations_246',['NXP Enumerations',['../a00028.html',1,'']]]
 ];

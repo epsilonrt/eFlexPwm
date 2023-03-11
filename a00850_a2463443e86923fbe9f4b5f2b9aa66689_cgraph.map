@@ -1,0 +1,4 @@
+<map id="eFlex::SubModule::setupDeadtime" name="eFlex::SubModule::setupDeadtime">
+<area shape="rect" id="node1" title="Setting the deadtime for all channels before calling begin." alt="" coords="5,5,252,32"/>
+<area shape="rect" id="node2" href="$a00850.html#ae0ca0fb2a8fa77ff8fdcbd8f8b0fd2a5" title="Setting the deadtime before calling begin." alt="" coords="300,5,547,32"/>
+</map>

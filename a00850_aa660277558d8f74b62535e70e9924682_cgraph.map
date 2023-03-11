@@ -1,0 +1,9 @@
+<map id="eFlex::SubModule::setPrescaler" name="eFlex::SubModule::setPrescaler">
+<area shape="rect" id="node1" title="Set the pwm submodule prescaler." alt="" coords="5,56,232,83"/>
+<area shape="rect" id="node2" href="$a00850.html#a089fcb04e377daf75cd5ec20f568df21" title="the pwm submodule prescaler" alt="" coords="280,5,487,32"/>
+<area shape="rect" id="node5" href="$a00854.html#a40dd5373e7cfc6090d2fb4be2fcfe58a" title="Calculates the minimum PWM frequency corresponding to a prescaler." alt="" coords="290,107,477,149"/>
+<area shape="rect" id="node7" href="$a00846.html#a9554c04a500b8242df75714b99fe957f" title="Set the Pre&#45;scaler to divide down the clock." alt="" coords="288,56,479,83"/>
+<area shape="rect" id="node3" href="$a00850.html#abe1035023e9b15600aead13e9aee8f9e" title="Current configuration." alt="" coords="536,5,721,32"/>
+<area shape="rect" id="node4" href="$a00846.html#adba8e84d50cc44364fa225bdf6548b69" title="Pre&#45;scaler to divide down the clock, default kPWM_Prescale_Divide_1." alt="" coords="543,56,714,83"/>
+<area shape="rect" id="node6" href="$a00854.html#a10e405e49abacbd9b5061693027dc052" title="Bus clock in Hz." alt="" coords="535,115,723,141"/>
+</map>

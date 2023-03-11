@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['outputenablesetting_389',['outputEnableSetting',['../a00849.html#a86a2553b8a14f7d2df173c18b5a1d336',1,'eFlex::SubModule']]]
+  ['minpwmfrequency_397',['minPwmFrequency',['../a00850.html#a72b5bdb65d6b1411489021d2600d4168',1,'eFlex::SubModule']]],
+  ['mode_398',['mode',['../a00846.html#aedec21c9b22a2f485ba5fef4035a21e5',1,'eFlex::Config']]]
 ];

@@ -1,0 +1,5 @@
+<map id="eFlex::SubModule::setupPwmPhaseShift" name="eFlex::SubModule::setupPwmPhaseShift">
+<area shape="rect" id="node1" title="Set PWM phase shift for PWM channel running on channel PWM_A, PWM_B which with 50% duty cycle...." alt="" coords="5,23,220,65"/>
+<area shape="rect" id="node2" href="$a00846.html#a374cc186c604229736e1a5123df994d5" title="PWM signal frequency in Hz, default 5000." alt="" coords="268,5,460,32"/>
+<area shape="rect" id="node3" href="$a00850.html#aa40c1df60470ec679779e533497c13e8" title="Returns the parent PWM module." alt="" coords="273,56,455,83"/>
+</map>

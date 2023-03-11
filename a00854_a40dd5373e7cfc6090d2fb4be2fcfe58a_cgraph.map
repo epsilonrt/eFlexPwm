@@ -1,0 +1,4 @@
+<map id="eFlex::Timer::prescalerToMinPwmFrequency" name="eFlex::Timer::prescalerToMinPwmFrequency">
+<area shape="rect" id="node1" title="Calculates the minimum PWM frequency corresponding to a prescaler." alt="" coords="5,5,192,47"/>
+<area shape="rect" id="node2" href="$a00854.html#a10e405e49abacbd9b5061693027dc052" title="Bus clock in Hz." alt="" coords="240,13,428,39"/>
+</map>

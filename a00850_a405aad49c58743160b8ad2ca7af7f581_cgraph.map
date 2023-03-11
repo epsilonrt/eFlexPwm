@@ -1,0 +1,5 @@
+<map id="eFlex::SubModule::pwmFrequency" name="eFlex::SubModule::pwmFrequency">
+<area shape="rect" id="node1" title="Current PWM signal frequency in Hz." alt="" coords="5,31,251,57"/>
+<area shape="rect" id="node2" href="$a00850.html#abe1035023e9b15600aead13e9aee8f9e" title="Current configuration." alt="" coords="302,5,487,32"/>
+<area shape="rect" id="node3" href="$a00846.html#a374cc186c604229736e1a5123df994d5" title="PWM signal frequency in Hz, default 5000." alt="" coords="299,56,491,83"/>
+</map>

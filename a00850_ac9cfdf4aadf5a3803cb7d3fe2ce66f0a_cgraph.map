@@ -1,0 +1,6 @@
+<map id="eFlex::SubModule::start" name="eFlex::SubModule::start">
+<area shape="rect" id="node1" title="Starts the PWM counter for this submodule." alt="" coords="5,56,181,83"/>
+<area shape="rect" id="node2" href="$a00850.html#ac4375d862ccecca93b10c1bcc57dc9f7" title="Returns the Submodule index (0 for Submodule0...)" alt="" coords="229,5,412,32"/>
+<area shape="rect" id="node3" href="$a00854.html#a7df19c5a8ae37e08711e94b12ec8efa3" title="Starts or stops the PWM counter for a single or multiple submodules." alt="" coords="249,56,392,83"/>
+<area shape="rect" id="node4" href="$a00850.html#aa40c1df60470ec679779e533497c13e8" title="Returns the parent PWM module." alt="" coords="230,107,411,133"/>
+</map>

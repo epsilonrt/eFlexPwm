@@ -25,6 +25,7 @@
 var NAVTREE =
 [
   [ "eFlexPwm", "index.html", [
+    [ "Deprecated List", "a00026.html", null ],
     [ "Modules", "modules.html", "modules" ],
     [ "Namespace Members", "namespacemembers.html", [
       [ "All", "namespacemembers.html", null ],
@@ -45,7 +46,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "a00026.html",
-"a00849.html#a0e85e6ac4a809013ca9ee9c809c29938"
+"a00850.html#a087dd188fdffedeffd2a63ed69ba42b9"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
