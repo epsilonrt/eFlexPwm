@@ -37,7 +37,7 @@ namespace eFlex {
   //-----------------------------------------------------------------------------
   //                                Pin class
   //-----------------------------------------------------------------------------
-  Pin::Pin (int number) {
+  Pin::Pin (int number) : m_number (number) {
 
     if (number != -1) {
       const struct pwm_pin_info_struct *info = pinInfo (number);
@@ -47,7 +47,6 @@ namespace eFlex {
         if (info->channel != 0) {
 
           m_channel = (info->channel == 1 ? ChanA : ChanB);
-          m_number = number;
           m_module = info->module;
           m_muxval = info->muxval;
         }
