@@ -1,5 +1,5 @@
 # eFlexPwm
-Arduino eFlexPwm library for Teensy 4.x
+Arduino eFlexPwm library for Teensy 4.x (and SparkFun MicroMod Teensy)
 
 <a href="https://www.nxp.com/docs/en/application-note/AN4485.pdf">
   <img src="https://raw.githubusercontent.com/epsilonrt/eFlexPwm/master/extras/images/eflexpwm_logo_small.png" alt="eFlexPwm Logo" align="right" valign="top">
@@ -11,7 +11,9 @@ Arduino eFlexPwm library for Teensy 4.x
 
 
 [![Framework](https://img.shields.io/badge/Framework-Arduino-blue)](https://www.arduino.cc/)
+[![Teensy4.0](https://github.com/epsilonrt/eFlexPwm/actions/workflows/build_teensy40.yml/badge.svg)](https://github.com/epsilonrt/eFlexPwm/actions/workflows/build_teensy40.yml) 
 [![Teensy4.1](https://github.com/epsilonrt/eFlexPwm/actions/workflows/build_teensy41.yml/badge.svg)](https://github.com/epsilonrt/eFlexPwm/actions/workflows/build_teensy41.yml) 
+[![TeensyMM](https://github.com/epsilonrt/eFlexPwm/actions/workflows/build_teensymm.yml/badge.svg)](https://github.com/epsilonrt/eFlexPwm/actions/workflows/build_teensymm.yml) 
 
 ---
 
