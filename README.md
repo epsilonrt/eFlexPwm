@@ -88,6 +88,7 @@ But this is only a small example of the possibilities offered by the eFlexPwm ti
 
 <img src="https://raw.githubusercontent.com/epsilonrt/eFlexPwm/master/extras/images/rigol_single_phase_inverter_400hz.png" alt="Rigol View" align="center" width="800">
 
+
 This library is based on the code of the FSL_PWM driver from the NXP SDK, it is published under the BSD 3-Clause License. **It is still in beta version.**
 
 **Teesny eFlexPWM pins**
