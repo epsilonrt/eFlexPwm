@@ -88,7 +88,7 @@ void loop() {
 
 But this is only a small example of the possibilities offered by the eFlexPwm timers which are also designed to generate SPWM signals (Sine Pulse Width Modulation) :
 
-<img src="https://raw.githubusercontent.com/epsilonrt/eFlexPwm/master/extras/images/rigol_single_phase_inverter_400hz.png" alt="Rigol View" align="center" width="800">
+<img src="https://raw.githubusercontent.com/epsilonrt/eFlexPwm/master/extras/images/rigol_single_phase_inverter_100hz.png" alt="Rigol View" align="center" width="800">
 
 
 This library is based on the code of the FSL_PWM driver from the NXP SDK, it is published under the BSD 3-Clause License. **It is still in beta version.**
@@ -98,6 +98,6 @@ This library is based on the code of the FSL_PWM driver from the NXP SDK, it is 
 The table below will allow you to identify the pins of the Teensy to use, by clicking on it, you can the Libre Office version of this table :
 
 <a href="https://github.com/epsilonrt/eFlexPwm/raw/master/extras/doc/TeensyPwmPins.ods">
-  <img src="https://raw.githubusercontent.com/epsilonrt/eFlexPwm/master/extras/images/teensy-eflexpwm-pin.png" alt="Teesny eFlexPWM pins" align="center" width="500">
+  <img src="https://raw.githubusercontent.com/epsilonrt/eFlexPwm/master/extras/images/teensy-eflexpwm-pin.png" alt="Teesny eFlexPWM pins" align="center" width="800">
 </a>
 
