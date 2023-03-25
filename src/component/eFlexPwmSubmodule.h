@@ -931,7 +931,7 @@ namespace eFlex {
         @brief Adjust the prescaler if necessary
 
         Checks if pwmFreq is less than the minPwmFrequency() and increases the prescaler if necessary.
-        If not and if the prescaler is greater than 1, try to decrease it.
+        Otherwise and if the prescaler is greater than 1, try to reduce it to the minimum.
         
         @param pwmFreq the desired PWM frequency
         @return true if adjustment made, false otherwise 

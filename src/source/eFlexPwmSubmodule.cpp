@@ -150,32 +150,17 @@ namespace eFlex {
 
   //-----------------------------------------------------------------------------
   bool SubModule::adjustPrescaler (uint32_t freq) {
-    pwm_clock_prescale_t prescaler = config().prescale();
+    pwm_clock_prescale_t prescaler = ( (freq < minPwmFrequency()) ? config().prescale() : kPWM_Prescale_Divide_1);
 
-    if (freq < minPwmFrequency())  {
-      bool changed = false;
+    while ( (freq < Timer::prescalerToMinPwmFrequency (prescaler)) && (prescaler < kPWM_Prescale_Divide_128)) {
 
-      while ( (freq < Timer::prescalerToMinPwmFrequency (prescaler)) && (prescaler < kPWM_Prescale_Divide_128)) {
-
-        prescaler = static_cast<pwm_clock_prescale_t> (static_cast<unsigned> (prescaler) + 1);
-        changed = true;
-      }
-
-      if (changed) {
-
-        setPrescaler (prescaler);
-      }
-      return changed;
+      prescaler = static_cast<pwm_clock_prescale_t> (static_cast<unsigned> (prescaler) + 1);
     }
-    else if (prescaler > kPWM_Prescale_Divide_1) {
 
-      prescaler = static_cast<pwm_clock_prescale_t> (static_cast<unsigned> (prescaler) - 1);
+    if (config().prescale() != prescaler) {
 
-      if (freq >= Timer::prescalerToMinPwmFrequency (prescaler)) {
-
-        setPrescaler (prescaler);
-        return true;
-      }
+      setPrescaler (prescaler);
+      return true;
     }
     return false;
   }
