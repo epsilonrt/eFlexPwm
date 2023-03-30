@@ -9,7 +9,7 @@ var a00854 =
     [ "printRegs", "a00854.html#a24321bc25f4f7449bd38c895095ee527", null ],
     [ "setPwmLdok", "a00854.html#ac11e37725e47aa201761b956778ea875", null ],
     [ "setPwmLdok", "a00854.html#a912dfe6251548f10903204c134e36083", null ],
-    [ "setupDeadtime", "a00854.html#a9800e0c4a6fd9e80fade3ada20032d67", null ],
+    [ "setupDeadtime", "a00854.html#a9b74606e9b1293d9c70cbbedf7ec6b20", null ],
     [ "setupDutyCyclePercent", "a00854.html#a67792c3a2192eb5b2524b60797cedbab", null ],
     [ "setupFaultInputFilter", "a00854.html#a4fccca105bb8d7be4aec2bc07c6825e8", null ],
     [ "setupFaults", "a00854.html#a2ada62bfe23d8ccdca88c37e5b72ab18", null ],

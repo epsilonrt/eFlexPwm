@@ -140,9 +140,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a008
 <tr class="memitem:af494f54908c6be0023d7d1371a95f876"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#af494f54908c6be0023d7d1371a95f876">setupLevel</a> (<a class="el" href="a00028.html#gafc4951ae5b73fded4e2daaae18c896cf">pwm_level_select_t</a> level)</td></tr>
 <tr class="memdesc:af494f54908c6be0023d7d1371a95f876"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setting the output pulse mode for all submodules before calling begin.  <a href="a00854.html#af494f54908c6be0023d7d1371a95f876">More...</a><br /></td></tr>
 <tr class="separator:af494f54908c6be0023d7d1371a95f876"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9800e0c4a6fd9e80fade3ada20032d67"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a9800e0c4a6fd9e80fade3ada20032d67">setupDeadtime</a> (uint16_t deadtimeValue)</td></tr>
-<tr class="memdesc:a9800e0c4a6fd9e80fade3ada20032d67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setting the deadtime for all submodules before calling begin.  <a href="a00854.html#a9800e0c4a6fd9e80fade3ada20032d67">More...</a><br /></td></tr>
-<tr class="separator:a9800e0c4a6fd9e80fade3ada20032d67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b74606e9b1293d9c70cbbedf7ec6b20"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a9b74606e9b1293d9c70cbbedf7ec6b20">setupDeadtime</a> (uint16_t deadtimeValue, uint32_t unit=1)</td></tr>
+<tr class="memdesc:a9b74606e9b1293d9c70cbbedf7ec6b20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setting the deadtime for all submodules before calling begin.  <a href="a00854.html#a9b74606e9b1293d9c70cbbedf7ec6b20">More...</a><br /></td></tr>
+<tr class="separator:a9b74606e9b1293d9c70cbbedf7ec6b20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add510f4a518adc7d47b78892bd0dc176"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#add510f4a518adc7d47b78892bd0dc176">setupOutputEnable</a> (bool activate=true)</td></tr>
 <tr class="memdesc:add510f4a518adc7d47b78892bd0dc176"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setting output enable for all submodules before calling begin.  <a href="a00854.html#add510f4a518adc7d47b78892bd0dc176">More...</a><br /></td></tr>
 <tr class="separator:add510f4a518adc7d47b78892bd0dc176"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -334,7 +334,7 @@ Here is the call graph for this function:</div>
 <dl class="section return"><dt>Returns</dt><dd>minimum PWM frequency in Hz</dd></dl>
 <p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.</p>
 
-<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00268">268</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00269">269</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
 
 <p class="reference">References <a class="el" href="a00854.html#a10e405e49abacbd9b5061693027dc052">busClockHz()</a>.</p>
 
@@ -434,7 +434,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00217">217</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00218">218</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="a00850.html#a36870aca0c3468167eb79b64bb6a308d">eFlex::SubModule::setPwmLdok()</a>.</p>
 
@@ -484,12 +484,12 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00237">237</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00238">238</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
 
 </div>
 </div>
-<a id="a9800e0c4a6fd9e80fade3ada20032d67"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9800e0c4a6fd9e80fade3ada20032d67">&#9670;&nbsp;</a></span>setupDeadtime()</h2>
+<a id="a9b74606e9b1293d9c70cbbedf7ec6b20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b74606e9b1293d9c70cbbedf7ec6b20">&#9670;&nbsp;</a></span>setupDeadtime()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -498,8 +498,18 @@ Here is the call graph for this function:</div>
           <td class="memname">void eFlex::Timer::setupDeadtime </td>
           <td>(</td>
           <td class="paramtype">uint16_t&#160;</td>
-          <td class="paramname"><em>deadtimeValue</em></td><td>)</td>
+          <td class="paramname"><em>deadtimeValue</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>unit</em> = <code>1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -509,6 +519,7 @@ Here is the call graph for this function:</div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">deadtimeValue</td><td>The deadtime value in clock cycles; only used if channel pair is operating in complementary mode </td></tr>
+    <tr><td class="paramname">unit</td><td>The unit of the deadtimeValue; 1: clock cycles; 1000: milliseconds; 1000000: microseconds; 1000000000: nanoseconds </td></tr>
   </table>
   </dd>
 </dl>
@@ -574,7 +585,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00246">246</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00247">247</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
 
 </div>
 </div>
@@ -622,7 +633,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00258">258</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00259">259</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
 
 </div>
 </div>
@@ -881,7 +892,7 @@ Here is the call graph for this function:</div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="a00030.html">eFlex</a></li><li class="navelem"><a class="el" href="a00854.html">Timer</a></li>
-    <li class="footer">Generated on Sat Mar 25 2023 08:42:23 for eFlexPwm by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Mar 30 2023 14:56:09 for eFlexPwm by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

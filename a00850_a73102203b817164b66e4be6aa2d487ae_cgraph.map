@@ -1,0 +1,6 @@
+<map id="eFlex::SubModule::setupDeadtime" name="eFlex::SubModule::setupDeadtime">
+<area shape="rect" id="node1" title="Setting the deadtime before calling begin." alt="" coords="5,31,252,57"/>
+<area shape="rect" id="node2" href="$a00854.html#a638663998d9d1bd6d5d52dee191a32c1" title="PWM main counter clock in Hz." alt="" coords="300,5,484,32"/>
+<area shape="rect" id="node4" href="$a00850.html#aa40c1df60470ec679779e533497c13e8" title="Returns the parent PWM module." alt="" coords="301,56,483,83"/>
+<area shape="rect" id="node3" href="$a00854.html#a10e405e49abacbd9b5061693027dc052" title="Bus clock in Hz." alt="" coords="532,5,720,32"/>
+</map>
