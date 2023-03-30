@@ -300,9 +300,15 @@ namespace eFlex {
 
         @param channel PWM channel being setting; ChanA or ChanB
         @param deadtimeValue The deadtime value in clock cycles; only used if channel pair is operating in complementary mode
+        @param unit The unit of the deadtimeValue; 1: clock cycles; 1000: milliseconds; 1000000: microseconds; 1000000000: nanoseconds
       */
-      inline void setupDeadtime (Channel channel, uint16_t deadtimeValue) {
-        m_signal[channel].deadtimeValue = deadtimeValue;
+      inline void setupDeadtime (Channel channel, uint16_t deadtimeValue, uint32_t unit = 1) {
+        if (unit == 1) {
+          m_signal[channel].deadtimeValue = deadtimeValue;
+        }
+        else {
+          m_signal[channel].deadtimeValue = ( (uint64_t) timer().srcClockHz() * deadtimeValue) / unit;
+        }
       }
 
       /**
@@ -311,10 +317,11 @@ namespace eFlex {
         @note If you want this value to take effect after the call to \ref begin, you must call \ref updateSetting
 
         @param deadtimeValue The deadtime value in clock cycles; only used if channel pair is operating in complementary mode
+        @param unit The unit of the deadtimeValue; 1: clock cycles; 1000: milliseconds; 1000000: microseconds; 1000000000: nanoseconds
       */
-      inline void setupDeadtime (uint16_t deadtimeValue) {
+      inline void setupDeadtime (uint16_t deadtimeValue, uint32_t unit = 1) {
         for (uint8_t i = ChanA; i <= ChanB ; i++) {
-          setupDeadtime (static_cast<Channel> (i), deadtimeValue);
+          setupDeadtime (static_cast<Channel> (i), deadtimeValue, unit);
         }
       }
 
@@ -892,7 +899,7 @@ namespace eFlex {
 
       /**
         @brief the pwm submodule prescaler
-       */
+      */
       inline pwm_clock_prescale_t prescaler() const {
         return config().prescale();
       }
@@ -932,10 +939,10 @@ namespace eFlex {
 
         Checks if pwmFreq is less than the minPwmFrequency() and increases the prescaler if necessary.
         Otherwise and if the prescaler is greater than 1, try to reduce it to the minimum.
-        
+
         @param pwmFreq the desired PWM frequency
-        @return true if adjustment made, false otherwise 
-       */
+        @return true if adjustment made, false otherwise
+      */
       bool adjustPrescaler (uint32_t pwmFreq);
 
     protected:

@@ -80,14 +80,14 @@ namespace eFlex {
   }
 
   // ----------------------------------------------------------------------------
-  void Timer::setupDeadtime (uint16_t deadtimeValue) {
+  void Timer::setupDeadtime (uint16_t deadtimeValue, uint32_t unit) {
 
     for (uint8_t i = 0; i < NofSubmodules; i++) {
 
       SubModule *s = SmList[m_tmidx][i];
       if (s) {
 
-        s ->setupDeadtime (deadtimeValue);
+        s ->setupDeadtime (deadtimeValue, unit);
       }
     }
   }

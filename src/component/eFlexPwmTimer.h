@@ -141,8 +141,9 @@ namespace eFlex {
         @note If you want this value to take effect after the call to \ref begin, you must call \ref updateSetting
 
         @param deadtimeValue The deadtime value in clock cycles; only used if channel pair is operating in complementary mode
+        @param unit The unit of the deadtimeValue; 1: clock cycles; 1000: milliseconds; 1000000: microseconds; 1000000000: nanoseconds
       */
-      void setupDeadtime (uint16_t deadtimeValue);
+      void setupDeadtime (uint16_t deadtimeValue, uint32_t unit = 1);
 
       /**
         @brief Setting output enable for all submodules before calling begin
