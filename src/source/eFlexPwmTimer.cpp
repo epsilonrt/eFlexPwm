@@ -18,23 +18,23 @@ namespace eFlex {
   }
 
   //-----------------------------------------------------------------------------
-  bool Timer::begin (bool doStart, bool doSync) {
+  bool Timer::beginSubModules (uint8_t subModulesToBegin, bool doStart, bool doSync) {
     bool success = true;
 
     if (doStart) {
 
-      stop();
+      start (subModulesToBegin, false);
     }
 
     if (doSync) {
 
-      setPwmLdok (false);
+      setPwmLdok (subModulesToBegin, false);
     }
 
     for (uint8_t i = 0; (i < NofSubmodules) && success; i++) {
 
       SubModule *s = SmList[m_tmidx][i];
-      if (s) {
+      if (s && (subModulesToBegin & (1 << i))) {
 
         success &= s ->begin (false, false);
       }
@@ -42,11 +42,11 @@ namespace eFlex {
 
     if (doSync) {
 
-      setPwmLdok (true);
+      setPwmLdok (subModulesToBegin, true);
     }
     if (doStart && success) {
 
-      start();
+      start (subModulesToBegin, true);
     }
     return success;
   }

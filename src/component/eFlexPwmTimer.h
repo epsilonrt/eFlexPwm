@@ -20,6 +20,23 @@ namespace eFlex {
 
     public:
       /**
+        @brief Sets up the PWM signals for the sub-modules passed as parameters
+
+          The function initializes the submodule according to the parameters passed in by the user. The function
+          also sets up the value compare registers to match the PWM signal requirements.
+          If the dead time insertion logic is enabled, the pulse period is reduced by the
+          dead time period specified by the user.
+
+        @param subModulesToBegin PWM submodules to begin. This is a logical OR of members of the
+                                  enumeration ::pwm_module_control_t
+        @param doStart starts signal generation
+        @param doSync synchronizes the operation by surrounding it with setPwmLdok (false) / setPwmLdok (true)
+
+        @return Returns false if there was error setting up the signal; true otherwise
+       */
+      bool beginSubModules (uint8_t subModulesToBegin, bool doStart = true, bool doSync = true, pwm_module_control_t);
+
+      /**
         @brief Sets up the PWM signals for all instantiated submodules of the timer
 
           The function initializes the submodule according to the parameters passed in by the user. The function
@@ -32,7 +49,9 @@ namespace eFlex {
 
         @return Returns false if there was error setting up the signal; true otherwise
       */
-      bool begin (bool doStart = true, bool doSync = true);
+      inline bool begin (bool doStart = true, bool doSync = true) {
+        return beginSubModules (SmMask[m_tmidx], doStart, doSync);
+      }
 
       /**
         @brief Returns the timer module index (0 for PWM1...)
