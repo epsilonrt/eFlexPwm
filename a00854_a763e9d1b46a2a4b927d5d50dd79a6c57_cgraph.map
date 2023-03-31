@@ -1,0 +1,4 @@
+<map id="eFlex::Timer::begin" name="eFlex::Timer::begin">
+<area shape="rect" id="node1" title="Sets up the PWM signals for all instantiated submodules of the timer." alt="" coords="5,5,153,32"/>
+<area shape="rect" id="node2" href="$a00854.html#a7fe9b5bb15d8929331c8f5b78a0b7040" title="Sets up the PWM signals for the sub&#45;modules passed as parameters." alt="" coords="201,5,428,32"/>
+</map>

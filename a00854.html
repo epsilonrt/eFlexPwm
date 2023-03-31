@@ -104,6 +104,9 @@ Collaboration diagram for eFlex::Timer:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a7fe9b5bb15d8929331c8f5b78a0b7040"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a7fe9b5bb15d8929331c8f5b78a0b7040">beginSubModules</a> (uint8_t subModulesToBegin, bool doStart=true, bool doSync=true, <a class="el" href="a00028.html#gaa326b29466de3794000878daaebe8885">pwm_module_control_t</a>)</td></tr>
+<tr class="memdesc:a7fe9b5bb15d8929331c8f5b78a0b7040"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the PWM signals for the sub-modules passed as parameters.  <a href="a00854.html#a7fe9b5bb15d8929331c8f5b78a0b7040">More...</a><br /></td></tr>
+<tr class="separator:a7fe9b5bb15d8929331c8f5b78a0b7040"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a763e9d1b46a2a4b927d5d50dd79a6c57"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00854.html#a763e9d1b46a2a4b927d5d50dd79a6c57">begin</a> (bool doStart=true, bool doSync=true)</td></tr>
 <tr class="memdesc:a763e9d1b46a2a4b927d5d50dd79a6c57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the PWM signals for all instantiated submodules of the timer.  <a href="a00854.html#a763e9d1b46a2a4b927d5d50dd79a6c57">More...</a><br /></td></tr>
 <tr class="separator:a763e9d1b46a2a4b927d5d50dd79a6c57"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -199,6 +202,9 @@ static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>prescalerT
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool eFlex::Timer::begin </td>
@@ -218,6 +224,11 @@ static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>prescalerT
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets up the PWM signals for all instantiated submodules of the timer. </p>
@@ -230,6 +241,70 @@ static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>prescalerT
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns false if there was error setting up the signal; true otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00052">52</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
+
+<p class="reference">References <a class="el" href="a00854.html#a7fe9b5bb15d8929331c8f5b78a0b7040">beginSubModules()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="a00854_a763e9d1b46a2a4b927d5d50dd79a6c57_cgraph.svg" width="434" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
+<a id="a7fe9b5bb15d8929331c8f5b78a0b7040"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fe9b5bb15d8929331c8f5b78a0b7040">&#9670;&nbsp;</a></span>beginSubModules()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool eFlex::Timer::beginSubModules </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>subModulesToBegin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>doStart</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>doSync</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00028.html#gaa326b29466de3794000878daaebe8885">pwm_module_control_t</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets up the PWM signals for the sub-modules passed as parameters. </p>
+<p>The function initializes the submodule according to the parameters passed in by the user. The function also sets up the value compare registers to match the PWM signal requirements. If the dead time insertion logic is enabled, the pulse period is reduced by the dead time period specified by the user.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">subModulesToBegin</td><td>PWM submodules to begin. This is a logical OR of members of the enumeration <a class="el" href="a00028.html#gaa326b29466de3794000878daaebe8885" title="Options for submodule master control operation.">pwm_module_control_t</a> </td></tr>
+    <tr><td class="paramname">doStart</td><td>starts signal generation </td></tr>
+    <tr><td class="paramname">doSync</td><td>synchronizes the operation by surrounding it with setPwmLdok (false) / setPwmLdok (true)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns false if there was error setting up the signal; true otherwise </dd></dl>
+
+<p class="reference">Referenced by <a class="el" href="a00854.html#a763e9d1b46a2a4b927d5d50dd79a6c57">begin()</a>.</p>
 
 </div>
 </div>
@@ -259,7 +334,7 @@ static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>prescalerT
 <p>Disable all instantiated submodules of the timer. </p>
 <p>This function allows you to disable the output pins without changing anything in the configuration. When the submodule is disabled, its output pins are forced to zero. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00062">62</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00081">81</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
 
 <p class="reference">References <a class="el" href="a00854.html#a53f5ff06db007c460385dd307aa84f02">enable()</a>.</p>
 <div class="dynheader">
@@ -334,7 +409,7 @@ Here is the call graph for this function:</div>
 <dl class="section return"><dt>Returns</dt><dd>minimum PWM frequency in Hz</dd></dl>
 <p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.</p>
 
-<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00269">269</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00288">288</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
 
 <p class="reference">References <a class="el" href="a00854.html#a10e405e49abacbd9b5061693027dc052">busClockHz()</a>.</p>
 
@@ -434,7 +509,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00218">218</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00237">237</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="a00850.html#a36870aca0c3468167eb79b64bb6a308d">eFlex::SubModule::setPwmLdok()</a>.</p>
 
@@ -484,7 +559,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00238">238</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00257">257</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
 
 </div>
 </div>
@@ -585,7 +660,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00247">247</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00266">266</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
 
 </div>
 </div>
@@ -633,7 +708,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00259">259</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00278">278</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
 
 </div>
 </div>
@@ -751,7 +826,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This operation is not useful if <code><a class="el" href="a00854.html#a763e9d1b46a2a4b927d5d50dd79a6c57" title="Sets up the PWM signals for all instantiated submodules of the timer.">begin()</a></code> was called with doStart=true </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00098">98</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00117">117</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
 
 <p class="reference">References <a class="el" href="a00854.html#a7df19c5a8ae37e08711e94b12ec8efa3">start()</a>.</p>
 <div class="dynheader">
@@ -807,7 +882,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00083">83</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00102">102</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="a00854.html#a1f2a4527d4f10f1faffb174e1e92573e">start()</a>, <a class="el" href="a00850.html#ac9cfdf4aadf5a3803cb7d3fe2ce66f0a">eFlex::SubModule::start()</a>, and <a class="el" href="a00854.html#a4f4a107d5a89a9486241f3f5ea58f823">stop()</a>.</p>
 
@@ -846,7 +921,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00111">111</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00130">130</a> of file <a class="el" href="a00020_source.html">eFlexPwmTimer.h</a>.</p>
 
 <p class="reference">References <a class="el" href="a00854.html#a7df19c5a8ae37e08711e94b12ec8efa3">start()</a>.</p>
 <div class="dynheader">
@@ -892,7 +967,7 @@ Here is the call graph for this function:</div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="a00030.html">eFlex</a></li><li class="navelem"><a class="el" href="a00854.html">Timer</a></li>
-    <li class="footer">Generated on Thu Mar 30 2023 15:17:02 for eFlexPwm by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Mar 31 2023 12:45:09 for eFlexPwm by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
