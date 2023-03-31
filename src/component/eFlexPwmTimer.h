@@ -34,7 +34,7 @@ namespace eFlex {
 
         @return Returns false if there was error setting up the signal; true otherwise
        */
-      bool beginSubModules (uint8_t subModulesToBegin, bool doStart = true, bool doSync = true, pwm_module_control_t);
+      bool beginSubModules (uint8_t subModulesToBegin, bool doStart = true, bool doSync = true);
 
       /**
         @brief Sets up the PWM signals for all instantiated submodules of the timer
