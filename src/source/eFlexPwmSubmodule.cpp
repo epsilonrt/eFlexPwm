@@ -12,7 +12,7 @@ namespace eFlex {
   //                            SubModule class
   //-----------------------------------------------------------------------------
   SubModule::SubModule (int pinA, int pinB) :
-    m_pin ({Pin (pinA), Pin (pinB) }), m_tmidx (-1), m_smidx (-1), m_ptr (0), m_wasbegin (false) {
+    m_pin {Pin (pinA), Pin (pinB) }, m_tmidx (-1), m_smidx (-1), m_ptr (0), m_wasbegin (false) {
     static_assert ( (ChanA == 0U), "kPWM_PwmB declaration mismatch; check the code !");
     static_assert ( (ChanB == 1U), "kPWM_PwmA declaration mismatch; check the code !");
 
