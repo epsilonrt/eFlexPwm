@@ -16,6 +16,7 @@
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
+#ifdef FSL_PWM_GETINSTANCE_ENABLED
 /*!
  * @brief Get the instance from the base address
  *
@@ -24,12 +25,12 @@
  * @return The PWM module instance
  */
 static uint32_t PWM_GetInstance(PWM_Type *base);
-
 /*******************************************************************************
  * Variables
  ******************************************************************************/
 /*! @brief Pointers to PWM bases for each instance. */
 static PWM_Type *const s_pwmBases[] = PWM_BASE_PTRS;
+#endif /* FSL_PWM_GETINSTANCE_ENABLED */
 
 #if !(defined(FSL_SDK_DISABLE_DRIVER_CLOCK_CONTROL) && FSL_SDK_DISABLE_DRIVER_CLOCK_CONTROL)
 /*! @brief Pointers to PWM clocks for each PWM submodule. */
@@ -61,7 +62,7 @@ static inline uint16_t dutyCycleToReloadValue(uint8_t dutyCyclePercent)
     /* Rounding calculations to improve the accuracy of reloadValue */
     return ((65535U * dutyCyclePercent) + 50U) / 100U;
 }
-
+#ifdef FSL_PWM_GETINSTANCE_ENABLED
 static uint32_t PWM_GetInstance(PWM_Type *base)
 {
     uint32_t instance;
@@ -79,7 +80,7 @@ static uint32_t PWM_GetInstance(PWM_Type *base)
 
     return instance;
 }
-
+#endif /* FSL_PWM_GETINSTANCE_ENABLED */
 /*!
  * brief Ungates the PWM submodule clock and configures the peripheral for basic operation.
  *
