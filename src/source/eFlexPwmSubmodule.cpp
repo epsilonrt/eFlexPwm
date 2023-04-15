@@ -57,6 +57,13 @@ namespace eFlex {
 
     if (isValid()) {
 
+      for (uint8_t i = 0; i < NofPins; i++) {
+
+        if (m_pin[i].isValid()) {
+
+          setSignalToDefault (m_signal[i]);
+        }
+      }
       m_config = config;
       m_fpmin = Timer::prescalerToMinPwmFrequency (config.prescale());
       return (PWM_Init (ptr(), SM[m_smidx], config.kPwmConfig()) == kStatus_Success) ;

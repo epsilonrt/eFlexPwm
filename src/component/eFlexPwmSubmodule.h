@@ -968,7 +968,6 @@ namespace eFlex {
         signal.dutyCyclePercent = 50;
         signal.deadtimeValue = 0;
         signal.faultState = kPWM_PwmFaultState0;
-        signal.pwmChannel = kPWM_PwmA;
       }
 
     private:
