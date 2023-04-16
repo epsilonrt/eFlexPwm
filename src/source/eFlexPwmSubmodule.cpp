@@ -66,6 +66,7 @@ namespace eFlex {
       }
       m_config = config;
       m_fpmin = Timer::prescalerToMinPwmFrequency (config.prescale());
+      m_wasbegin = false; // force update
       return (PWM_Init (ptr(), SM[m_smidx], config.kPwmConfig()) == kStatus_Success) ;
     }
     return false;
