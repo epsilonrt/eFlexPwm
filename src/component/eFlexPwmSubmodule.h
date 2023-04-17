@@ -570,7 +570,8 @@ namespace eFlex {
       */
       inline void updateDutyCyclePercent (uint8_t dutyCyclePercent, Channel channel = ChanA) {
 
-        PWM_UpdatePwmDutycycle (ptr(), SM[m_smidx], kPwmChan (channel), m_config.m_mode, dutyCyclePercent);
+        m_duty[static_cast<uint8_t> (channel)] = reloadValue(dutyCyclePercent); // [0, 65535]
+        PWM_UpdatePwmDutycycleHighAccuracy (ptr(), SM[m_smidx], kPwmChan (channel), m_config.m_mode, m_duty[static_cast<uint8_t> (channel)]);
       }
 
       /**
@@ -588,6 +589,7 @@ namespace eFlex {
       */
       inline void updateDutyCycle (uint16_t dutyCycle, Channel channel = ChanA) {
 
+        m_duty[static_cast<uint8_t> (channel)] = dutyCycle; // [0, 65535]
         PWM_UpdatePwmDutycycleHighAccuracy (ptr(), SM[m_smidx], kPwmChan (channel), m_config.m_mode, dutyCycle);
       }
 
@@ -979,6 +981,7 @@ namespace eFlex {
       Config m_config;
       bool m_wasbegin;
       uint32_t m_fpmin;
+      uint16_t m_duty[NofPins];
   };
 
   extern SubModule *SmList[NofTimers][NofSubmodules];
