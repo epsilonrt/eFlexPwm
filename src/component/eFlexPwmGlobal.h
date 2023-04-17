@@ -14,14 +14,37 @@
 namespace eFlex {
 
   /**
-   * @brief PWM Channel
-   */
+     @brief PWM Channel
+  */
   enum Channel {
     ChanA = 0,
     ChanB = 1
   };
-  
-#ifndef DOXYGEN
+
+  /**
+    @brief Complement the variable of type uint16_t as needed
+
+    This function can complement the variable of type uint16_t as needed.For example,
+    need to ask for the opposite of a positive integer.
+
+    @param value    Parameters of type uint16_t
+  */
+  inline uint16_t u16TwoCompl (uint16_t value) {
+    return (~value + 1U);
+  }
+
+  /**
+   * @brief Convert duty cycle to reload value
+   * 
+   * @param dutyCyclePercent  Duty cycle in percent
+   * @return uint16_t Reload value
+   */
+  inline uint16_t reloadValue (uint8_t dutyCyclePercent) {
+    /* Rounding calculations to improve the accuracy of reloadValue */
+    return ( (65535U * dutyCyclePercent) + 50U) / 100U;
+  }
+
+  #ifndef DOXYGEN
   //   Constants
   // ----------------------------------------------------------------------------
   const uint8_t NofTimers = 4; ///< Number of timers in the MCU
@@ -78,5 +101,5 @@ namespace eFlex {
 
     return (c == ChanA ? kPWM_PwmA : kPWM_PwmB);
   }
-#endif
+  #endif
 }
