@@ -1,4 +1,5 @@
 <map id="eFlex::SubModule::updateDutyCyclePercent" name="eFlex::SubModule::updateDutyCyclePercent">
-<area shape="rect" id="node1" title="Updates the PWM signal&#39;s dutycycle." alt="" coords="5,5,196,47"/>
+<area shape="rect" id="node1" title="Updates the PWM signal&#39;s dutycycle." alt="" coords="5,35,196,76"/>
 <area shape="rect" id="node2" href="$a00850.html#a2e9e7cd9d39447df4fd73f61d8069683" title="Get the dutycycle value." alt="" coords="244,5,455,47"/>
+<area shape="rect" id="node3" href="$a00030.html#a000f8ca5673ac1dd49baf8e47c7ed42f" title="Convert duty cycle to reload value." alt="" coords="278,71,421,98"/>
 </map>

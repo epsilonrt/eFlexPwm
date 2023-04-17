@@ -85,6 +85,7 @@ $(document).ready(function(){initNavTree('a00030.html',''); initResizable(); });
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">eFlex Namespace Reference</div>  </div>
@@ -114,6 +115,15 @@ Enumerations</h2></td></tr>
 <tr class="memdesc:a9ae9b25ec6bd587ce6faba74e8b8fd8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">PWM Channel. <br /></td></tr>
 <tr class="separator:a9ae9b25ec6bd587ce6faba74e8b8fd8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:aa90572a188267de9d025b1797aae1ee7"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00030.html#aa90572a188267de9d025b1797aae1ee7">u16TwoCompl</a> (uint16_t value)</td></tr>
+<tr class="memdesc:aa90572a188267de9d025b1797aae1ee7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Complement the variable of type uint16_t as needed.  <a href="a00030.html#aa90572a188267de9d025b1797aae1ee7">More...</a><br /></td></tr>
+<tr class="separator:aa90572a188267de9d025b1797aae1ee7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a000f8ca5673ac1dd49baf8e47c7ed42f"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00030.html#a000f8ca5673ac1dd49baf8e47c7ed42f">reloadValue</a> (uint8_t dutyCyclePercent)</td></tr>
+<tr class="memdesc:a000f8ca5673ac1dd49baf8e47c7ed42f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert duty cycle to reload value.  <a href="a00030.html#a000f8ca5673ac1dd49baf8e47c7ed42f">More...</a><br /></td></tr>
+<tr class="separator:a000f8ca5673ac1dd49baf8e47c7ed42f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:af815710bad509890702b0cba0ecdfe33"><td class="memItemLeft" align="right" valign="top"><a id="af815710bad509890702b0cba0ecdfe33"></a>
@@ -125,13 +135,90 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Library namespace. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a000f8ca5673ac1dd49baf8e47c7ed42f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a000f8ca5673ac1dd49baf8e47c7ed42f">&#9670;&nbsp;</a></span>reloadValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t eFlex::reloadValue </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>dutyCyclePercent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convert duty cycle to reload value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dutyCyclePercent</td><td>Duty cycle in percent </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>uint16_t Reload value </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00014_source.html#l00042">42</a> of file <a class="el" href="a00014_source.html">eFlexPwmGlobal.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="a00850.html#a89aa9f9b5e7d9199da067369680ae62a">eFlex::SubModule::updateDutyCyclePercent()</a>.</p>
+
+</div>
+</div>
+<a id="aa90572a188267de9d025b1797aae1ee7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa90572a188267de9d025b1797aae1ee7">&#9670;&nbsp;</a></span>u16TwoCompl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t eFlex::u16TwoCompl </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Complement the variable of type uint16_t as needed. </p>
+<p>This function can complement the variable of type uint16_t as needed.For example, need to ask for the opposite of a positive integer.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>Parameters of type uint16_t </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00014_source.html#l00032">32</a> of file <a class="el" href="a00014_source.html">eFlexPwmGlobal.h</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="a00030.html">eFlex</a></li>
-    <li class="footer">Generated on Sun Apr 16 2023 17:53:06 for eFlexPwm by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 17 2023 20:01:58 for eFlexPwm by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

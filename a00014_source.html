@@ -104,66 +104,75 @@ $(document).ready(function(){initNavTree('a00014_source.html',''); initResizable
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    ChanA = 0,</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    ChanB = 1</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  };</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#ifndef DOXYGEN</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="comment">//   Constants</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="comment">// ----------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keyword">const</span> uint8_t NofTimers = 4; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keyword">const</span> uint8_t NofSubmodules = FSL_FEATURE_PWM_SUBMODULE_COUNT; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keyword">const</span> uint8_t NofPins = PWM_SUBMODULE_CHANNEL; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">enum</span> TimerIndex {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    Pwm1 = 0,</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    Pwm2,</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    Pwm3,</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    Pwm4</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  };</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keyword">enum</span> TimerFlag {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    Pwm1Flag = (1 &lt;&lt; Pwm1),</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    Pwm2Flag = (1 &lt;&lt; Pwm2),</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    Pwm3Flag = (1 &lt;&lt; Pwm3),</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    Pwm4Flag = (1 &lt;&lt; Pwm4),</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    AllTimersFlag = (Pwm1Flag | Pwm2Flag | Pwm3Flag | Pwm4Flag)</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  };</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keyword">enum</span> SubmoduleIndex {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    Submodule1 = 0,</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    Submodule2,</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    Submodule3,</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    Submodule4</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  };</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keyword">enum</span> SubmoduleFlag {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    Submodule1Flag = (1 &lt;&lt; Submodule1),</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    Submodule2Flag = (1 &lt;&lt; Submodule2),</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    Submodule3Flag = (1 &lt;&lt; Submodule3),</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    Submodule4Flag = (1 &lt;&lt; Submodule4),</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    AllSubmodulesFlag = (Submodule1Flag | Submodule2Flag | Submodule3Flag | Submodule4Flag)</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a00030.html#aa90572a188267de9d025b1797aae1ee7">   32</a></span>&#160;  <span class="keyword">inline</span> uint16_t <a class="code" href="a00030.html#aa90572a188267de9d025b1797aae1ee7">u16TwoCompl</a> (uint16_t value) {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">return</span> (~value + 1U);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  }</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a00030.html#a000f8ca5673ac1dd49baf8e47c7ed42f">   42</a></span>&#160;  <span class="keyword">inline</span> uint16_t <a class="code" href="a00030.html#a000f8ca5673ac1dd49baf8e47c7ed42f">reloadValue</a> (uint8_t dutyCyclePercent) {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="comment">/* Rounding calculations to improve the accuracy of reloadValue */</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">return</span> ( (65535U * dutyCyclePercent) + 50U) / 100U;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  }</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">  #ifndef DOXYGEN</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="comment">//   Constants</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="comment">// ----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keyword">const</span> uint8_t NofTimers = 4; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keyword">const</span> uint8_t NofSubmodules = FSL_FEATURE_PWM_SUBMODULE_COUNT; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keyword">const</span> uint8_t NofPins = PWM_SUBMODULE_CHANNEL; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keyword">enum</span> TimerIndex {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    Pwm1 = 0,</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    Pwm2,</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    Pwm3,</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    Pwm4</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  };</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keyword">const</span> <a class="code" href="a00028.html#ga894e00d9d6094af129d6fbe6a903815e">pwm_submodule_t</a> SM[NofSubmodules] = {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="a00028.html#gga6f836cf6b5fb89b2052853e8b3a7c316add38c1b5a7f784f71f3cebf9a1bf3ff6">kPWM_Module_0</a>,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="a00028.html#gga6f836cf6b5fb89b2052853e8b3a7c316a47a6ce50cc1613c9988bf21d9bb44c4c">kPWM_Module_1</a>,</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="a00028.html#gga6f836cf6b5fb89b2052853e8b3a7c316a0340ee44d37ea0644debbc392abe0218">kPWM_Module_2</a>,</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="a00028.html#gga6f836cf6b5fb89b2052853e8b3a7c316a262d2987720c085ebda6b24b4e646ab9">kPWM_Module_3</a></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  };</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="comment">//   Variables</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="comment">// ----------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <span class="keyword">extern</span> PWM_Type *PWM[NofTimers];</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keyword">extern</span> uint8_t SmMask[NofTimers];</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="comment">//   Code</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="comment">// ----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keyword">enum</span> TimerFlag {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    Pwm1Flag = (1 &lt;&lt; Pwm1),</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    Pwm2Flag = (1 &lt;&lt; Pwm2),</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    Pwm3Flag = (1 &lt;&lt; Pwm3),</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    Pwm4Flag = (1 &lt;&lt; Pwm4),</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    AllTimersFlag = (Pwm1Flag | Pwm2Flag | Pwm3Flag | Pwm4Flag)</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  };</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keyword">enum</span> SubmoduleIndex {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    Submodule1 = 0,</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    Submodule2,</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    Submodule3,</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    Submodule4</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  };</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <span class="comment">// ----------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="keyword">inline</span> <a class="code" href="a00028.html#ga708443867a0407a1d6c1197cdb465a36">pwm_channels_t</a> kPwmChan (<a class="code" href="a00030.html#a9ae9b25ec6bd587ce6faba74e8b8fd8c">Channel</a> c) {</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">return</span> (c == ChanA ? kPWM_PwmA : kPWM_PwmB);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  }</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <span class="keyword">enum</span> SubmoduleFlag {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    Submodule1Flag = (1 &lt;&lt; Submodule1),</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    Submodule2Flag = (1 &lt;&lt; Submodule2),</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    Submodule3Flag = (1 &lt;&lt; Submodule3),</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    Submodule4Flag = (1 &lt;&lt; Submodule4),</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    AllSubmodulesFlag = (Submodule1Flag | Submodule2Flag | Submodule3Flag | Submodule4Flag)</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  };</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="keyword">const</span> <a class="code" href="a00028.html#ga894e00d9d6094af129d6fbe6a903815e">pwm_submodule_t</a> SM[NofSubmodules] = {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <a class="code" href="a00028.html#gga6f836cf6b5fb89b2052853e8b3a7c316add38c1b5a7f784f71f3cebf9a1bf3ff6">kPWM_Module_0</a>,</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <a class="code" href="a00028.html#gga6f836cf6b5fb89b2052853e8b3a7c316a47a6ce50cc1613c9988bf21d9bb44c4c">kPWM_Module_1</a>,</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <a class="code" href="a00028.html#gga6f836cf6b5fb89b2052853e8b3a7c316a0340ee44d37ea0644debbc392abe0218">kPWM_Module_2</a>,</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <a class="code" href="a00028.html#gga6f836cf6b5fb89b2052853e8b3a7c316a262d2987720c085ebda6b24b4e646ab9">kPWM_Module_3</a></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  };</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="comment">//   Variables</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <span class="comment">// ----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="keyword">extern</span> PWM_Type *PWM[NofTimers];</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <span class="keyword">extern</span> uint8_t SmMask[NofTimers];</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="comment">//   Code</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <span class="comment">// ----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  <span class="comment">// ----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="keyword">inline</span> <a class="code" href="a00028.html#ga708443867a0407a1d6c1197cdb465a36">pwm_channels_t</a> kPwmChan (<a class="code" href="a00030.html#a9ae9b25ec6bd587ce6faba74e8b8fd8c">Channel</a> c) {</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordflow">return</span> (c == ChanA ? kPWM_PwmA : kPWM_PwmB);</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  }</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor">  #endif</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;}</div>
 <div class="ttc" id="aa00028_html_ga708443867a0407a1d6c1197cdb465a36"><div class="ttname"><a href="a00028.html#ga708443867a0407a1d6c1197cdb465a36">pwm_channels_t</a></div><div class="ttdeci">enum _pwm_channels pwm_channels_t</div><div class="ttdoc">List of PWM channels in each module.</div></div>
 <div class="ttc" id="aa00028_html_ga894e00d9d6094af129d6fbe6a903815e"><div class="ttname"><a href="a00028.html#ga894e00d9d6094af129d6fbe6a903815e">pwm_submodule_t</a></div><div class="ttdeci">enum _pwm_submodule pwm_submodule_t</div><div class="ttdoc">List of PWM submodules.</div></div>
 <div class="ttc" id="aa00028_html_gga6f836cf6b5fb89b2052853e8b3a7c316a0340ee44d37ea0644debbc392abe0218"><div class="ttname"><a href="a00028.html#gga6f836cf6b5fb89b2052853e8b3a7c316a0340ee44d37ea0644debbc392abe0218">kPWM_Module_2</a></div><div class="ttdeci">@ kPWM_Module_2</div><div class="ttdef"><b>Definition:</b> <a href="a00023_source.html#l00026">nxp-enums-struct.h:26</a></div></div>
@@ -171,14 +180,16 @@ $(document).ready(function(){initNavTree('a00014_source.html',''); initResizable
 <div class="ttc" id="aa00028_html_gga6f836cf6b5fb89b2052853e8b3a7c316a47a6ce50cc1613c9988bf21d9bb44c4c"><div class="ttname"><a href="a00028.html#gga6f836cf6b5fb89b2052853e8b3a7c316a47a6ce50cc1613c9988bf21d9bb44c4c">kPWM_Module_1</a></div><div class="ttdeci">@ kPWM_Module_1</div><div class="ttdef"><b>Definition:</b> <a href="a00023_source.html#l00025">nxp-enums-struct.h:25</a></div></div>
 <div class="ttc" id="aa00028_html_gga6f836cf6b5fb89b2052853e8b3a7c316add38c1b5a7f784f71f3cebf9a1bf3ff6"><div class="ttname"><a href="a00028.html#gga6f836cf6b5fb89b2052853e8b3a7c316add38c1b5a7f784f71f3cebf9a1bf3ff6">kPWM_Module_0</a></div><div class="ttdeci">@ kPWM_Module_0</div><div class="ttdef"><b>Definition:</b> <a href="a00023_source.html#l00024">nxp-enums-struct.h:24</a></div></div>
 <div class="ttc" id="aa00030_html"><div class="ttname"><a href="a00030.html">eFlex</a></div><div class="ttdoc">Library namespace.</div><div class="ttdef"><b>Definition:</b> <a href="a00011_source.html#l00011">eFlexPwmConfig.h:11</a></div></div>
+<div class="ttc" id="aa00030_html_a000f8ca5673ac1dd49baf8e47c7ed42f"><div class="ttname"><a href="a00030.html#a000f8ca5673ac1dd49baf8e47c7ed42f">eFlex::reloadValue</a></div><div class="ttdeci">uint16_t reloadValue(uint8_t dutyCyclePercent)</div><div class="ttdoc">Convert duty cycle to reload value.</div><div class="ttdef"><b>Definition:</b> <a href="a00014_source.html#l00042">eFlexPwmGlobal.h:42</a></div></div>
 <div class="ttc" id="aa00030_html_a9ae9b25ec6bd587ce6faba74e8b8fd8c"><div class="ttname"><a href="a00030.html#a9ae9b25ec6bd587ce6faba74e8b8fd8c">eFlex::Channel</a></div><div class="ttdeci">Channel</div><div class="ttdoc">PWM Channel.</div><div class="ttdef"><b>Definition:</b> <a href="a00014_source.html#l00019">eFlexPwmGlobal.h:19</a></div></div>
+<div class="ttc" id="aa00030_html_aa90572a188267de9d025b1797aae1ee7"><div class="ttname"><a href="a00030.html#aa90572a188267de9d025b1797aae1ee7">eFlex::u16TwoCompl</a></div><div class="ttdeci">uint16_t u16TwoCompl(uint16_t value)</div><div class="ttdoc">Complement the variable of type uint16_t as needed.</div><div class="ttdef"><b>Definition:</b> <a href="a00014_source.html#l00032">eFlexPwmGlobal.h:32</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_9b051f5a462ebc902d5afef8d9317d03.html">component</a></li><li class="navelem"><b>eFlexPwmGlobal.h</b></li>
-    <li class="footer">Generated on Sun Apr 16 2023 17:53:06 for eFlexPwm by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 17 2023 20:01:58 for eFlexPwm by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

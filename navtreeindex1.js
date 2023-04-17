@@ -146,6 +146,7 @@ var NAVTREEINDEX1 =
 "index.html":[],
 "modules.html":[1],
 "namespacemembers.html":[2,0],
-"namespacemembers_enum.html":[2,1],
+"namespacemembers_enum.html":[2,2],
+"namespacemembers_func.html":[2,1],
 "pages.html":[]
 };
