@@ -571,6 +571,7 @@ namespace eFlex {
       inline void updateDutyCyclePercent (uint8_t dutyCyclePercent, Channel channel = ChanA) {
 
         m_duty[static_cast<uint8_t> (channel)] = reloadValue(dutyCyclePercent); // [0, 65535]
+        m_signal[static_cast<uint8_t> (channel)].dutyCyclePercent = dutyCyclePercent; // [0, 100]
         PWM_UpdatePwmDutycycleHighAccuracy (ptr(), SM[m_smidx], kPwmChan (channel), m_config.m_mode, m_duty[static_cast<uint8_t> (channel)]);
       }
 

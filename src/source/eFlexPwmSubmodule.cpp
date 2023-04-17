@@ -175,15 +175,146 @@ namespace eFlex {
 
   //-----------------------------------------------------------------------------
   bool SubModule::setPwmFrequency (uint32_t freq, bool doSync, bool adjust) {
+    uint32_t pwmClock;
+    uint16_t pulseCnt, pwmHighPulse;
+    uint16_t modulo;
+    uint8_t numOfChnls = (m_pin[ChanB].isValid() ? 2 : 1);
 
     if (adjust) {
 
       adjustPrescaler (freq);
     }
 
+    /* Divide the clock by the prescale value */
+    pwmClock = (timer().srcClockHz() / (1UL << ( (m_ptr->SM[m_smidx].CTRL & PWM_CTRL_PRSC_MASK) >> PWM_CTRL_PRSC_SHIFT)));
+    pulseCnt = (uint16_t) (pwmClock / freq);
+
+    /* Setup each PWM channel */
+    for (uint8_t i = 0; i < numOfChnls; i++) {
+
+      /* Calculate pulse width */
+      pwmHighPulse = static_cast<uint32_t>(1UL * pulseCnt * m_duty[i]) / 65535U;
+
+      /* Setup the different match registers to generate the PWM signal */
+      switch (m_config.mode()) {
+
+        case kPWM_SignedCenterAligned:
+          /* Setup the PWM period for a signed center aligned signal */
+          if (i == 0U) {
+
+            modulo = (pulseCnt >> 1U);
+            /* Indicates the start of the PWM period */
+            m_ptr->SM[m_smidx].INIT = u16TwoCompl (modulo);
+            /* Indicates the center value */
+            m_ptr->SM[m_smidx].VAL0 = 0;
+            /* Indicates the end of the PWM period */
+            /* The change during the end to start of the PWM period requires a count time */
+            m_ptr->SM[m_smidx].VAL1 = modulo - 1U;
+          }
+
+          /* Setup the PWM dutycycle */
+          if (m_signal[i].pwmChannel == kPWM_PwmA) {
+
+            m_ptr->SM[m_smidx].VAL2 = u16TwoCompl (pwmHighPulse / 2U);
+            m_ptr->SM[m_smidx].VAL3 = (pwmHighPulse / 2U);
+          }
+          else {
+
+            m_ptr->SM[m_smidx].VAL4 = u16TwoCompl (pwmHighPulse / 2U);
+            m_ptr->SM[m_smidx].VAL5 = (pwmHighPulse / 2U);
+          }
+          break;
+
+        case kPWM_CenterAligned:
+          /* Setup the PWM period for an unsigned center aligned signal */
+          /* Indicates the start of the PWM period */
+          if (i == 0U) {
+
+            m_ptr->SM[m_smidx].INIT = 0;
+            /* Indicates the center value */
+            m_ptr->SM[m_smidx].VAL0 = (pulseCnt / 2U);
+            /* Indicates the end of the PWM period */
+            /* The change during the end to start of the PWM period requires a count time */
+            m_ptr->SM[m_smidx].VAL1 = pulseCnt - 1U;
+          }
+
+          /* Setup the PWM dutycycle */
+          if (m_signal[i].pwmChannel == kPWM_PwmA) {
+
+            m_ptr->SM[m_smidx].VAL2 = ( (pulseCnt - pwmHighPulse) / 2U);
+            m_ptr->SM[m_smidx].VAL3 = ( (pulseCnt + pwmHighPulse) / 2U);
+          }
+          else {
+
+            m_ptr->SM[m_smidx].VAL4 = ( (pulseCnt - pwmHighPulse) / 2U);
+            m_ptr->SM[m_smidx].VAL5 = ( (pulseCnt + pwmHighPulse) / 2U);
+          }
+          break;
+
+        case kPWM_SignedEdgeAligned:
+          /* Setup the PWM period for a signed edge aligned signal */
+          if (i == 0U) {
+
+            modulo = (pulseCnt >> 1U);
+            /* Indicates the start of the PWM period */
+            m_ptr->SM[m_smidx].INIT = u16TwoCompl (modulo);
+            /* Indicates the center value */
+            m_ptr->SM[m_smidx].VAL0 = 0;
+            /* Indicates the end of the PWM period */
+            /* The change during the end to start of the PWM period requires a count time */
+            m_ptr->SM[m_smidx].VAL1 = modulo - 1U;
+          }
+
+          /* Setup the PWM dutycycle */
+          if (m_signal[i].pwmChannel == kPWM_PwmA) {
+
+            m_ptr->SM[m_smidx].VAL2 = u16TwoCompl (modulo);
+            m_ptr->SM[m_smidx].VAL3 = u16TwoCompl (modulo) + pwmHighPulse;
+          }
+          else {
+
+            m_ptr->SM[m_smidx].VAL4 = u16TwoCompl (modulo);
+            m_ptr->SM[m_smidx].VAL5 = u16TwoCompl (modulo) + pwmHighPulse;
+          }
+          break;
+
+        case kPWM_EdgeAligned:
+          /* Setup the PWM period for a unsigned edge aligned signal */
+          /* Indicates the start of the PWM period */
+          if (i == 0U) {
+
+            m_ptr->SM[m_smidx].INIT = 0;
+            /* Indicates the center value */
+            m_ptr->SM[m_smidx].VAL0 = (pulseCnt / 2U);
+            /* Indicates the end of the PWM period */
+            /* The change during the end to start of the PWM period requires a count time */
+            m_ptr->SM[m_smidx].VAL1 = pulseCnt - 1U;
+          }
+
+          /* Setup the PWM dutycycle */
+          if (m_signal[i].pwmChannel == kPWM_PwmA) {
+
+            m_ptr->SM[m_smidx].VAL2 = 0;
+            m_ptr->SM[m_smidx].VAL3 = pwmHighPulse;
+          }
+          else {
+
+            m_ptr->SM[m_smidx].VAL4 = 0;
+            m_ptr->SM[m_smidx].VAL5 = pwmHighPulse;
+          }
+          break;
+        default:
+          return false;
+          break;
+      }
+    }
+    if (doSync) {
+
+      setPwmLdok (true);
+    }
 
     m_config.setPwmFreqHz (freq);
-    return updateSetting (doSync);
+    return true;
   }
 
   //-----------------------------------------------------------------------------
