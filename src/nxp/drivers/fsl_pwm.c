@@ -636,7 +636,7 @@ void PWM_UpdatePwmDutycycleHighAccuracy(
             modulo   = base->SM[subModule].VAL1 + 1U;
             pulseCnt = modulo * 2U;
             /* Calculate pulse width */
-            pwmHighPulse = (pulseCnt * dutyCycle) / 65535U;
+            pwmHighPulse = ((uint32_t) (pulseCnt * dutyCycle * 1UL)) / 65535U;
 
             /* Setup the PWM dutycycle */
             if (pwmSignal == kPWM_PwmA)
