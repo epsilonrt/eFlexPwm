@@ -104,6 +104,10 @@ namespace eFlex {
     bool  success = false;
 
     if (m_wasbegin) {
+      if (doSync) {
+
+        setPwmLdok (false);
+      }
       success = (PWM_SetupPwm (ptr(), SM[m_smidx], m_signal, (m_pin[ChanB].isValid() ? 2 : 1),
                                m_config.mode(), m_config.pwmFreqHz(), timer().srcClockHz()) == kStatus_Success);
       if (doSync) {
@@ -179,6 +183,11 @@ namespace eFlex {
     uint16_t pulseCnt, pwmHighPulse;
     uint16_t modulo;
     uint8_t numOfChnls = (m_pin[ChanB].isValid() ? 2 : 1);
+
+    if (doSync) {
+
+      setPwmLdok (false);
+    }
 
     if (adjust) {
 
