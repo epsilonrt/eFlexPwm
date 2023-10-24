@@ -25,7 +25,7 @@ namespace eFlex {
          If the pin is valid (eFlexPwm type), its channel is configured with default values:
          pwmchannelenable = true;
          level = kPWM_HighTrue;
-         dutyCyclePercent = 50;
+         dutyCycle = 32768;
          deadtimeValue = 0;
          faultState = kPWM_PwmFaultState0;
 
@@ -225,7 +225,6 @@ namespace eFlex {
          @param channel PWM channel to read; ChanA or ChanB
       */
       bool outputEnableSetting (Channel channel) {
-
         return m_signal[channel].pwmchannelenable;
       }
 
@@ -234,31 +233,32 @@ namespace eFlex {
 
         @note If you want this value to take effect after the call to \ref begin, you must call \ref updateSetting
         @param channel PWM channel being setting; ChanA or ChanB
-        @param dutyCyclePercent duty cycle in percent
+        @param dutyCycle duty cycle between 0-65535
       */
-      inline void setupDutyCyclePercent (Channel channel, uint8_t dutyCyclePercent) {
-        m_signal[channel].dutyCyclePercent = dutyCyclePercent;
+      inline void setupDutyCycle (Channel channel, uint16_t dutyCycle) {
+        m_duty[static_cast<uint8_t> (channel)] = dutyCycle; // [0, 65535]
+        m_signal[static_cast<uint8_t> (channel)].dutyCycle = dutyCycle;
       }
 
       /**
         @brief Setting the duty cycle for all channels before calling begin
 
         @note If you want this value to take effect after the call to \ref begin, you must call \ref updateSetting
-        @param dutyCyclePercent duty cycle in percent
+        @param dutyCycle duty cycle between 0-65535
       */
-      inline void setupDutyCyclePercent (uint8_t dutyCyclePercent) {
+      inline void setupDutyCycle (uint16_t dutyCycle) {
         for (uint8_t i = ChanA; i <= ChanB ; i++) {
-          setupDutyCyclePercent (static_cast<Channel> (i), dutyCyclePercent);
+          setupDutyCycle (static_cast<Channel> (i), dutyCycle);
         }
       }
 
       /**
-         @brief value of the parameter set by \ref setupDutyCyclePercent (Channel, uint8_t)
+         @brief value of the parameter set by \ref setupDutyCycle (Channel, uint16_t)
 
          @param channel PWM channel to read; ChanA or ChanB
       */
-      uint8_t dutyCyclePercentSetting (Channel channel) {
-        return m_signal[channel].dutyCyclePercent;
+      uint16_t dutyCycleSetting (Channel channel) {
+        return m_signal[channel].dutyCycle;
       }
 
       /**
@@ -556,26 +556,6 @@ namespace eFlex {
       //-----------------------------------------------------------------------
 
       /**
-        @brief Updates the PWM signal's dutycycle.
-
-         The function updates the PWM dutycyle to the new value that is passed in.
-         If the dead time insertion logic is enabled then the pulse period is reduced by the
-         dead time period specified by the user.
-
-
-        @param channel         Channel (PWM A or PWM B) to update
-        @param dutyCyclePercent  New PWM pulse width, value should be between 0 to 100
-                                  0=inactive signal(0% duty cycle)...
-                                  100=active signal (100% duty cycle)
-      */
-      inline void updateDutyCyclePercent (uint8_t dutyCyclePercent, Channel channel = ChanA) {
-
-        m_duty[static_cast<uint8_t> (channel)] = reloadValue(dutyCyclePercent); // [0, 65535]
-        m_signal[static_cast<uint8_t> (channel)].dutyCyclePercent = dutyCyclePercent; // [0, 100]
-        PWM_UpdatePwmDutycycleHighAccuracy (ptr(), SM[m_smidx], kPwmChan (channel), m_config.m_mode, m_duty[static_cast<uint8_t> (channel)]);
-      }
-
-      /**
         @brief Updates the PWM signal's dutycycle with 16-bit accuracy.
 
          The function updates the PWM dutycyle to the new value that is passed in.
@@ -591,7 +571,7 @@ namespace eFlex {
       inline void updateDutyCycle (uint16_t dutyCycle, Channel channel = ChanA) {
 
         m_duty[static_cast<uint8_t> (channel)] = dutyCycle; // [0, 65535]
-        PWM_UpdatePwmDutycycleHighAccuracy (ptr(), SM[m_smidx], kPwmChan (channel), m_config.m_mode, dutyCycle);
+        PWM_UpdatePwmDutycycle (ptr(), SM[m_smidx], kPwmChan (channel), m_config.m_mode, dutyCycle);
       }
 
       /**
@@ -608,6 +588,21 @@ namespace eFlex {
 
         return (PWM_SetupPwmPhaseShift (ptr(), SM[m_smidx], kPwmChan (channel), m_config.pwmFreqHz(), timer().srcClockHz(), shiftvalue, doSync) == kStatus_Success);
       }
+
+      /**
+        @brief This function set the phase delay from the master sync signal of submodule 0.
+
+        @param channel  PWM channel to configure
+        @param delayCycles  Phase delay value
+
+        @return Returns false if there was error setting up the signal; true otherwise
+      */
+#if defined(FSL_FEATURE_PWM_HAS_PHASE_DELAY) && FSL_FEATURE_PWM_HAS_PHASE_DELAY
+      inline bool setPhaseDelay(Channel channel, uint16_t delayCycles) {
+
+        return (PWM_SetPhaseDelay (ptr(), SM[m_smidx], kPwmChan (channel), delayCycles) == kStatus_Success);
+      }
+#endif /* FSL_FEATURE_PWM_HAS_PHASE_DELAY */
 
       /**
         @brief Sets up the PWM input capture
@@ -860,8 +855,8 @@ namespace eFlex {
 
         @return Current channel dutycycle between 0 to 100.
       */
-      inline uint8_t dutyCyclePercent (Channel channel) {
-        return PWM_GetPwmChannelState (ptr(), SM[m_smidx], kPwmChan (channel));
+      inline uint16_t dutyCycle (Channel channel) {
+        return PWM_GetPwmDutyCycle (ptr(), SM[m_smidx], kPwmChan (channel));
       }
 
       /**
@@ -968,7 +963,7 @@ namespace eFlex {
       static inline void setSignalToDefault (pwm_signal_param_t &signal) {
         signal.pwmchannelenable = true;
         signal.level = kPWM_HighTrue;
-        signal.dutyCyclePercent = 50;
+        signal.dutyCycle = 32768;
         signal.deadtimeValue = 0;
         signal.faultState = kPWM_PwmFaultState0;
       }

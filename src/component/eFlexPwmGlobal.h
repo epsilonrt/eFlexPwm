@@ -18,7 +18,8 @@ namespace eFlex {
   */
   enum Channel {
     ChanA = 0,
-    ChanB = 1
+    ChanB = 1,
+    ChanX = 2
   };
 
   /**
@@ -98,8 +99,15 @@ namespace eFlex {
 
   // ----------------------------------------------------------------------------
   inline pwm_channels_t kPwmChan (Channel c) {
-
-    return (c == ChanA ? kPWM_PwmA : kPWM_PwmB);
+    if(c == ChanA) {
+      return kPWM_PwmA;
+    }
+    else if(c == ChanB) {
+      return kPWM_PwmB;
+    }
+    else {
+      return kPWM_PwmX;
+    }
   }
   #endif
 }

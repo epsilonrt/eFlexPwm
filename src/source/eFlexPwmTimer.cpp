@@ -106,14 +106,12 @@ namespace eFlex {
   }
 
   // ----------------------------------------------------------------------------
-  void Timer::setupDutyCyclePercent (uint8_t dutyCyclePercent) {
+  void Timer::setupDutyCycle (uint16_t dutyCycle) {
 
     for (uint8_t i = 0; i < NofSubmodules; i++) {
-
       SubModule *s = SmList[m_tmidx][i];
       if (s) {
-
-        s ->setupDutyCyclePercent (dutyCyclePercent);
+        s ->setupDutyCycle (dutyCycle);
       }
     }
   }

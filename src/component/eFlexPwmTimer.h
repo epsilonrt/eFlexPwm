@@ -142,9 +142,9 @@ namespace eFlex {
         @brief Setting the duty cycle for all submodules before calling begin
 
         @note If you want this value to take effect after the call to \ref begin, you must call \ref updateSetting
-        @param dutyCyclePercent duty cycle in percent
+        @param dutyCycle duty cycle 0-65535
       */
-      void setupDutyCyclePercent (uint8_t dutyCyclePercent);
+      void setupDutyCycle (uint16_t dutyCycle);
 
       /**
         @brief Setting the output pulse mode for all submodules before calling begin

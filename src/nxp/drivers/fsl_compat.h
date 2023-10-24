@@ -265,7 +265,8 @@ typedef int32_t status_t;
 #define FSL_FEATURE_PWM_SUBMODULE_COUNT (4U)
 /* @brief Number of fault channel in each (e)FlexPWM module. */
 #define FSL_FEATURE_PWM_FAULT_CH_COUNT (1)
-
+/* @brief If (e)FlexPWM has phase delay feature. */
+#define FSL_FEATURE_PWM_HAS_PHASE_DELAY (0)
 /* ----------------------------------------------------------------------------
    -- PWM Peripheral Access Layer
    ---------------------------------------------------------------------------- */
@@ -322,7 +323,8 @@ typedef struct {
     __I  uint16_t CVAL4CYC;                          /**< Capture Value 4 Cycle Register, array offset: 0x52, array step: 0x60 */
     __I  uint16_t CVAL5;                             /**< Capture Value 5 Register, array offset: 0x54, array step: 0x60 */
     __I  uint16_t CVAL5CYC;                          /**< Capture Value 5 Cycle Register, array offset: 0x56, array step: 0x60 */
-         uint8_t RESERVED_2[8];
+    __IO uint16_t PHASEDLY;                          /**< Phase Delay Register, array offset: 0x58, array step: 0x60 */
+         uint8_t RESERVED_2[6];
   } SM[4];
   __IO uint16_t OUTEN;                             /**< Output Enable Register, offset: 0x180 */
   __IO uint16_t MASK;                              /**< Mask Register, offset: 0x182 */
@@ -1623,6 +1625,19 @@ typedef struct {
 
 /* The count of PWM_CVAL5CYC */
 #define PWM_CVAL5CYC_COUNT                       (4U)
+
+/*! @name PHASEDLY - Phase Delay Register 0 */
+/*! @{ */
+
+#define PWM_PHASEDLY_PHASEDLY_MASK                   (0xFFFFU)
+#define PWM_PHASEDLY_PHASEDLY_SHIFT                  (0U)
+/*! PHASEDLY - PHASEDLY
+ */
+#define PWM_PHASEDLY_PHASEDLY(x)                     (((uint16_t)(((uint16_t)(x)) << PWM_PHASEDLY_PHASEDLY_SHIFT)) & PWM_PHASEDLY_PHASEDLY_MASK)
+/*! @} */
+
+/* The count of PWM_PHASEDLY */
+#define PWM_PHASEDLY_COUNT                         (4U)
 
 /*! @name OUTEN - Output Enable Register */
 /*! @{ */

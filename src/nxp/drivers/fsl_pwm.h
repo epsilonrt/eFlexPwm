@@ -20,7 +20,7 @@
  ******************************************************************************/
 /*! @name Driver version */
 /*@{*/
-#define FSL_PWM_DRIVER_VERSION (MAKE_VERSION(2, 5, 1)) /*!< Version 2.5.1 */
+#define FSL_PWM_DRIVER_VERSION (MAKE_VERSION(2, 6, 1)) /*!< Version 2.6.1 */
 /*@}*/
 
 /*! Number of bits per submodule for software output control */
@@ -339,9 +339,7 @@ typedef enum _pwm_module_control
 typedef struct _pwm_signal_param
 {
     pwm_channels_t pwmChannel; /*!< PWM channel being configured; PWM A or PWM B */
-    uint8_t dutyCyclePercent;  /*!< PWM pulse width, value should be between 0 to 100
-                                    0=inactive signal(0% duty cycle)...
-                                    100=always active signal (100% duty cycle)*/
+    uint16_t dutyCycle;  /*!< PWM pulse width, value should be between 0 to 65535 */
     pwm_level_select_t level;  /*!< PWM output active level select */
     uint16_t deadtimeValue;    /*!< The deadtime value; only used if channel pair is operating in complementary mode */
     pwm_fault_state_t faultState; /*!< PWM output fault status */
@@ -523,27 +521,6 @@ status_t PWM_SetupPwmPhaseShift(PWM_Type *base,
                                 bool doSync);
 
 /*!
- * @brief Updates the PWM signal's dutycycle.
- *
- * The function updates the PWM dutycyle to the new value that is passed in.
- * If the dead time insertion logic is enabled then the pulse period is reduced by the
- * dead time period specified by the user.
- *
- * @param base              PWM peripheral base address
- * @param subModule         PWM submodule to configure
- * @param pwmSignal         Signal (PWM A or PWM B) to update
- * @param currPwmMode       The current PWM mode set during PWM setup
- * @param dutyCyclePercent  New PWM pulse width, value should be between 0 to 100
- *                          0=inactive signal(0% duty cycle)...
- *                          100=active signal (100% duty cycle)
- */
-void PWM_UpdatePwmDutycycle(PWM_Type *base,
-                            pwm_submodule_t subModule,
-                            pwm_channels_t pwmSignal,
-                            pwm_mode_t currPwmMode,
-                            uint8_t dutyCyclePercent);
-
-/*!
  * @brief Updates the PWM signal's dutycycle with 16-bit accuracy.
  *
  * The function updates the PWM dutycyle to the new value that is passed in.
@@ -558,7 +535,7 @@ void PWM_UpdatePwmDutycycle(PWM_Type *base,
  *                          0=inactive signal(0% duty cycle)...
  *                          65535=active signal (100% duty cycle)
  */
-void PWM_UpdatePwmDutycycleHighAccuracy(
+void PWM_UpdatePwmDutycycle(
     PWM_Type *base, pwm_submodule_t subModule, pwm_channels_t pwmSignal, pwm_mode_t currPwmMode, uint16_t dutyCycle);
 
 /*! @}*/
@@ -1164,7 +1141,7 @@ static inline void PWM_OutputDisable(PWM_Type *base, pwm_channels_t pwmChannel, 
  *
  * @return Current channel dutycycle value.
  */
-uint8_t PWM_GetPwmChannelState(PWM_Type *base, pwm_submodule_t subModule, pwm_channels_t pwmChannel);
+uint16_t PWM_GetPwmDutyCycle(PWM_Type *base, pwm_submodule_t subModule, pwm_channels_t pwmChannel);
 
 /*!
  * @brief Set PWM output in idle status (high or low).
@@ -1215,6 +1192,89 @@ void PWM_SetChannelOutput(PWM_Type *base,
                           pwm_submodule_t subModule,
                           pwm_channels_t pwmChannel,
                           pwm_output_state_t outputstate);
+
+#if defined(FSL_FEATURE_PWM_HAS_PHASE_DELAY) && FSL_FEATURE_PWM_HAS_PHASE_DELAY
+/*!
+ * @brief This function set the phase delay from the master sync signal of submodule 0.
+ *
+ * @param base               PWM peripheral base address
+ * @param subModule          PWM submodule to configure
+ * @param pwmChannel         PWM channel to configure
+ * @param delayCycles        Number of cycles delayed from submodule 0.
+ *
+ * @return kStatus_Fail if the number of delay cycles is set larger than the period defined in submodule 0;
+ *        kStatus_Success if set phase delay success
+ */
+status_t PWM_SetPhaseDelay(PWM_Type *base, pwm_submodule_t subModule, pwm_channels_t pwmChannel, uint16_t delayCycles);
+#endif
+
+#if defined(FSL_FEATURE_PWM_HAS_INPUT_FILTER_CAPTURE) && FSL_FEATURE_PWM_HAS_INPUT_FILTER_CAPTURE
+/*!
+ * @brief This function set the number of consecutive samples that must agree prior to the input filter.
+ *
+ * @param base               PWM peripheral base address
+ * @param subModule          PWM submodule to configure
+ * @param pwmChannel         PWM channel to configure
+ * @param filterSampleCount  Number of consecutive samples.
+ */
+static inline void PWM_SetFilterSampleCount(PWM_Type *base,
+                                             pwm_channels_t pwmChannel,
+                                             pwm_submodule_t subModule,
+                                             uint8_t filterSampleCount)
+{
+    switch(pwmChannel)
+    {
+        case kPWM_PwmA:
+            base->SM[subModule].CAPTFILTA &= ~((uint16_t)PWM_CAPTFILTA_CAPTA_FILT_CNT_MASK);
+            base->SM[subModule].CAPTFILTA |= PWM_CAPTFILTA_CAPTA_FILT_CNT(filterSampleCount);
+            break;
+        case kPWM_PwmB:
+            base->SM[subModule].CAPTFILTB &= ~((uint16_t)PWM_CAPTFILTB_CAPTB_FILT_CNT_MASK);
+            base->SM[subModule].CAPTFILTB |= PWM_CAPTFILTB_CAPTB_FILT_CNT(filterSampleCount);
+            break;
+        case kPWM_PwmX:
+            base->SM[subModule].CAPTFILTX &= ~((uint16_t)PWM_CAPTFILTX_CAPTX_FILT_CNT_MASK);
+            base->SM[subModule].CAPTFILTX |= PWM_CAPTFILTX_CAPTX_FILT_CNT(filterSampleCount);
+            break;
+        default:
+            assert(false);
+            break;
+    }
+}
+
+/*!
+ * @brief This function set the sampling period of the fault pin input filter.
+ *
+ * @param base                 PWM peripheral base address
+ * @param subModule            PWM submodule to configure
+ * @param pwmChannel           PWM channel to configure
+ * @param filterSamplePeriod   Sampling period of input filter.
+ */
+static inline void PWM_SetFilterSamplePeriod(PWM_Type *base,
+                                             pwm_channels_t pwmChannel,
+                                             pwm_submodule_t subModule,
+                                             uint8_t filterSamplePeriod)
+{
+    switch(pwmChannel)
+    {
+        case kPWM_PwmA:
+            base->SM[subModule].CAPTFILTA &= ~((uint16_t)PWM_CAPTFILTA_CAPTA_FILT_PER_MASK);
+            base->SM[subModule].CAPTFILTA |= PWM_CAPTFILTA_CAPTA_FILT_PER(filterSamplePeriod);
+            break;
+        case kPWM_PwmB:
+            base->SM[subModule].CAPTFILTB &= ~((uint16_t)PWM_CAPTFILTB_CAPTB_FILT_PER_MASK);
+            base->SM[subModule].CAPTFILTB |= PWM_CAPTFILTB_CAPTB_FILT_PER(filterSamplePeriod);
+            break;
+        case kPWM_PwmX:
+            base->SM[subModule].CAPTFILTX &= ~((uint16_t)PWM_CAPTFILTX_CAPTX_FILT_PER_MASK);
+            base->SM[subModule].CAPTFILTX |= PWM_CAPTFILTX_CAPTX_FILT_PER(filterSamplePeriod);
+            break;
+        default:
+            assert(false);
+            break;
+    }
+}
+#endif
 
 #if defined(__cplusplus)
 }

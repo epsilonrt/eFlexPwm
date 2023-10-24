@@ -10,3 +10,4 @@
 #include "component/eFlexPwmConfig.h"
 #include "component/eFlexPwmSubmodule.h"
 #include "component/eFlexPwmTimer.h"
+#include "component/my_logging.h"

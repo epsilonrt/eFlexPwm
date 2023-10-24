@@ -375,7 +375,8 @@ namespace eFlex {
       "CVAL4",                             /**< Capture Value 4 Register, array offset: 0x50, array step: 0x60 */
       "CVAL4CYC",                          /**< Capture Value 4 Cycle Register, array offset: 0x52, array step: 0x60 */
       "CVAL5",                             /**< Capture Value 5 Register, array offset: 0x54, array step: 0x60 */
-      "CVAL5CYC"                           /**< Capture Value 5 Cycle Register, array offset: 0x56, array step: 0x60 */
+      "CVAL5CYC",                          /**< Capture Value 5 Cycle Register, array offset: 0x56, array step: 0x60 */
+      "PHASEDLY"                           /**< Phase Delay Register, array offset: 0x58, array step: 0x60 */
     };
 
     __IM uint16_t *p;

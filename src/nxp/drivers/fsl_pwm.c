@@ -7,6 +7,8 @@
  */
 
 #include "fsl_pwm.h"
+#include "../../component/my_logging.h"
+#include "stdio.h"
 
 /* Component ID definition, used by tools. */
 #ifndef FSL_COMPONENT_ID
@@ -38,7 +40,7 @@ static const clock_ip_name_t s_pwmClocks[][FSL_FEATURE_PWM_SUBMODULE_COUNT] = PW
 #endif /* FSL_SDK_DISABLE_DRIVER_CLOCK_CONTROL */
 
 /*! @brief Temporary PWM duty cycle. */
-static uint8_t s_pwmGetPwmDutyCycle[FSL_FEATURE_PWM_SUBMODULE_COUNT][PWM_SUBMODULE_CHANNEL] = {{0}};
+static uint16_t s_pwmGetPwmDutyCycle[FSL_FEATURE_PWM_SUBMODULE_COUNT][PWM_SUBMODULE_CHANNEL] = {{0}};
 
 /*******************************************************************************
  * Code
@@ -62,9 +64,11 @@ static inline uint16_t dutyCycleToReloadValue(uint8_t dutyCyclePercent)
     /* Rounding calculations to improve the accuracy of reloadValue */
     return ((65535U * dutyCyclePercent) + 50U) / 100U;
 }
+
 #ifdef FSL_PWM_GETINSTANCE_ENABLED
 static uint32_t PWM_GetInstance(PWM_Type *base)
 {
+my_log("##################### PWM_GetInstance ##########################");
     uint32_t instance;
 
     /* Find the instance index from base address mappings. */
@@ -94,6 +98,7 @@ static uint32_t PWM_GetInstance(PWM_Type *base)
  */
 status_t PWM_Init(PWM_Type *base, pwm_submodule_t subModule, const pwm_config_t *config)
 {
+my_log("##################### PWM_Init ##########################");
     assert(config);
 
     uint16_t reg;
@@ -206,6 +211,7 @@ status_t PWM_Init(PWM_Type *base, pwm_submodule_t subModule, const pwm_config_t 
  */
 void PWM_Deinit(PWM_Type *base, pwm_submodule_t subModule)
 {
+my_log("##################### PWM_Deinit ##########################");
     /* Stop the submodule */
     base->MCTRL &= ~((uint16_t)1U << (PWM_MCTRL_RUN_SHIFT + (uint16_t)subModule));
 
@@ -235,6 +241,7 @@ void PWM_Deinit(PWM_Type *base, pwm_submodule_t subModule)
  */
 void PWM_GetDefaultConfig(pwm_config_t *config)
 {
+my_log("##################### PWM_GetDefaultConfig ##########################");
     assert(config);
 
     /* Initializes the configure structure to zero. */
@@ -293,6 +300,7 @@ status_t PWM_SetupPwm(PWM_Type *base,
                       uint32_t pwmFreq_Hz,
                       uint32_t srcClock_Hz)
 {
+my_log("##################### PWM_SetupPwm ##########################");
     assert(chnlParams);
     assert(pwmFreq_Hz);
     assert(numOfChnls);
@@ -320,7 +328,7 @@ status_t PWM_SetupPwm(PWM_Type *base,
     for (i = 0; i < numOfChnls; i++)
     {
         /* Calculate pulse width */
-        pwmHighPulse = (pulseCnt * chnlParams->dutyCyclePercent) / 100U;
+        pwmHighPulse = ((uint32_t) (pulseCnt * chnlParams->dutyCycle * 1UL)) / 65535U;
 
         /* Setup the different match registers to generate the PWM signal */
         switch (mode)
@@ -431,6 +439,7 @@ status_t PWM_SetupPwm(PWM_Type *base,
                 assert(false);
                 break;
         }
+
         /* Setup register shift values based on the channel being configured.
          * Also setup the deadtime value
          */
@@ -480,8 +489,8 @@ status_t PWM_SetupPwm(PWM_Type *base,
             base->OUTEN |= ((uint16_t)1U << ((uint16_t)outputEnableShift + (uint16_t)subModule));
         }
 
-        /* Get the pwm duty cycle */
-        s_pwmGetPwmDutyCycle[subModule][chnlParams->pwmChannel] = chnlParams->dutyCyclePercent;
+        /* Set the pwm duty cycle */
+        s_pwmGetPwmDutyCycle[subModule][chnlParams->pwmChannel] = chnlParams->dutyCycle;
 
         /* Get the next channel parameters */
         chnlParams++;
@@ -512,6 +521,13 @@ status_t PWM_SetupPwmPhaseShift(PWM_Type *base,
                                 uint8_t shiftvalue,
                                 bool doSync)
 {
+my_log("##################### PWM_SetupPwmPhaseShift ##########################");
+
+char strBuf[150];
+sprintf(strBuf, "PWM_SetupPwmPhaseShift pwmFreq_Hz:%lu srcClock_Hz:%lu shiftvalue:%u", pwmFreq_Hz, srcClock_Hz, shiftvalue);
+my_log(strBuf);
+memset(strBuf, 0, sizeof(strBuf));
+
     assert(pwmFreq_Hz != 0U);
     assert(srcClock_Hz != 0U);
     assert(shiftvalue <= 50U);
@@ -527,6 +543,10 @@ status_t PWM_SetupPwmPhaseShift(PWM_Type *base,
         pwmClock = (srcClock_Hz / (1UL << ((base->SM[subModule].CTRL & PWM_CTRL_PRSC_MASK) >> PWM_CTRL_PRSC_SHIFT)));
         pulseCnt = (uint16_t)(pwmClock / pwmFreq_Hz);
 
+sprintf(strBuf, "PWM_SetupPwmPhaseShift pwmClock:%lu pulseCnt:%u", pwmClock, pulseCnt);
+my_log(strBuf);
+memset(strBuf, 0, sizeof(strBuf));
+
         /* Clear LDOK bit if it is set */
         if (0U != (base->MCTRL & PWM_MCTRL_LDOK(1UL << (uint8_t)subModule)))
         {
@@ -534,13 +554,27 @@ status_t PWM_SetupPwmPhaseShift(PWM_Type *base,
         }
 
         modulo = (pulseCnt >> 1U);
+
+sprintf(strBuf, "PWM_SetupPwmPhaseShift modulo:%u", modulo);
+my_log(strBuf);
+memset(strBuf, 0, sizeof(strBuf));
+
         /* Indicates the start of the PWM period */
         base->SM[subModule].INIT = PWM_GetComplementU16(modulo);
+
+sprintf(strBuf, "PWM_SetupPwmPhaseShift PWM_GetComplementU16(modulo):%u", PWM_GetComplementU16(modulo));
+my_log(strBuf);
+memset(strBuf, 0, sizeof(strBuf));
+
         /* Indicates the center value */
         base->SM[subModule].VAL0 = 0;
         /* Indicates the end of the PWM period */
         /* The change during the end to start of the PWM period requires a count time */
         base->SM[subModule].VAL1 = modulo - 1U;
+
+sprintf(strBuf, "PWM_SetupPwmPhaseShift modulo - 1U:%u", modulo - 1U);
+my_log(strBuf);
+memset(strBuf, 0, sizeof(strBuf));
 
         /* Immediately upon when MCTRL[LDOK] being set */
         base->SM[subModule].CTRL |= PWM_CTRL_LDMOD_MASK;
@@ -548,18 +582,34 @@ status_t PWM_SetupPwmPhaseShift(PWM_Type *base,
         /* phase shift value */
         shift = (pulseCnt * shiftvalue) / 100U;
 
+sprintf(strBuf, "PWM_SetupPwmPhaseShift shift:%u", shift);
+my_log(strBuf);
+memset(strBuf, 0, sizeof(strBuf));
+
         /* duty cycle 50% */
         pwmHighPulse = pulseCnt / 2U;
+
+sprintf(strBuf, "PWM_SetupPwmPhaseShift pwmHighPulse:%u", pwmHighPulse);
+my_log(strBuf);
+memset(strBuf, 0, sizeof(strBuf));
 
         if (pwmChannel == kPWM_PwmA)
         {
             base->SM[subModule].VAL2 = PWM_GetComplementU16(modulo) + shift;
             base->SM[subModule].VAL3 = PWM_GetComplementU16(modulo) + pwmHighPulse + shift - 1U;
+
+sprintf(strBuf, "PWM_SetupPwmPhaseShift kPWM_PwmA VAL2:%u VAL3:%u", PWM_GetComplementU16(modulo) + shift, PWM_GetComplementU16(modulo) + pwmHighPulse + shift - 1U);
+my_log(strBuf);
+memset(strBuf, 0, sizeof(strBuf));
         }
         else if (pwmChannel == kPWM_PwmB)
         {
             base->SM[subModule].VAL4 = PWM_GetComplementU16(modulo) + shift;
             base->SM[subModule].VAL5 = PWM_GetComplementU16(modulo) + pwmHighPulse + shift - 1U;
+
+sprintf(strBuf, "PWM_SetupPwmPhaseShift kPWM_PwmB VAL4:%u VAL5:%u", PWM_GetComplementU16(modulo) + shift, PWM_GetComplementU16(modulo) + pwmHighPulse + shift - 1U);
+my_log(strBuf);
+memset(strBuf, 0, sizeof(strBuf));
         }
         else
         {
@@ -581,34 +631,6 @@ status_t PWM_SetupPwmPhaseShift(PWM_Type *base,
 }
 
 /*!
- * brief Updates the PWM signal's dutycycle.
- *
- * The function updates the PWM dutycyle to the new value that is passed in.
- * If the dead time insertion logic is enabled then the pulse period is reduced by the
- * dead time period specified by the user.
- *
- * param base              PWM peripheral base address
- * param subModule         PWM submodule to configure
- * param pwmSignal         Signal (PWM A or PWM B) to update
- * param currPwmMode       The current PWM mode set during PWM setup
- * param dutyCyclePercent  New PWM pulse width, value should be between 0 to 100
- *                          0=inactive signal(0% duty cycle)...
- *                          100=active signal (100% duty cycle)
- */
-void PWM_UpdatePwmDutycycle(PWM_Type *base,
-                            pwm_submodule_t subModule,
-                            pwm_channels_t pwmSignal,
-                            pwm_mode_t currPwmMode,
-                            uint8_t dutyCyclePercent)
-{
-    assert(dutyCyclePercent <= 100U);
-    assert(pwmSignal != kPWM_PwmX);
-    uint16_t reloadValue = dutyCycleToReloadValue(dutyCyclePercent);
-
-    PWM_UpdatePwmDutycycleHighAccuracy(base, subModule, pwmSignal, currPwmMode, reloadValue);
-}
-
-/*!
  * brief Updates the PWM signal's dutycycle with 16-bit accuracy.
  *
  * The function updates the PWM dutycyle to the new value that is passed in.
@@ -623,9 +645,10 @@ void PWM_UpdatePwmDutycycle(PWM_Type *base,
  *                          0=inactive signal(0% duty cycle)...
  *                          65535=active signal (100% duty cycle)
  */
-void PWM_UpdatePwmDutycycleHighAccuracy(
+void PWM_UpdatePwmDutycycle(
     PWM_Type *base, pwm_submodule_t subModule, pwm_channels_t pwmSignal, pwm_mode_t currPwmMode, uint16_t dutyCycle)
 {
+my_log("##################### PWM_UpdatePwmDutycycle ##########################");
     assert(pwmSignal != kPWM_PwmX);
     uint16_t pulseCnt = 0, pwmHighPulse = 0;
     uint16_t modulo = 0;
@@ -724,8 +747,8 @@ void PWM_UpdatePwmDutycycleHighAccuracy(
     }
     if (kPWM_PwmX != pwmSignal)
     {
-        /* Get the pwm duty cycle */
-        s_pwmGetPwmDutyCycle[subModule][pwmSignal] = (uint8_t)(dutyCycle / 65535U);
+        /* Set the pwm duty cycle */
+        s_pwmGetPwmDutyCycle[subModule][pwmSignal] = dutyCycle;
     }
 }
 
@@ -745,6 +768,7 @@ void PWM_SetupInputCapture(PWM_Type *base,
                            pwm_channels_t pwmChannel,
                            const pwm_input_capture_param_t *inputCaptureParams)
 {
+my_log("##################### PWM_SetupInputCapture ##########################");
     uint16_t reg = 0;
     switch (pwmChannel)
     {
@@ -824,6 +848,7 @@ void PWM_SetupInputCapture(PWM_Type *base,
  */
 void PWM_SetupFaultInputFilter(PWM_Type *base, const pwm_fault_input_filter_param_t *faultInputFilterParams)
 {
+my_log("##################### PWM_SetupFaultInputFilter ##########################");
     assert(NULL != faultInputFilterParams);
 
     /* When changing values for fault period from a non-zero value, first write a value of 0 to clear the filter. */
@@ -848,6 +873,7 @@ void PWM_SetupFaultInputFilter(PWM_Type *base, const pwm_fault_input_filter_para
  */
 void PWM_SetupFaults(PWM_Type *base, pwm_fault_input_t faultNum, const pwm_fault_param_t *faultParams)
 {
+my_log("##################### PWM_SetupFaults ##########################");
     assert(faultParams);
     uint16_t reg;
 
@@ -936,6 +962,7 @@ void PWM_SetupFaults(PWM_Type *base, pwm_fault_input_t faultNum, const pwm_fault
  */
 void PWM_FaultDefaultConfig(pwm_fault_param_t *config)
 {
+my_log("##################### PWM_FaultDefaultConfig ##########################");
     assert(config);
 
     /* Initializes the configure structure to zero. */
@@ -965,6 +992,7 @@ void PWM_FaultDefaultConfig(pwm_fault_param_t *config)
 void PWM_SetupForceSignal(PWM_Type *base, pwm_submodule_t subModule, pwm_channels_t pwmChannel, pwm_force_signal_t mode)
 
 {
+my_log("##################### PWM_SetupForceSignal ##########################");
     uint16_t shift;
     uint16_t reg;
 
@@ -988,6 +1016,7 @@ void PWM_SetupForceSignal(PWM_Type *base, pwm_submodule_t subModule, pwm_channel
  */
 void PWM_EnableInterrupts(PWM_Type *base, pwm_submodule_t subModule, uint32_t mask)
 {
+my_log("##################### PWM_EnableInterrupts ##########################");
     /* Upper 16 bits are for related to the submodule */
     base->SM[subModule].INTEN |= ((uint16_t)mask & 0xFFFFU);
     /* Fault related interrupts */
@@ -1004,6 +1033,7 @@ void PWM_EnableInterrupts(PWM_Type *base, pwm_submodule_t subModule, uint32_t ma
  */
 void PWM_DisableInterrupts(PWM_Type *base, pwm_submodule_t subModule, uint32_t mask)
 {
+my_log("##################### PWM_DisableInterrupts ##########################");
     base->SM[subModule].INTEN &= ~((uint16_t)mask & 0xFFFFU);
     base->FCTRL &= ~((uint16_t)(mask >> 16U) & PWM_FCTRL_FIE_MASK);
 }
@@ -1019,6 +1049,7 @@ void PWM_DisableInterrupts(PWM_Type *base, pwm_submodule_t subModule, uint32_t m
  */
 uint32_t PWM_GetEnabledInterrupts(PWM_Type *base, pwm_submodule_t subModule)
 {
+my_log("##################### PWM_GetEnabledInterrupts ##########################");
     uint32_t enabledInterrupts;
 
     enabledInterrupts = base->SM[subModule].INTEN;
@@ -1037,6 +1068,7 @@ uint32_t PWM_GetEnabledInterrupts(PWM_Type *base, pwm_submodule_t subModule)
  */
 uint32_t PWM_GetStatusFlags(PWM_Type *base, pwm_submodule_t subModule)
 {
+my_log("##################### PWM_GetStatusFlags ##########################");
     uint32_t statusFlags;
 
     statusFlags = base->SM[subModule].STS;
@@ -1055,6 +1087,7 @@ uint32_t PWM_GetStatusFlags(PWM_Type *base, pwm_submodule_t subModule)
  */
 void PWM_ClearStatusFlags(PWM_Type *base, pwm_submodule_t subModule, uint32_t mask)
 {
+//my_log("##################### PWM_ClearStatusFlags ##########################");
     uint16_t reg;
 
     base->SM[subModule].STS = ((uint16_t)mask & 0xFFFFU);
@@ -1081,6 +1114,7 @@ void PWM_ClearStatusFlags(PWM_Type *base, pwm_submodule_t subModule, uint32_t ma
  */
 status_t PWM_SetOutputToIdle(PWM_Type *base, pwm_channels_t pwmChannel, pwm_submodule_t subModule, bool idleStatus)
 {
+my_log("##################### PWM_SetOutputToIdle ##########################");
     uint16_t valOn = 0, valOff = 0;
     uint16_t ldmod;
 
@@ -1155,7 +1189,7 @@ status_t PWM_SetOutputToIdle(PWM_Type *base, pwm_channels_t pwmChannel, pwm_subm
     /* Restore Load mode */
     base->SM[subModule].CTRL = ldmod;
 
-    /* Get pwm duty cycle */
+    /* Set pwm duty cycle */
     s_pwmGetPwmDutyCycle[subModule][pwmChannel] = 0x0U;
 
     return kStatus_Success;
@@ -1170,8 +1204,9 @@ status_t PWM_SetOutputToIdle(PWM_Type *base, pwm_channels_t pwmChannel, pwm_subm
  *
  * return Current channel dutycycle value.
  */
-uint8_t PWM_GetPwmChannelState(PWM_Type *base, pwm_submodule_t subModule, pwm_channels_t pwmChannel)
+uint16_t PWM_GetPwmDutyCycle(PWM_Type *base, pwm_submodule_t subModule, pwm_channels_t pwmChannel)
 {
+//my_log("##################### PWM_GetPwmDutyCycle ##########################");
     return s_pwmGetPwmDutyCycle[subModule][pwmChannel];
 }
 
@@ -1184,6 +1219,7 @@ uint8_t PWM_GetPwmChannelState(PWM_Type *base, pwm_submodule_t subModule, pwm_ch
  */
 void PWM_SetClockMode(PWM_Type *base, pwm_submodule_t subModule, pwm_clock_prescale_t prescaler)
 {
+my_log("##################### PWM_SetClockMode ##########################");
     uint16_t reg = base->SM[subModule].CTRL;
 
     /* Clear LDOK bit if it is set */
@@ -1214,6 +1250,7 @@ void PWM_SetClockMode(PWM_Type *base, pwm_submodule_t subModule, pwm_clock_presc
  */
 void PWM_SetPwmForceOutputToZero(PWM_Type *base, pwm_submodule_t subModule, pwm_channels_t pwmChannel, bool forcetozero)
 {
+my_log("##################### PWM_SetPwmForceOutputToZero ##########################");
     uint16_t reg = base->SM[subModule].CTRL2;
     uint16_t mask;
 
@@ -1262,6 +1299,7 @@ void PWM_SetChannelOutput(PWM_Type *base,
                           pwm_channels_t pwmChannel,
                           pwm_output_state_t outputstate)
 {
+my_log("##################### PWM_SetChannelOutput ##########################");
     uint16_t mask, swcout, sourceShift;
     uint16_t reg = base->SM[subModule].CTRL2;
 
@@ -1327,3 +1365,50 @@ void PWM_SetChannelOutput(PWM_Type *base,
     /* Restore the source of FORCE OUTPUT signal */
     base->SM[subModule].CTRL2 = reg;
 }
+
+#if defined(FSL_FEATURE_PWM_HAS_PHASE_DELAY) && FSL_FEATURE_PWM_HAS_PHASE_DELAY
+/*!
+ * brief This function set the phase delay from the master sync signal of submodule 0.
+ *
+ * param base               PWM peripheral base address
+ * param subModule          PWM submodule to configure
+ * param pwmChannel         PWM channel to configure
+ * param delayCycles        Number of cycles delayed from submodule 0.
+ *
+ * return kStatus_Fail if the number of delay cycles is set larger than the period defined in submodule 0;
+ *        kStatus_Success if set phase delay success
+ */
+status_t PWM_SetPhaseDelay(PWM_Type *base,
+                           pwm_submodule_t subModule,
+                           pwm_channels_t pwmChannel,
+                           uint16_t delayCycles)
+{
+my_log("##################### PWM_SetPhaseDelay ##########################");
+    uint16_t reg = base->SM[subModule].CTRL2;
+
+    /* Clear LDOK bit if it is set */
+    if (0U != (base->MCTRL & PWM_MCTRL_LDOK(1UL << (uint8_t)subModule)))
+    {
+        base->MCTRL |= PWM_MCTRL_CLDOK(1UL << (uint8_t)subModule);
+    }
+
+    if(base->SM[kPWM_Module_0].VAL1 < delayCycles)
+    {
+        return kStatus_Fail;
+    }
+    else
+    {
+        base->SM[subModule].PHASEDLY = delayCycles;
+    }
+
+    /* Select the master sync signal as the source for initialization */
+    reg = (reg & ~(uint16_t)PWM_CTRL2_INIT_SEL_MASK)| PWM_CTRL2_INIT_SEL(2);
+    /* Set Load mode to make Buffered registers take effect immediately when LDOK bit set */
+    base->SM[subModule].CTRL |= PWM_CTRL_LDMOD_MASK;
+    /* Set LDOK bit to load buffer registers */
+    base->MCTRL |= PWM_MCTRL_LDOK(1UL << (uint8_t)subModule);
+    /* Restore the source of phase delay register intialization */
+    base->SM[subModule].CTRL2 = reg;
+    return kStatus_Success;
+}
+#endif /* FSL_FEATURE_PWM_HAS_PHASE_DELAY */
